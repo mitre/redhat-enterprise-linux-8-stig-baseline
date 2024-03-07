@@ -420,7 +420,7 @@ inputs:
   - name: authoritative_timeserver
     description: Timeserver used in /etc/chrony.conf
     type: String
-    value: 0.us.pool.ntp.mil
+    value: '0.us.pool.ntp.mil'
 
   # SV-230537
   - name: non_removable_media_fs
@@ -579,7 +579,7 @@ inputs:
   - name: log_directory
     description: Documented tally log directory
     type: String
-    value: /var/log/faillock
+    value: '/var/log/faillock'
 
   # SV-230244
   - name: sshd_client_alive_count_max
@@ -591,13 +591,13 @@ inputs:
   - name: linux_threat_prevention_package
     description: Endpoint Security Linux Threat Prevention Tool Package
     type: String
-    value: mcafeetp
+    value: 'mcafeetp'
 
   # SV-245540
   - name: linux_threat_prevention_service
     description: Endpoint Security Linux Threat Prevention Tool Service
     type: String
-    value: mfetpd
+    value: 'mfetpd'
 
   # SV-230553
   - name: remove_xorg_x11_server_packages
@@ -701,7 +701,7 @@ inputs:
   - name: sssd_conf_path
     description: Path of the sssd_conf file
     type: String
-    value: /etc/sssd/sssd.conf
+    value: '/etc/sssd/sssd.conf'
 
   # SV-230398
   - name: var_log_audit_group
@@ -716,18 +716,6 @@ inputs:
     type: Boolean
     value: true
 
-  # SV-230406
-  - name: audit_passwd_key
-    description: The key of the /etc/passwd file in /etc/audit/rules.d.*
-    type: String
-    value: identity
-
-  # SV-230408
-  - name: audit_group_key
-    description: The key of the /etc/group file in /etc/audit/rules.d.*
-    type: String
-    value: identity
-
   # SV-230334
   - name: pam_auth_files
     description: THe pam.d auth paths
@@ -741,7 +729,7 @@ inputs:
   - name: security_faillock_conf
     description: The security faillock configuration file
     type: String
-    value: /etc/security/faillock.conf
+    value: '/etc/security/faillock.conf'
 
   # SV-244544
   - name: external_firewall
@@ -787,7 +775,7 @@ inputs:
   - name: non_default_tally_dir
     description: The directory used by pam_faillock
     type: String
-    value: /var/log/faillock
+    value: '/var/log/faillock'
 
   # SV-250706
   - name: users_allowed_blank_passwords
@@ -799,13 +787,13 @@ inputs:
   - name: mail_package
     description: Command that is used to send email messages
     type: String
-    value: mailx
+    value: 'mailx'
 
   # SV-256973
   - name: rpm_gpg_file
     description: Red Hat uses GPG keys labels defined in file
     type: String
-    value: /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+    value: '/etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release'
 
   # SV-256973
   - name: rpm_gpg_keys
