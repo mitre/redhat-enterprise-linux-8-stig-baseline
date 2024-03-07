@@ -86,26 +86,26 @@ inputs:
   - name: ssh_pub_key_mode
     description: All public ssh keyfiles on the filesystem should be equal or less permissive than this octet
     type: String
-    value: 0644
+    value: '0644'
 
 
   # SV-230287
   - name: ssh_private_key_mode
     description: All private ssh keyfiles on the filesystem should be equal or less permissive than this octet
     type: String
-    value: 0640
+    value: '0640'
 
     # SV-230471
   - name: audit_conf_mode
     description: All audit config files on the filesystem should be equal or less permissive than this octet
     type: String
-    value: 0640
+    value: '0640'
 
   # SV-230472
   - name: audit_tool_mode
     description: All audit config files on the filesystem should be equal or less permissive than this octet
     type: String
-    value: 0755
+    value: '0755'
 
   # SV-230321
   - name: home_dir_mode
@@ -117,7 +117,7 @@ inputs:
   - name: initialization_file_mode
     description: All initialization files (.bash_profile etc) should have permissions equal to or less than this octet
     type: String
-    value: "0740"
+    value: '0740'
 
   # SV-244543
   - name: alert_method
