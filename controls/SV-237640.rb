@@ -41,7 +41,9 @@ requirement or remove it from the system with the following command:
   tag nist: ['IA-7']
   tag 'host', 'container'
 
-  if (package('krb5-server').version >= '1.17-9.el8') || input('system_is_workstation')
+  kerb = package('krb5-server')
+
+  if (kerb.installed? && kerb.version >= '1.17-9.el8') || input('system_is_workstation')
     impact 0.0
     describe 'N/A' do
       skip 'The system is a workstation or is utilizing krb5-server-1.17-9.el8 or newer; control is Not Applicable.'
