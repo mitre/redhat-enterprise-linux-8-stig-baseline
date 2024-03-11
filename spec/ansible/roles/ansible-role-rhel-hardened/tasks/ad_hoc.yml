@@ -8,9 +8,9 @@
 # we will fix it here
 - name: Find files with permissions set too high
   ansible.builtin.shell: "find -L /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin -perm /0022"
-    changed_when: false
-    failed_when: false
-    register: files_with_too_high_perms
+  changed_when: false
+  failed_when: false
+  register: files_with_too_high_perms
 
 
 - name: Fix files with permissions set too high
