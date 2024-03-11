@@ -34,10 +34,18 @@ running the following command:
   tag fix_id: 'F-32889r567482_fix'
   tag cci: ['CCI-001314']
   tag nist: ['SI-11 b']
-  tag 'host', 'container'
+  tag 'host'
 
-  describe file('/var/log/messages') do
-    it { should exist }
-    it { should_not be_more_permissive_than('0640') }
+  only_if('This control is Not Applicable to containers', impact: 0.0) {
+    !virtualization.system.eql?('docker')
+  }
+
+  describe.one do
+    describe file('/var/log/messages') do
+      it { should_not be_more_permissive_than('0640') }
+    end
+    describe file('/var/log/messages') do
+      it { should_not exist }
+    end
   end
 end

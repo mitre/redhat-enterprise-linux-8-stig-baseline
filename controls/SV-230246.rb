@@ -32,10 +32,18 @@ following command:
   tag fix_id: 'F-32890r567485_fix'
   tag cci: ['CCI-001314']
   tag nist: ['SI-11 b']
-  tag 'host', 'container'
+  tag 'host'
 
-  describe file('/var/log/messages') do
-    it { should exist }
-    it { should be_owned_by 'root' }
+  only_if('This control is Not Applicable to containers', impact: 0.0) {
+    !virtualization.system.eql?('docker')
+  }
+
+  describe.one do
+    describe file('/var/log/messages') do
+      it { should be_owned_by 'root' }
+    end
+    describe file('/var/log/messages') do
+      it { should_not exist }
+    end
   end
 end

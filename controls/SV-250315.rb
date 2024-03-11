@@ -66,27 +66,35 @@ control 'SV-250315' do
   tag 'documentable'
   tag cci: ['CCI-000044', 'CCI-002238']
   tag nist: ['AC-7 a', 'AC-7 b']
-  tag 'host', 'container'
+  tag 'host'
 
   only_if('This check applies to RHEL version 8.2 and later. If the system is
   not RHEL version 8.2 or newer, this check is Not Applicable.', impact: 0.0) {
     (os.release.to_f) >= 8.2
   }
 
-  describe selinux do
-    it { should be_installed }
-    it { should be_enforcing }
-    it { should_not be_disabled }
-  end
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe 'Control not applicable in a container' do
+      skip 'SELinux controls Not Applicable in a container'
+    end
+  else
 
-  describe parse_config_file('/etc/security/faillock.conf') do
-    its('dir') { should cmp input('non_default_tally_dir') }
-  end
+    describe selinux do
+      it { should be_installed }
+      it { should be_enforcing }
+      it { should_not be_disabled }
+    end
 
-  faillock_tally = input('faillock_tally')
+    describe parse_config_file('/etc/security/faillock.conf') do
+      its('dir') { should cmp input('non_default_tally_dir') }
+    end
 
-  describe "The selected non-default tally directory for PAM: #{input('non_default_tally_dir')}" do
-    subject { file(input('non_default_tally_dir')) }
-    its('selinux_label') { should match(/#{faillock_tally}/) }
+    faillock_tally = input('faillock_tally')
+
+    describe "The selected non-default tally directory for PAM: #{input('non_default_tally_dir')}" do
+      subject { file(input('non_default_tally_dir')) }
+      its('selinux_label') { should match(/#{faillock_tally}/) }
+    end
   end
 end
