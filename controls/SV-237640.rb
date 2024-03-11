@@ -41,18 +41,18 @@ requirement or remove it from the system with the following command:
   tag nist: ['IA-7']
   tag 'host', 'container'
 
-  if input('kerberos_required')
-    describe 'Manual' do
-      skip 'Inputs indicate that kerberos is required to be enabled. Manually review with the ISSO to confirm that this is a requirement for the mission.'
+  if (package('krb5-server').version >= '1.17-9.el8') || input('system_is_workstation')
+    impact 0.0
+    describe 'N/A' do
+      skip 'The system is a workstation or is utilizing krb5-server-1.17-9.el8 or newer; control is Not Applicable.'
+    end
+  elsif input('kerberos_required')
+    describe package('krb5-server') do
+      it { should be_installed }
     end
   else
-    describe.one do
-      describe package('krb5-server') do
-        it { should_not be_installed }
-      end
-      describe package('krb5-server') do
-        its('version') { should cmp >= '1.17-9.el8' }
-      end
+    describe package('krb5-server') do
+      it { should_not be_installed }
     end
   end
 end

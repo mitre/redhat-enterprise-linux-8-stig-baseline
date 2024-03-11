@@ -41,8 +41,8 @@ or remove it from the system with the following command:
   tag 'host', 'container'
 
   if input('gssproxy_required')
-    describe 'Manual' do
-      skip 'Inputs indicate that gssproxy is required to be enabled. Manually review with the ISSO to confirm that this is a requirement for the mission.'
+    describe package('gssproxy') do
+      it { should be_installed }
     end
   else
     describe package('gssproxy') do

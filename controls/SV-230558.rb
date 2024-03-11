@@ -32,8 +32,8 @@ or remove it from the system with the following command:
   tag 'host', 'container'
 
   if input('ftp_required')
-    describe 'Manual' do
-      skip 'Inputs indicate that FTP is required. Manually review with the ISSO to confirm that this is a requirement for the mission.'
+    describe package('vsftpd') do
+      it { should be_installed }
     end
   else
     describe package('vsftpd') do

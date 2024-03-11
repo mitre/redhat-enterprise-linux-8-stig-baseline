@@ -44,15 +44,15 @@ the following command:
     !virtualization.system.eql?('docker')
   }
 
-  caveat = input('kernel_dump_permitted')
+  kernel_dump = input('kernel_dump_expected_value')
 
-  if caveat
-    describe 'Manual Review' do
-      skip 'Inputs indicate this capability is an operational requirement of this system; manually review system documentation and confirm this with the ISSO'
+  if kernel_dump == '|/bin/false'
+    describe systemd_service('kdump.service') do
+      it { should_not be_running }
     end
   else
     describe systemd_service('kdump.service') do
-      it { should_not be_running }
+      it { should be_running }
     end
   end
 end

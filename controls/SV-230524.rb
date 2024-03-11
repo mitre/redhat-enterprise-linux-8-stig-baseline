@@ -53,9 +53,13 @@ a keyboard or mouse'
     !virtualization.system.eql?('docker')
   }
 
-  if input('peripherals_package') != 'usbguard'
-    describe 'Manual' do
-      skip 'Inputs indicate a tool other than usbguard should be managing peripherals. Work with the ISSO to determine if and how unauthorized peripherals are being blocked.'
+  peripherals_package = input('peripherals_package')
+
+  if peripherals_package != 'usbguard'
+    describe 'Non-standard package' do
+      it 'is handling peripherals' do
+        expect(peripherals_package).to exist
+      end
     end
   else
     describe command('usbguard list-rules') do

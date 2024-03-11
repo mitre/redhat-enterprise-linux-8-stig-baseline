@@ -44,9 +44,11 @@ $ sudo yum install firewalld.noarch'
     !virtualization.system.eql?('docker')
   }
 
-  if input('alternate_firewall')
-    describe 'Manual' do
-      skip 'Inputs indicate an alternate firewall aside from firewalld is being used. Manually review with the ISSO to ensure the firewall is installed.'
+  alternate_firewall_tool = input('alternate_firewall_tool')
+
+  if alternate_firewall_tool != ''
+    describe package(alternate_firewall_tool) do
+      it { should be_installed }
     end
   else
     describe package('firewalld') do

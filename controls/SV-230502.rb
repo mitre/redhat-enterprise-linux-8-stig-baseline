@@ -43,8 +43,10 @@ documented with the ISSO.'
   }
 
   if input('autofs_required') == true
-    describe 'Skip' do
-      skip 'Inputs indicate that autofs is required to be enabled. Manually review with the ISSO to confirm that this is a requirement for the mission.'
+    describe systemd_service('autofs.service') do
+      it { should be_running }
+      it { should be_enabled }
+      it { should be_installed }
     end
   elsif package('autofs').installed?
     describe systemd_service('autofs.service') do

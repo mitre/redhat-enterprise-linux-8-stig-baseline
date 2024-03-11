@@ -47,36 +47,27 @@ to "10" for all accounts and/or account types.
     !virtualization.system.eql?('docker')
   }
 
-  caveat = input('many_concurrent_sessions_permitted')
+  setting = 'maxlogins'
+  expected_value = input('concurrent_sessions_permitted')
 
-  if caveat
-    describe 'Manual Review' do
-      skip 'Inputs indicate this capability is an operational requirement of this system; manually review system documentation and confirm this with the ISSO'
-    end
-  else
+  limits_files = command('ls /etc/security/limits.d/*.conf').stdout.strip.split
+  limits_files.append('/etc/security/limits.conf')
 
-    setting = 'maxlogins'
-    expected_value = 10
+  # make sure that at least one limits.conf file has the correct setting
+  globally_set = limits_files.any? { |lf| !limits_conf(lf).read_params['*'].nil? && limits_conf(lf).read_params['*'].include?(['hard', setting.to_s, expected_value.to_s]) }
 
-    limits_files = command('ls /etc/security/limits.d/*.conf').stdout.strip.split
-    limits_files.append('/etc/security/limits.conf')
-
-    # make sure that at least one limits.conf file has the correct setting
-    globally_set = limits_files.any? { |lf| !limits_conf(lf).read_params['*'].nil? && limits_conf(lf).read_params['*'].include?(['hard', setting.to_s, expected_value.to_s]) }
-
-    # make sure that no limits.conf file has a value that contradicts the global set
-    failing_files = limits_files.select { |lf|
-      limits_conf(lf).read_params.values.flatten(1).any? { |l|
-        l[1].eql?(setting) && l[2].to_i > expected_value
-      }
+  # make sure that no limits.conf file has a value that contradicts the global set
+  failing_files = limits_files.select { |lf|
+    limits_conf(lf).read_params.values.flatten(1).any? { |l|
+      l[1].eql?(setting) && l[2].to_i > expected_value
     }
-    describe 'Limits files' do
-      it "should limit concurrent sessions to #{expected_value} by default" do
-        expect(globally_set).to eq(true), "No global ('*') setting for concurrent sessions found"
-      end
-      it 'should not have any conflicting settings' do
-        expect(failing_files).to be_empty, "Files with incorrect '#{setting}' settings:\n\t- #{failing_files.join("\n\t- ")}"
-      end
+  }
+  describe 'Limits files' do
+    it "should limit concurrent sessions to #{expected_value} by default" do
+      expect(globally_set).to eq(true), "No global ('*') setting for concurrent sessions found"
+    end
+    it 'should not have any conflicting settings' do
+      expect(failing_files).to be_empty, "Files with incorrect '#{setting}' settings:\n\t- #{failing_files.join("\n\t- ")}"
     end
   end
 end

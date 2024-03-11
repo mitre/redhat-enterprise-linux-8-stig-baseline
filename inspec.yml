@@ -258,22 +258,22 @@ inputs:
       - "/etc/sysctl.conf"
 
   # SV-230310, SV-230311
-  - name: kernel_dump_permitted
-    description: Flag to set if the ability to dump the kernel is an operational requirement of this system (sets the relevant controls to manual review)
-    type: Boolean
-    value: false
+  - name: kernel_dump_expected_value
+    description: Expected value for the kernel dump setting
+    type: String
+    value: '|/bin/false'
 
   # SV-230313
-  - name: core_dump_permitted
-    description: Flag to set if the ability to dump the state of the core after a program crash is an operational requirement of this system (sets the relevant controls to manual review)
-    type: Boolean
-    value: false
+  - name: core_dump_expected_value
+    description: Expected value for the core dump setting
+    type: Numeric
+    value: 0
 
   # SV-230346
-  - name: many_concurrent_sessions_permitted
-    description: Flag to set if the ability to have many concurrent sessions is an operational requirement of this system (sets the relevant controls to manual review)
-    type: Boolean
-    value: false
+  - name: concurrent_sessions_permitted
+    description: Number of permitted concurrent sessions on this system
+    type: Numeric
+    value: 10
 
   # SV-230311
   - name: kernel_config_files
@@ -757,7 +757,7 @@ inputs:
         - ssh
 
   # SV-230511, SV-230512, SV-230513
-  - name: skip_mount_tmp
+  - name: mount_tmp_options
     description: rhel_08_04012[3-5] - RHEL 8 must mount /tmp with the (nodev|nosuid|noexec) option.
     type: Hash
     value:
@@ -864,8 +864,14 @@ inputs:
       - /etc/rsyslog.d/*.conf
 
   # SV-230389
+  - name: alternative_logging
+    description: Flag to indicate that a non-standard logging method is in use (instead of auditd and other built-in OS logging features)
+    type: Boolean
+    value: false
+
+  # SV-230389
   - name: alternative_logging_method
-    description: Alternative method for notifying the ISSO or AO (aside from syslog email utility)
+    description: Alternative tool for logging (instead of auditd and other built-in OS logging features) - leave blank if using default OS tools
     type: String
     value: ""
 
@@ -936,16 +942,22 @@ inputs:
     value: false
 
   # SV-230505
-  - name: alternate_firewall
-    description: Set to true if there is a firewall other than the default firewalld in place on the system
-    type: Boolean
-    value: false
+  - name: alternate_firewall_tool
+    description: Alternate firewall tool (other than firewalld) in use for the system - leave blank if using default OS tools
+    type: String
+    value: ""
 
   # SV-230506
   - name: wifi_hardware
     description: Set to false if there is no wireless network capability on board the system
     type: Boolean
     value: true
+
+  # SV-230506
+  - name: system_is_workstation
+    description: Set to true if the system is a workstation
+    type: Boolean
+    value: false
 
   # Default values for expected keynames for all audit rules
   # NOTE: DO NOT override this hash

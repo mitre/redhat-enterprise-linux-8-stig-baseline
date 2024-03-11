@@ -39,8 +39,8 @@ by the ISSO and documented.
   }
 
   if input('promiscuous_mode_permitted')
-    describe 'Manual' do
-      skip 'Inputs indicate that promiscuous mode is required to be enabled. Manually review with the ISSO to confirm that this is a requirement for the mission.'
+    describe command('ip link | grep -i promisc') do
+      its('stdout.strip') { should_not match(/^$/) }
     end
   else
     describe command('ip link | grep -i promisc') do

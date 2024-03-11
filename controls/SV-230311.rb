@@ -59,34 +59,25 @@ $ sudo sysctl --system'
     !virtualization.system.eql?('docker')
   }
 
-  caveat = input('kernel_dump_permitted')
+  kernel_setting = 'kernel.core_pattern'
+  kernel_expected_value = input('kernel_dump_expected_value')
 
-  if caveat
-    describe 'Manual Review' do
-      skip 'Inputs indicate this capability is an operational requirement of this system; manually review system documentation and confirm this with the ISSO'
-    end
-  else
+  describe kernel_parameter(kernel_setting) do
+    its('value') { should eq kernel_expected_value }
+  end
 
-    kernel_setting = 'kernel.core_pattern'
-    kernel_expected_value = '|/bin/false'
+  k_conf_files = input('kernel_config_files')
 
-    describe kernel_parameter(kernel_setting) do
-      its('value') { should eq kernel_expected_value }
-    end
+  # make sure the setting is set somewhere
+  k_conf = command("grep -r #{kernel_setting} #{k_conf_files.join(' ')}").stdout.split("\n")
 
-    k_conf_files = input('kernel_config_files')
+  # make sure it is set correctly
+  failing_k_conf = k_conf.reject { |k| k.match(/#{kernel_parameter}\s*=\s*#{kernel_expected_value}/) }
 
-    # make sure the setting is set somewhere
-    k_conf = command("grep -r #{kernel_setting} #{k_conf_files.join(' ')}").stdout.split("\n")
-
-    # make sure it is set correctly
-    failing_k_conf = k_conf.reject { |k| k.match(/#{kernel_parameter}\s*=\s*#{kernel_expected_value}/) }
-
-    describe 'Kernel config files' do
-      it "should set '#{kernel_setting}' on startup" do
-        expect(k_conf).to_not be_empty, "Setting not found in any of the following config files:\n\t- #{k_conf_files.join("\n\t- ")}"
-        expect(failing_k_conf).to be_empty, "Incorrect or conflicting settings found:\n\t- #{failing_k_conf.join("\n\t- ")}" if k_conf.nil?
-      end
+  describe 'Kernel config files' do
+    it "should set '#{kernel_setting}' on startup" do
+      expect(k_conf).to_not be_empty, "Setting not found in any of the following config files:\n\t- #{k_conf_files.join("\n\t- ")}"
+      expect(failing_k_conf).to be_empty, "Incorrect or conflicting settings found:\n\t- #{failing_k_conf.join("\n\t- ")}" if k_conf.nil?
     end
   end
 end

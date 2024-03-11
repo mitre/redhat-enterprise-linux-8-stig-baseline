@@ -29,8 +29,8 @@ $ sudo yum remove tftp-server'
   tag 'host', 'container'
 
   if input('tftp_required')
-    describe 'Manual' do
-      skip 'Inputs indicate that TFTP protocol is required to be enabled. Manually review with the ISSO to confirm that this is a requirement for the mission.'
+    describe package('tftp-server') do
+      it { should be_installed }
     end
   else
     describe package('tftp-server') do
