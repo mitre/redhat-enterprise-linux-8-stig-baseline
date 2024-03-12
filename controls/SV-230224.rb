@@ -1,5 +1,5 @@
 control 'SV-230224' do
-  title 'All RHEL 8 local disk partitions must implement disk encryption'
+  title 'All RHEL 8 local disk partitions must implement cryptographic mechanisms to prevent unauthorized disclosure or modification of all information that requires at rest protection.'
   desc 'RHEL 8 systems handling data requiring "data at rest" protections
     must employ cryptographic mechanisms to prevent unauthorized disclosure and
     modification of the information at rest.

@@ -27,7 +27,7 @@ Modify or append the following lines in the "/etc/ssh/sshd_config" file:
 For the changes to take effect, the SSH daemon must be restarted.
 
      $ sudo systemctl restart sshd.service'
-  impact 0.5
+  impact 0.0
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000163-GPOS-00072'
   tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000126-GPOS-00066', 'SRG-OS-000279-GPOS-00109']
@@ -37,24 +37,22 @@ For the changes to take effect, the SSH daemon must be restarted.
   tag fix_id: 'F-47757r917885_fix'
   tag cci: ['CCI-001133']
   tag nist: ['SC-10']
-  tag 'host', 'container-conditional'
-
-  impact 0.0 if virtualization.system.eql?('docker') && !package('openssh-server').installed?
+  tag 'host'
+  tag 'container-conditional'
 
   setting = 'ClientAliveInterval'
   gssapi_authentication = input('sshd_config_values')
   value = gssapi_authentication[setting]
+  openssh_present = package('openssh-server').installed?
 
-  if virtualization.system.eql?('docker')
+  only_if('This requirement is Not Applicable in the container without open-ssh installed', impact: 0.0) {
+    !(virtualization.system.eql?('docker') && !openssh_present)
+  }
+
+  if input('allow_container_openssh_server') == false
     describe 'In a container Environment' do
-      if package('openssh-server').installed?
-        it 'the OpenSSH Server should be installed when allowed in Docker environment' do
-          expect(input('allow_container_openssh_server')).to eq(true), 'OpenSSH Server is installed but not approved for the Docker environment'
-        end
-      else
-        it 'the OpenSSH Server is not installed' do
-          skip 'This requirement is not applicable as the OpenSSH Server is not installed in the Docker environment.'
-        end
+      it 'the OpenSSH Server should be installed only when allowed in a container environment' do
+        expect(openssh_present).to eq(false), 'OpenSSH Server is installed but not approved for the container environment'
       end
     end
   else

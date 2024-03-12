@@ -10,24 +10,25 @@ different configurations. One of these configurations is zones. Zones can be
 utilized to a deny-all, allow-by-exception approach. The default "drop" zone
 will drop all incoming network packets unless it is explicitly allowed by the
 configuration file or is related to an outgoing network connection.'
-  desc 'check', 'Verify "firewalld" is configured to employ a deny-all, allow-by-exception
-policy for allowing connections to other systems with the following commands:
+  desc 'check', 'Verify "firewalld" is configured to employ a deny-all, allow-by-exception policy for allowing connections to other systems with the following commands:
 
-    $ sudo  firewall-cmd --state
+     $ sudo  firewall-cmd --state
+     running
 
-    running
+     $ sudo firewall-cmd --get-active-zones
+     [custom]
+     interfaces: ens33
 
-    $ sudo firewall-cmd --get-active-zones
+     $ sudo firewall-cmd --info-zone=[custom] | grep target
+     target: DROP
 
-    [custom]
-       interfaces: ens33
+If no zones are active on the RHEL 8 interfaces or if the target is set to a different option other than "DROP", this is a finding.
 
-    $ sudo firewall-cmd --info-zone=[custom] | grep target
+If the "firewalld" package is not installed, ask the System Administrator if an alternate firewall (such as iptables) is installed and in use, and how is it configured to employ a deny-all, allow-by-exception policy.
 
-       target: DROP
+If the alternate firewall is not configured to employ a deny-all, allow-by-exception policy, this is a finding.
 
-    If no zones are active on the RHEL 8 interfaces or if the target is set to
-a different option other than "DROP", this is a finding.'
+If no firewall is installed, this is a finding.'
   desc 'fix', 'Configure the "firewalld" daemon to employ a deny-all, allow-by-exception with the following commands:
 
 $ sudo firewall-cmd --permanent --new-zone=[custom]
@@ -52,9 +53,9 @@ $ sudo firewall-cmd --reload'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000297-GPOS-00115'
   tag gid: 'V-230504'
-  tag rid: 'SV-230504r854047_rule'
+  tag rid: 'SV-230504r942942_rule'
   tag stig_id: 'RHEL-08-040090'
-  tag fix_id: 'F-33148r809320_fix'
+  tag fix_id: 'F-33148r942941_fix'
   tag cci: ['CCI-002314']
   tag legacy: []
   tag nist: ['AC-17 (1)']
@@ -64,19 +65,26 @@ $ sudo firewall-cmd --reload'
     !virtualization.system.eql?('docker')
   }
 
-  describe service('firewalld') do
-    it { should be_running }
-  end
+  if input('external_firewall') == false
 
-  describe firewalld do
-    its('zone') { should_not be_empty }
-  end
+    describe service('firewalld') do
+      it { should be_running }
+    end
 
-  failing_zones = firewalld.zone.reject { |fz| firewalld.zone(fz).target == 'DROP' }
+    describe firewalld do
+      its('zone') { should_not be_empty }
+    end
 
-  describe 'All firewall zones' do
-    it 'should be configured to drop all incoming network packets unless explicitly accepted' do
-      expect(failing_zones).to be_empty, "Failing zones:\n\t- #{failing_zones.join("\n\t- ")}"
+    failing_zones = firewalld.zone.reject { |fz| firewalld.zone(fz).target == 'DROP' }
+
+    describe 'All firewall zones' do
+      it 'should be configured to drop all incoming network packets unless explicitly accepted' do
+        expect(failing_zones).to be_empty, "Failing zones:\n\t- #{failing_zones.join("\n\t- ")}"
+      end
+    end
+  else
+    describe 'Manual' do
+      skip 'Inputs indicate this system is using a firewall tool other than the default firewalld; review the configuration of this tool to ensure it employs a deny-all, allow-by-exception policy for allowing connections to other systems.'
     end
   end
 end

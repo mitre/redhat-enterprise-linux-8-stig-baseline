@@ -18,29 +18,20 @@ Windows Active Directory server. Any of these methods will require that the
 client operating system handle the multifactor authentication correctly.'
   desc 'check', 'Verify RHEL 8 uses multifactor authentication for local access to accounts.
 
-    Note: If the System Administrator demonstrates the use of an approved
-alternate multifactor authentication method, this requirement is not applicable.
+Note: If the System Administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.
 
-    Check that the "pam_cert_auth" setting is set to "true" in the
-"/etc/sssd/sssd.conf" file.
+Check that the "pam_cert_auth" setting is set to "true" in the "/etc/sssd/sssd.conf" file.
 
-    Check that the "try_cert_auth" or "require_cert_auth" options are
-configured in both "/etc/pam.d/system-auth" and "/etc/pam.d/smartcard-auth"
-files with the following command:
+Check that the "try_cert_auth" or "require_cert_auth" options are configured in both "/etc/pam.d/system-auth" and "/etc/pam.d/smartcard-auth" files with the following command:
 
-    $ sudo grep cert_auth /etc/sssd/sssd.conf /etc/pam.d/*
+     $ sudo grep -ir cert_auth /etc/sssd/sssd.conf /etc/sssd/conf.d/*.conf /etc/pam.d/*
+     /etc/sssd/sssd.conf:pam_cert_auth = True
+     /etc/pam.d/smartcard-auth:auth   sufficient   pam_sss.so try_cert_auth
+     /etc/pam.d/system-auth:auth   [success=done authinfo_unavail=ignore ignore=ignore default=die]   pam_sss.so try_cert_auth
 
-    /etc/sssd/sssd.conf:pam_cert_auth = True
-    /etc/pam.d/smartcard-auth:auth   sufficient   pam_sss.so try_cert_auth
-    /etc/pam.d/system-auth:auth   [success=done authinfo_unavail=ignore
-ignore=ignore default=die]   pam_sss.so try_cert_auth
+If "pam_cert_auth" is not set to "true" in "/etc/sssd/sssd.conf", this is a finding.
 
-    If "pam_cert_auth" is not set to "true" in "/etc/sssd/sssd.conf",
-this is a finding.
-
-    If "pam_sss.so" is not set to "try_cert_auth" or "require_cert_auth"
-in both the "/etc/pam.d/smartcard-auth" and "/etc/pam.d/system-auth" files,
-this is a finding.'
+If "pam_sss.so" is not set to "try_cert_auth" or "require_cert_auth" in both the "/etc/pam.d/smartcard-auth" and "/etc/pam.d/system-auth" files, this is a finding.'
   desc 'fix', 'Configure RHEL 8 to use multifactor authentication for local access to
 accounts.
 
@@ -68,39 +59,37 @@ restart the "sssd" service, run the following command:
   tag gtitle: 'SRG-OS-000105-GPOS-00052'
   tag satisfies: ['SRG-OS-000105-GPOS-00052', 'SRG-OS-000106-GPOS-00053', 'SRG-OS-000107-GPOS-00054', 'SRG-OS-000108-GPOS-00055']
   tag gid: 'V-230372'
-  tag rid: 'SV-230372r627750_rule'
+  tag rid: 'SV-230372r942945_rule'
   tag stig_id: 'RHEL-08-020250'
-  tag fix_id: 'F-33016r567863_fix'
+  tag fix_id: 'F-33016r942944_fix'
   tag cci: ['CCI-000765']
   tag nist: ['IA-2 (1)']
   tag 'host'
 
-  only_if('If the System Administrator demonstrates the use of an approved
-    alternate multifactor authentication method, this requirement is not applicable.', impact: 0.0) {
-    !input('smart_card_enabled')
+  only_if('If the System Administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.', impact: 0.0) {
+    input('smart_card_enabled')
   }
+
+  sssd_conf_files = input('sssd_conf_files')
+  sssd_conf_contents = ini({ command: "cat #{input('sssd_conf_files').join(' ')}" })
 
   pam_auth_files = input('pam_auth_files')
 
-  if virtualization.system.eql?('docker')
-    impact 0.0
-    describe 'Control not applicable within a container' do
-      skip 'Control not applicable within a container'
+  describe 'SSSD' do
+    it 'should be installed and enabled' do
+      expect(service('sssd')).to be_installed.and be_enabled
+      expect(sssd_conf_contents.params).to_not be_empty, "SSSD configuration files not found or have no content; files checked:\n\t- #{sssd_conf_files.join("\n\t- ")}"
     end
-  else
-    describe parse_config_file(input('sssd_conf_path')) do
-      its('pam') { should include('pam_cert_auth' => 'True') }
-    end
-    describe service('sssd') do
-      it { should be_installed }
-      it { should be_enabled }
-      it { should be_running }
-    end
-
-    [pam_auth_files['system-auth'], pam_auth_files['smartcard-auth']].each do |path|
-      describe pam(path) do
-        its('lines') { should match_pam_rule('.* .* pam_sss.so (try_cert_auth|require_cert_auth)') }
+    if sssd_conf_contents.params.nil?
+      it 'should configure pam_cert_auth' do
+        expect(sssd_conf_contents.sssd.pam_cert_auth).to eq(true)
       end
+    end
+  end
+
+  [pam_auth_files['system-auth'], pam_auth_files['smartcard-auth']].each do |path|
+    describe pam(path) do
+      its('lines') { should match_pam_rule('.* .* pam_sss.so (try_cert_auth|require_cert_auth)') }
     end
   end
 end

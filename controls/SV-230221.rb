@@ -7,30 +7,33 @@ control 'SV-230221' do
   Note: The life-cycle time spans and dates are subject to adjustment.'
   desc 'check', 'Verify the version of the operating system is vendor supported.
 
-  Note: The lifecycle time spans and dates are subject to adjustment.
+Note: The lifecycle time spans and dates are subject to adjustment.
 
-  Red Hat Enterprise Linux Server release 8.6 (Ootpa)
+Check the version of the operating system with the following command:
 
-    $ sudo cat /etc/redhat-release
+$ sudo cat /etc/redhat-release
 
-    Red Hat Enterprise Linux Server release 8.6 (Ootpa)
+Red Hat Enterprise Linux Server release 8.6 (Ootpa)
 
+Current End of Extended Update Support for RHEL 8.1 is 30 November 2021.
 
-  Current End of Extended Update Support for RHEL 8.4 is 31 May 2023.
+Current End of Extended Update Support for RHEL 8.2 is 30 April 2022.
 
-  Current End of Maintenance Support for RHEL 8.5 is 31 May 2022.
+Current End of Extended Update Support for RHEL 8.4 is 31 May 2023.
 
-  Current End of Extended Update Support for RHEL 8.6 is 31 May 2024.
+Current End of Maintenance Support for RHEL 8.5 is 31 May 2022.
 
-  Current End of Maintenance Support for RHEL 8.7 is 31 May 2023.
+Current End of Extended Update Support for RHEL 8.6 is 31 May 2024.
 
-  Current End of Extended Update Support for RHEL 8.8 is 31 May 2025.
+Current End of Maintenance Support for RHEL 8.7 is 31 May 2023.
 
-  Current End of Maintenance Support for RHEL 8.9 is 31 May 2024.
+Current End of Extended Update Support for RHEL 8.8 is 31 May 2025.
 
-  Current End of Maintenance Support for RHEL 8.10 is 31 May 2029.
+Current End of Maintenance Support for RHEL 8.9 is 31 May 2024.
 
-  If the release is not supported by the vendor, this is a finding.'
+Current End of Maintenance Support for RHEL 8.10 is 31 May 2029.
+
+If the release is not supported by the vendor, this is a finding.'
   desc 'fix', 'Upgrade to a supported version of RHEL 8.'
   impact 0.7
   tag severity: 'high'
@@ -41,7 +44,8 @@ control 'SV-230221' do
   tag fix_id: 'F-32865r567410_fix'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
-  tag 'host', 'container'
+  tag 'host'
+  tag 'container'
 
   release = os.release
 
@@ -49,12 +53,12 @@ control 'SV-230221' do
     /^8\.1/ => '30 November 2021',
     /^8\.2/ => '30 April 2022',
     /^8\.3/ => '30 April 2021',
-    /^8\.4/ => '30 April 2023',
-    /^8\.5/ => '30 April 2022',
-    /^8\.6/ => '30 April 2024',
-    /^8\.7/ => '30 April 2023',
-    /^8\.8/ => '30 April 2025',
-    /^8\.9/ => '30 April 2024',
+    /^8\.4/ => '31 May 2023',
+    /^8\.5/ => '31 May 2022',
+    /^8\.6/ => '31 May 2024',
+    /^8\.7/ => '31 May 2023',
+    /^8\.8/ => '31 May 2025',
+    /^8\.9/ => '31 May 2024',
     /^8\.10/ => '31 May 2029'
   }.find { |k, _v| k.match(release) }&.last
 
