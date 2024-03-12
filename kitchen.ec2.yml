@@ -18,6 +18,7 @@ driver:
   privileged: true
   instance_initiated_shutdown_behavior: terminate
   subnet_id: <%= ENV['SAF_AWS_SUBNET_ID_2'] %>
+  region: <%= ENV['SAF_AWS_REGION_2'] %>
 
 provisioner:
   name: ansible_playbook
