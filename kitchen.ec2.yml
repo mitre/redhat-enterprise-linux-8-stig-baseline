@@ -17,6 +17,7 @@ driver:
   skip_cost_warning: true
   privileged: true
   instance_initiated_shutdown_behavior: terminate
+  subnet_id: <%= ENV['SAF_AWS_SUBNET_ID_2'] %>
 
 provisioner:
   name: ansible_playbook
@@ -46,7 +47,7 @@ suites:
       playbook: spec/ansible/roles/ansible-role-rhel-hardened.yml
     driver:
       tags:
-        Name: Hardened-<%= ENV['USER'] %>
+        Name: Hardened-<%= ENV['USER'] %>-rhel8-test-suite
         CreatedBy: test-kitchen
 
 lifecycle:
