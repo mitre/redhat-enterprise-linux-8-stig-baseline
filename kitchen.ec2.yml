@@ -17,7 +17,7 @@ driver:
   skip_cost_warning: true
   privileged: true
   instance_initiated_shutdown_behavior: terminate
-  subnet_id: <%= ENV['SAF_AWS_SUBNET_ID_2'] %>
+  #subnet_id: <%= ENV['SAF_AWS_SUBNET_ID_2'] %>
 
 provisioner:
   name: ansible_playbook
