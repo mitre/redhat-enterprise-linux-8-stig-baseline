@@ -1027,7 +1027,7 @@ inputs:
       'fchmod'                        : 'perm_mod',
       'fchmodat'                      : 'perm_mod',
       '/usr/bin/sudo'                 : 'priv_cmd',
-      '/usr/sbin/usermod'             : 'priv_cmd',
+      '/usr/sbin/usermod'             : 'privileged-usermod',
       '/usr/bin/chacl'                : 'perm_mod',
       '/usr/bin/kmod'                 : 'modules',
       '/var/log/faillock'             : 'logins',
