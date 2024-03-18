@@ -762,8 +762,8 @@ inputs:
     type: Hash
     value:
       nodev: true
-      nosuid: false
-      noexec: false
+      nosuid: true
+      noexec: true
 
   # SV-230271
   - name: skip_password_privilege_escalation
