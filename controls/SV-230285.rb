@@ -37,7 +37,7 @@ If the service is not "enabled" and "active", this is a finding.'
     !virtualization.system.eql?('docker')
   }
 
-  if os.release.to_f < 8.4 && input('use_fips') == 'true'
+  if os.release.to_f >= 8.4 && input('use_fips') == 'true'
     impact 0.0
     describe 'For RHEL versions 8.4 and above running with kernel FIPS mode enabled as specified by RHEL-08-010020, this requirement is Not Applicable.' do
       skip "Currently on release #{os.release}, this control is Not Applicable."
