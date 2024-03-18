@@ -761,7 +761,7 @@ inputs:
     description: rhel_08_04012[3-5] - RHEL 8 must mount /tmp with the (nodev|nosuid|noexec) option.
     type: Hash
     value:
-      nodev: false
+      nodev: true
       nosuid: false
       noexec: false
 
