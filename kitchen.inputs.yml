@@ -2,7 +2,7 @@
 disable_slow_controls: false
 disconnected_system: false
 data_at_rest_exempt: false
-skip_mount_tmp:
+mount_tmp_options:
   nodev: true
   nosuid: true
   noexec: true
