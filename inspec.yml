@@ -456,12 +456,6 @@ inputs:
     type: String
     value: "/etc/sssd/pki/sssd_auth_ca_db.pem"
 
-  # SV-230333
-  - name: unsuccessful_attempts
-    description: Maximum number of unsuccessful attempts before lockout
-    type: Numeric
-    value: 3
-
   # SV-230353
   - name: system_inactivity_timeout
     description: Maximum system inactivity timeout (time in seconds).
