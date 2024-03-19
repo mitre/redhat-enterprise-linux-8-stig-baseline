@@ -462,12 +462,6 @@ inputs:
     type: String
     value: "/etc/sssd/pki/sssd_auth_ca_db.pem"
 
-  # SV-230333
-  - name: unsuccessful_attempts
-    description: Maximum number of unsuccessful attempts before lockout
-    type: Numeric
-    value: 3
-
   # SV-230353
   - name: system_inactivity_timeout
     description: Maximum system inactivity timeout (time in seconds).
@@ -563,12 +557,6 @@ inputs:
       services by attorneys, psychotherapists, or clergy, and their assistants. Such \
       communications and work product are private and confidential. See User \
       Agreement for details."
-
-  # SV-230346
-  - name: maxlogins_limit
-    description: Amount of max logins allowed
-    type: Numeric
-    value: 10
 
   # SV-230335
   - name: fail_interval
@@ -709,12 +697,6 @@ inputs:
     type: String
     value: "ocsp_dgst=sha1"
 
-  # SV-230372
-  - name: sssd_conf_path
-    description: Path of the sssd_conf file
-    type: String
-    value: /etc/sssd/sssd.conf
-
   # SV-230398
   - name: var_log_audit_group
     description: Group owner of /var/log/audit/audit.log
@@ -767,15 +749,9 @@ inputs:
     description: rhel_08_04012[3-5] - RHEL 8 must mount /tmp with the (nodev|nosuid|noexec) option.
     type: Hash
     value:
-      nodev: false
-      nosuid: false
-      noexec: false
-
-  # SV-230271
-  - name: skip_password_privilege_escalation
-    description: rhel_08_010380 - RHEL 8 must require users to provide a password for privilege escalation.
-    type: Boolean
-    value: false
+      nodev: true
+      nosuid: true
+      noexec: true
 
   # SV-245540
   - name: skip_endpoint_security_tool
@@ -914,12 +890,6 @@ inputs:
   # SV-230558
   - name: ftp_required
     description: Set to true if there is a documented requirement for the target system to use FTP
-    type: Boolean
-    value: false
-
-  # SV-230554
-  - name: promiscuous_mode_required
-    description: Set to true if there is a documented requirement for the target system to use promiscuous mode
     type: Boolean
     value: false
 
