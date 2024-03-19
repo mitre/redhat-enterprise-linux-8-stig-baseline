@@ -6,7 +6,6 @@ mount_tmp_options:
   nodev: true
   nosuid: true
   noexec: true
-skip_password_privilege_escalation: false
 skip_endpoint_security_tool: false
 network_router: false
 use_fapolicyd: true
