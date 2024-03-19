@@ -67,6 +67,6 @@ this is a finding.'
 
   describe 'System-wide crypto policy' do
     subject { command('update-crypto-policies --show').stdout.strip }
-    it { should eq 'FIPS' }
+    it { should eq input('system_wide_crypto_policy') }
   end
 end

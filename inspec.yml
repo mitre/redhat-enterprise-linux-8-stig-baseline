@@ -215,6 +215,12 @@ inputs:
     type: Boolean
     value: false
 
+  # SV-230254
+  - name: system_wide_crypto_policy
+    description: The system wide crypto policy
+    type: String
+    value: 'FIPS'
+
   # SV-230368
   - name: min_reuse_generations
     description: Number of reuse generations
