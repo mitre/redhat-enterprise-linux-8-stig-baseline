@@ -6,8 +6,8 @@ driver:
   name: ec2
   subnet_id: <%= ENV['SAF_PIPELINE_SUBNET'] %>
   security_group_ids: <%= ENV['SAF_PIPELINE_SG'] %>
-  #region: us-east-1
-  #availability_zone: a
+  region: us-east-1
+  availability_zone: a
   metadata_options:
     http_tokens: required
     http_put_response_hop_limit: 1
