@@ -4,15 +4,23 @@ platforms:
 
 driver:
   name: ec2
+<<<<<<< HEAD
   subnet_id: <%= ENV['SAF_PIPELINE_SUBNET'] %>
   security_group_ids: <%= ENV['SAF_PIPELINE_SG'] %>
   #region: us-east-1
   #availability_zone: a
+=======
+  # subnet_filter:
+  #   tag: 'Default'
+  #   value: '*public*'
+>>>>>>> parent of 411c6dc (restricting kitchen ec2 behavior -- adding vars to use specifc subnet and security group IDs, removing public IP setting (so it will default to using private IPs))
   metadata_options:
     http_tokens: required
     http_put_response_hop_limit: 1
     instance_metadata_tags: enabled
   instance_type: t2.micro
+  associate_public_ip: true
+  interface: public
   skip_cost_warning: true
   privileged: true
   instance_initiated_shutdown_behavior: terminate
