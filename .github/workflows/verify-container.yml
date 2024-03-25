@@ -1,11 +1,10 @@
 name: UBI8 Testing Matrix
 
 on:
-  workflow_dispatch:
-  # push:
-  #   branches-ignore:
-  #     - none
-  # pull_request:
+  push:
+    branches-ignore:
+      - none
+  pull_request:
 
 jobs:
   validate:
