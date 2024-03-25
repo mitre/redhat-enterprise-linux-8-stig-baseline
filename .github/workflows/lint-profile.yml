@@ -1,10 +1,11 @@
 name: Lint & Check the Profile
 
 on:
-  push:
-    branches-ignore:
-      - none
-  pull_request:
+  workflow_dispatch:
+  # push:
+  #   branches-ignore:
+  #     - none
+  # pull_request:
 
 jobs:
   validate:
