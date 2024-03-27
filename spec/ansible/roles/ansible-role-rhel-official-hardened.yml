@@ -7,3 +7,5 @@
     - roles/rhel8STIG-rhel-official
   serial: 50
   become: yes
+  vars:
+    DISA_STIG_RHEL_08_010380: false
