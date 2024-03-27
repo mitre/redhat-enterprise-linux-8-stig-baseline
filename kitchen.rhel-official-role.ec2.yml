@@ -34,7 +34,7 @@ provisioner:
 suites:
   - name: rhel-official-role-hardened
     provisioner:
-      playbook: spec/ansible/roles/ansible-rhel-official-hardened.yml
+      playbook: spec/ansible/roles/ansible-role-rhel-official-hardened.yml
     driver:
       tags:
         Name: RHEL-Official-Hardened-<%= ENV['USER'] %>
