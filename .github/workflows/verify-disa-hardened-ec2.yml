@@ -1,9 +1,9 @@
 name: DISA Hardened EC2 Testing Matrix
 
 on:
-  # push:
-  #   branches-ignore:
-  #     - none
+  push:
+    branches-ignore:
+      - none
   pull_request:
 
 jobs:
@@ -16,8 +16,6 @@ jobs:
       KITCHEN_LOCAL_YAML: kitchen.disa.ec2.yml
       SAF_PIPELINE_SUBNET: ${{ secrets.SAF_PIPELINE_SUBNET }}
       SAF_PIPELINE_SG: ${{ secrets.SAF_PIPELINE_SG }}
-      SAF_AWS_REGION: ${{ secrets.SAF_AWS_REGION }}
-      SAF_AZ: ${{ secrets.SAF_AZ }}
       PLATFORM: 'rhel-8'
       LC_ALL: "en_US.UTF-8"
     strategy:

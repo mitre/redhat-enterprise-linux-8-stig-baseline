@@ -1,9 +1,9 @@
 name: EC2 Testing Matrix
 
 on:
-  # push:
-  #   branches-ignore:
-  #     - none
+  push:
+    branches-ignore:
+      - none
   pull_request:
 
 jobs:
@@ -16,8 +16,6 @@ jobs:
       KITCHEN_LOCAL_YAML: kitchen.ec2.yml
       SAF_PIPELINE_SUBNET: ${{ secrets.SAF_PIPELINE_SUBNET }}
       SAF_PIPELINE_SG: ${{ secrets.SAF_PIPELINE_SG }}
-      SAF_AWS_REGION: ${{ secrets.SAF_AWS_REGION }}
-      SAF_AZ: ${{ secrets.SAF_AZ }}
       PLATFORM: 'rhel-8'
       LC_ALL: "en_US.UTF-8"
     strategy:
@@ -31,8 +29,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.SAF_AWS_ACCESS_KEY_ID_2 }}
-          aws-secret-access-key: ${{ secrets.SAF_AWS_SECRET_ACCESS_KEY_2 }}
+          aws-access-key-id: ${{ secrets.SAF_AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.SAF_AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.SAF_AWS_REGION }}
 
       - name: Check out repository

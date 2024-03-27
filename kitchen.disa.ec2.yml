@@ -6,13 +6,11 @@ driver:
   name: ec2
   subnet_id: <%= ENV['SAF_PIPELINE_SUBNET'] %>
   security_group_ids: <%= ENV['SAF_PIPELINE_SG'] %>
-  region: <%= ENV['SAF_AWS_REGION'] %>
-  availability_zone: <%= ENV['SAF_AZ'] %>
   metadata_options:
     http_tokens: required
     http_put_response_hop_limit: 1
     instance_metadata_tags: enabled
-  instance_type: t2.micro
+  instance_type: t2.small
   associate_public_ip: true
   interface: public
   skip_cost_warning: true
