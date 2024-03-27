@@ -1,7 +1,10 @@
 roles:
-  - name: rhel8STIG
+  - name: rhel8STIG-ansible-lockdown
     src: https://github.com/ansible-lockdown/RHEL8-STIG
     version: 3.0.0
+  - name: rhel8STIG-rhel-official
+    src: https://github.com/RedHatOfficial/ansible-role-rhel8-stig
+    version: 0.1.72
 
 collections:
   - name: community.general

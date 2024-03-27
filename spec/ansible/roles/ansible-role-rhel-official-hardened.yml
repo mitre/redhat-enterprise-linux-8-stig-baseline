@@ -1,0 +1,9 @@
+---
+- hosts:
+    - localhost
+  roles:
+    - roles/ansible-role-rhel-vanilla
+    # - roles/ansible-role-rhel-local-hardening-tasks # leaving this commented out at first to see what happens with no outside tasks other than a yum update
+    - roles/rhel8STIG-rhel-official
+  serial: 50
+  become: yes

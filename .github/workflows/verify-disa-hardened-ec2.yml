@@ -1,11 +1,10 @@
 name: DISA Hardened EC2 Testing Matrix
 
 on:
-  workflow_dispatch:
-  # push:
-  #   branches-ignore:
-  #     - none
-  # pull_request:
+  push:
+    branches-ignore:
+      - none
+  pull_request:
 
 jobs:
   validate:
@@ -15,6 +14,8 @@ jobs:
       CHEF_LICENSE: accept-silent
       CHEF_LICENSE_KEY: ${{ secrets.SAF_CHEF_LICENSE_KEY }}
       KITCHEN_LOCAL_YAML: kitchen.disa.ec2.yml
+      SAF_PIPELINE_SUBNET: ${{ secrets.SAF_PIPELINE_SUBNET }}
+      SAF_PIPELINE_SG: ${{ secrets.SAF_PIPELINE_SG }}
       PLATFORM: 'rhel-8'
       LC_ALL: "en_US.UTF-8"
     strategy:
@@ -75,7 +76,7 @@ jobs:
 
       - name: Create our ${{ matrix.suite }} results summary
         if: ${{ !contains(steps.commit.outputs.message, 'only-validate-profile') }}
-        uses: mitre/saf_action@v1.5.0
+        uses: mitre/saf_action@v1.5.2
         with:
           command_string: "view summary -j -i spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}.json -o spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}-data.json"
 
@@ -94,7 +95,7 @@ jobs:
 
       - name: Display our ${{ matrix.suite }} results summary
         if: ${{ !contains(steps.commit.outputs.message, 'only-validate-profile') }}
-        uses: mitre/saf_action@v1.5.0
+        uses: mitre/saf_action@v1.5.2
         with:
           command_string: "view summary -i spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}.json"
 
@@ -107,6 +108,6 @@ jobs:
 
       - name: Ensure the scan meets our ${{ matrix.suite }} results threshold
         if: ${{ !contains(steps.commit.outputs.message, 'only-validate-profile') }}
-        uses: mitre/saf_action@v1.5.0
+        uses: mitre/saf_action@v1.5.2
         with:
           command_string: "validate threshold -i spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}.json -F ${{ matrix.suite }}.threshold.yml"

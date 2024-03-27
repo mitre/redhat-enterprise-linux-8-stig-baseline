@@ -25,18 +25,19 @@ provisioner:
   ansible_binary_path: /usr/local/bin
   # require_pip3: true
   ansible_verbose: true
-  roles_path: spec/ansible/disa/roles
+  roles_path: spec/ansible/roles
   galaxy_ignore_certs: true
-  #requirements_path: spec/ansible/disa/roles/requirements.yml
+  requirements_path: spec/ansible/roles/requirements.yml
+  requirements_collection_path: spec/ansible/roles/requirements.yml
   ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>
 
 suites:
-  - name: disa-hardened
+  - name: rhel-official-role-hardened
     provisioner:
-      playbook: spec/ansible/disa/site.yml
+      playbook: spec/ansible/roles/ansible-role-rhel-official-hardened.yml
     driver:
       tags:
-        Name: Hardened-<%= ENV['USER'] %>
+        Name: RHEL-Official-Hardened-<%= ENV['USER'] %>
         CreatedBy: test-kitchen
 
 lifecycle:
