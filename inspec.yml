@@ -38,6 +38,15 @@ supports:
 ###
 
 inputs:
+
+  # SV-230548
+  - name: is_container_host
+    description: 'Whether the system is a container or needs to be allowed to host containers'
+    type: Boolean
+    value: false
+
+
+
   # SV-230271, SV-237643
   - name: sudoers_config_files
     description: 'The files and directories you keep your sudoers configs'
