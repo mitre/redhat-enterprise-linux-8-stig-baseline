@@ -71,8 +71,8 @@ the following line in the /etc/chrony.conf file.
   only_if('This control is Not Applicable to containers', impact: 0.0) {
     !virtualization.system.eql?('docker')
   }
-
-  time_sources = ntp_conf('/etc/chrony.conf').server
+  # No need to provide filepath
+  time_sources = ntp_conf.server
 
   # Cover case when a single server is defined and resource returns a string and not an array
   time_sources = [time_sources] if time_sources.is_a? String
@@ -85,23 +85,26 @@ the following line in the /etc/chrony.conf file.
 
   # Verify the "chrony.conf" file is configured to an authoritative DoD time source by running the following command:
 
-  describe ntp_conf('/etc/chrony.conf') do
+  describe chrony_conf do
     its('server') { should_not be_nil }
   end
 
-  unless ntp_conf('/etc/chrony.conf').server.nil?
-    if ntp_conf('/etc/chrony.conf').server.is_a? String
-      describe ntp_conf('/etc/chrony.conf') do
+  unless chrony.server.nil?
+    # If there is only one server and the resource returns a string, check if the server matches the input
+    if chrony_conf.server.is_a? String
+      describe chrony_conf do
         its('server') { should match input('authoritative_timeserver') }
       end
     end
-
-    if ntp_conf('/etc/chrony.conf').server.is_a? Array
-      describe ntp_conf('/etc/chrony.conf') do
-        its('server.join') { should match input('authoritative_timeserver') }
+    # Check if each server in the server array exists in the input
+    if chrony_conf.server.is_a? Array
+      chrony_conf.server.each do |server|
+        describe server do
+          it { should be_in input('authoritative_timeserver') }
+        end
       end
     end
-  end
+
   # All time sources must contain valid maxpoll entries
   unless time_sources.nil?
     describe 'chronyd maxpoll values (99=maxpoll absent)' do
