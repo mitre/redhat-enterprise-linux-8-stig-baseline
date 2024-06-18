@@ -112,7 +112,7 @@ Agreement for details."
   }
 
   # When Banner is commented, not found, disabled, or the specified file does not exist, this is a finding.
-  banner_file = sshd_config.banner
+  banner_file = sshd_active_config.banner
 
   # Banner property is commented out.
   if banner_file.nil?
