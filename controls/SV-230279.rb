@@ -58,7 +58,6 @@ configuration survives kernel updates:
   }
 
   grub_stdout = command('grub2-editenv - list').stdout
-  # Check if 
   setting = /slub_debug\s*=\s*.*P.*/
 
   describe 'GRUB config' do
