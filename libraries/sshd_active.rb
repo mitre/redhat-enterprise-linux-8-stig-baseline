@@ -91,73 +91,41 @@ class SshConfig < Inspec.resource(1)
 end
 
 class SshdConfig < SshConfig
-name "sshd_config"
-supports platform: "unix"
-supports platform: "windows"
-desc "Use the sshd_config InSpec audit resource to test configuration data for the Open SSH daemon located at /etc/ssh/sshd_config on Linux and UNIX platforms. sshd---the Open SSH daemon---listens on dedicated ports, starts a daemon for each incoming connection, and then handles encryption, authentication, key exchanges, command execution, and data exchanges."
-example <<~EXAMPLE
-    describe sshd_config do
-    its('Protocol') { should eq '2' }
-    end
-EXAMPLE
-
-def initialize(path = nil)
-    super(path || ssh_config_file("sshd_config"))
-end
-
-def to_s
-    "SSHD Configuration"
-end
-
-private
-
-def ssh_config_file(type)
-    if inspec.os.windows?
-        programdata = inspec.os_env("programdata").content
-        return "#{programdata}\\ssh\\#{type}"
-    end
-
-        "/etc/ssh/#{type}"
-    end
-end
-
-
-class SshdActiveConfig < SshConfig
-    name "sshd_active_config"
+    name "sshd_config"
     supports platform: "unix"
     supports platform: "windows"
-    desc "Use the sshd_active_config InSpec audit resource to test configuration data directly from the server for the Open SSH daemon located at /etc/ssh/sshd_config on Linux and UNIX platforms. sshd---the Open SSH daemon---listens on dedicated ports, starts a daemon for each incoming connection, and then handles encryption, authentication, key exchanges, command execution, and data exchanges."
+    desc "Use the sshd_config InSpec audit resource to test configuration data for the Open SSH daemon located at /etc/ssh/sshd_config on Linux and UNIX platforms. sshd---the Open SSH daemon---listens on dedicated ports, starts a daemon for each incoming connection, and then handles encryption, authentication, key exchanges, command execution, and data exchanges."
     example <<~EXAMPLE
         describe sshd_config do
         its('Protocol') { should eq '2' }
         end
     EXAMPLE
 
-    #figure out if all OS's use sshd command with same flags
-    
-    def initialize(path = nil)
-        active_path = inspec.command("sudo /usr/sbin/sshd -dd 2>&1").stdout.lines[0].split('filename')[1].strip
+    attr_reader :active, :active_path
 
-        if active_path.nil? || active_path.empty? 
-            raise Inspec::Exceptions::ResourceSkipped, "Can't find file: #{active_path}"
+    def initialize(path = nil, active_inspection = false)
+        @active = active_inspection
+        active_path = inspec.command("sudo /usr/sbin/sshd -dd 2>&1").stdout.lines[0].split('filename')[1].strip unless @active
+        if (active_path.nil? || active_path.empty?) && @active 
+            raise Inspec::Exceptions::ResourceSkipped, "Unable to determine location of sshd_conf file using active inspection."
         end
-            #Inspec::Log.warn("No active sshd configuration found. Using default configuration.")
-            # How to handle this? A warning would let it proceed, but active config shouldn't be used if it can't be found
+        unless active ? super(path || ssh_config_file("sshd_config")) : super(active_path || ssh_config_file("sshd_config"))
+    end
 
-        super(active_path || ssh_config_file("sshd_config"))
-    end
-    
     def to_s
-        "SSHD Active Configuration"
+        unless @active ? "SSHD Configuration" : "SSHD Active Configuration"
     end
-    
+
     private
+
     def ssh_config_file(type)
         if inspec.os.windows?
             programdata = inspec.os_env("programdata").content
             return "#{programdata}\\ssh\\#{type}"
         end
-    
-        "/etc/ssh/#{type}"
+
+            "/etc/ssh/#{type}"
+        end
     end
+end
 end
