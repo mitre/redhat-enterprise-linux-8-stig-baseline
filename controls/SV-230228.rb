@@ -20,7 +20,7 @@ servers, workstations, notebook computers, smartphones, and tablets).'
     Check that remote access methods are being logged by running the following
 command:
 
-    $ sudo grep -E '(auth.*|authpriv.*|daemon.*)' /etc/rsyslog.conf
+    $ sudo grep -E '(auth.*|authpriv.*|daemon.*)' /etc/rsyslog.conf /etc/rsyslog.d/*.conf
 
     auth.*;authpriv.*;daemon.* /var/log/secure
 
@@ -67,7 +67,7 @@ To restart the "rsyslog" service, run the following command:
     authpriv_pattern = %r{^\s*[a-z.;*]*authpriv(,[a-z,]+)*\.\*\s*/*}
     daemon_pattern = %r{^\s*[a-z.;*]*daemon(,[a-z,]+)*\.\*\s*/*}
 
-    rsyslog_conf = command('grep -E \'(auth.*|authpriv.*|daemon.*)\' /etc/rsyslog.conf')
+    rsyslog_conf = command('grep -E \'(auth.*|authpriv.*|daemon.*)\' /etc/rsyslog.conf /etc/rsyslog.conf')
 
     describe 'Logged remote access methods' do
       it 'should include auth.*' do
