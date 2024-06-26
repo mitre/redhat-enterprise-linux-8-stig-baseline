@@ -74,6 +74,10 @@ control 'SV-251710' do
   tag nist: ['SI-6 a']
   tag 'host'
 
+  only_if("This control takes a long time to execute so it has been disabled through 'slow_controls'") {
+    !input('disable_slow_controls')
+  }
+
   file_integrity_tool = input('file_integrity_tool')
 
   only_if('Control not applicable within a container', impact: 0.0) do
