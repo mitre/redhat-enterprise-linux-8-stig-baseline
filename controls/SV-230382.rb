@@ -44,7 +44,7 @@ effect.'
       skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
   else
-    describe sshd_config do
+    describe sshd_active_config do
       its('PrintLastLog') { should cmp 'yes' }
     end
   end
