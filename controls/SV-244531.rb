@@ -36,6 +36,10 @@ directory with the following command:
   tag nist: ['CM-6 b']
   tag 'host'
 
+  only_if("This control takes a long time to execute so it has been disabled through 'slow_controls'") {
+    !input('disable_slow_controls')
+  }
+
   ignore_shells = input('non_interactive_shells').join('|')
   exempt_home_users = input('exempt_home_users').join('|')
 
