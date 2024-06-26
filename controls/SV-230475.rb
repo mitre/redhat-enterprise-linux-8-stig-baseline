@@ -47,6 +47,7 @@ integrity of the audit tools.
     /usr/sbin/rsyslogd p+i+n+u+g+s+b+acl+xattrs+sha512
     /usr/sbin/augenrules p+i+n+u+g+s+b+acl+xattrs+sha512'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000278-GPOS-00108'
   tag gid: 'V-230475'
@@ -61,13 +62,13 @@ integrity of the audit tools.
     !virtualization.system.eql?('docker')
   }
 
-  audit_tools = %w[/usr/sbin/auditctl
+  audit_tools = %w(/usr/sbin/auditctl
                    /usr/sbin/auditd
                    /usr/sbin/ausearch
                    /usr/sbin/aureport
                    /usr/sbin/autrace
                    /usr/sbin/rsyslogd
-                   /usr/sbin/augenrules]
+                   /usr/sbin/augenrules)
 
   if package('aide').installed?
     audit_tools.each do |tool|

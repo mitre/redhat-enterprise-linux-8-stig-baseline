@@ -15,14 +15,15 @@ the ForwardX11Trusted option is also enabled.
 
     If X11 services are not required for the system's intended function, they
 should be disabled or restricted as appropriate to the system’s needs.)
-  desc 'check', 'Verify X11Forwarding is disabled with the following command:
+  desc 'check', %q(Verify X11Forwarding is disabled with the following command:
 
-$ sudo grep -ir x11forwarding /etc/ssh/sshd_config* | grep -v "^#"
+$ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '\n' ' ' | xargs sudo grep -iH '^\s*x11forwarding'
 
 X11Forwarding no
 
-If the "X11Forwarding" keyword is set to "yes" and is not documented with the Information System Security Officer (ISSO) as an operational requirement or is missing, this is a finding.
-If conflicting results are returned, this is a finding.'
+If the "X11Forwarding" keyword is set to "yes" and is not documented with the  information system security officer (ISSO) as an operational requirement or is missing, this is a finding.
+
+If conflicting results are returned, this is a finding.)
   desc 'fix', 'Edit the "/etc/ssh/sshd_config" file to uncomment or add the line for the
 "X11Forwarding" keyword and set its value to "no" (this file may be named
 differently or be in a different location if using a version of SSH that is
@@ -34,10 +35,11 @@ provided by a third-party vendor):
 
     $ sudo systemctl restart sshd'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230555'
-  tag rid: 'SV-230555r858721_rule'
+  tag rid: 'SV-230555r951618_rule'
   tag stig_id: 'RHEL-08-040340'
   tag fix_id: 'F-33199r568412_fix'
   tag cci: ['CCI-000366']

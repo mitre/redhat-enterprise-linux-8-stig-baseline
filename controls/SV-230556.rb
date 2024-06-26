@@ -7,15 +7,17 @@ listen on the wildcard address.  By default, sshd binds the forwarding server
 to the loopback address and sets the hostname part of the DIPSLAY environment
 variable to localhost.  This prevents remote hosts from connecting to the proxy
 display.'
-  desc 'check', 'Verify the SSH daemon prevents remote hosts from connecting to the proxy display.
+  desc 'check', %q(Verify the SSH daemon prevents remote hosts from connecting to the proxy display.
 
 Check the SSH X11UseLocalhost setting with the following command:
 
-# sudo grep -ir x11uselocalhost /etc/ssh/sshd_config*
+$ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '\n' ' ' | xargs sudo grep -iH '^\s*x11uselocalhost'
+
 X11UseLocalhost yes
 
 If the "X11UseLocalhost" keyword is set to "no", is missing, or is commented out, this is a finding.
-If conflicting results are returned, this is a finding.'
+
+If conflicting results are returned, this is a finding.)
   desc 'fix', 'Configure the SSH daemon to prevent remote hosts from connecting to the
 proxy display.
 
@@ -26,10 +28,11 @@ is provided by a third-party vendor):
 
     X11UseLocalhost yes'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230556'
-  tag rid: 'SV-230556r858723_rule'
+  tag rid: 'SV-230556r951620_rule'
   tag stig_id: 'RHEL-08-040341'
   tag fix_id: 'F-33200r568415_fix'
   tag cci: ['CCI-000366']
