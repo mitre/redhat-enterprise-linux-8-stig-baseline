@@ -10,9 +10,9 @@ class SshConfig < Inspec.resource(1)
   desc "Use the `ssh_config` InSpec audit resource to test OpenSSH client configuration data located at `/etc/ssh/ssh_config` on Linux and Unix platforms."
   example <<~EXAMPLE
             describe ssh_config do
-            its('cipher') { should contain '3des' }
-            its('port') { should eq '22' }
-            its('hostname') { should include('example.com') }
+              its('cipher') { should contain '3des' }
+              its('port') { should eq '22' }
+              its('hostname') { should include('example.com') }
             end
           EXAMPLE
 
@@ -128,14 +128,14 @@ class SshdActiveConfig < SshdConfig
   desc "Use the sshd_active_config InSpec audit resource to test configuration data for the Open SSH daemon located at /etc/ssh/sshd_config on Linux and UNIX platforms. sshd---the Open SSH daemon---listens on dedicated ports, starts a daemon for each incoming connection, and then handles encryption, authentication, key exchanges, command execution, and data exchanges."
   example <<~EXAMPLE
             describe sshd_active_config do
-            its('Protocol') { should eq '2' }
+              its('Protocol') { should eq '2' }
             end
           EXAMPLE
 
   attr_reader :active_path
 
-  def initialize()
-    @active_path = dynamic_sshd_config_path()
+  def initialize
+    @active_path = dynamic_sshd_config_path
     super(@active_path)
   end
 
@@ -154,10 +154,7 @@ class SshdActiveConfig < SshdConfig
     "/etc/ssh/#{type}"
   end
 
-  def dynamic_sshd_config_path()
-    command_output = ""
-    error_output = ""
-
+  def dynamic_sshd_config_path
     if inspec.os.windows?
       # PowerShell script block to find the path of sshd.exe
       script = <<-EOH
@@ -171,9 +168,18 @@ class SshdActiveConfig < SshdConfig
       # Execute the PowerShell script block using InSpec's powershell resource
       sshd_path_result = inspec.powershell(script).stdout.strip
       sshd_path = "\"#{sshd_path_result}\""
-      if !sshd_path_result.empty?
-        command_output = inspec.command("#{sshd_path} -T").stdout
-        error_output = inspec.command("#{sshd_path} -T").stderr
+      if !sshd_path_result.empty? && sshd_path_result != "sshd.exe not found"
+        # sshd -T prints the active configuration settings directly to stdout. Can we just use this?
+        # command_output = inspec.command("#{sshd_path} -T").stdout
+        # sshd -dd 2>&1 prints 'filename __PROGRAMDATA__\\ssh/sshd_config' instead of 'filename /etc/ssh/sshd_config' like it does on unix
+        command_output = inspec.command("sudo #{sshd_path} -dd 2>&1").stdout
+
+        active_path = command_output.lines.find { |line| line.include?("filename") }&.split("filename")&.last&.strip
+        # retrieve env variable from active path to generate full path if needed
+        env_var_name = active_path.match(/__(.*?)__/)[1]
+        if env_var_name?
+          active_path = active_path.gsub(/__#{env_var_name}__/, inspec.os_env(env_var_name).content)
+        end
       else
         Inspec::Log.error("sshd.exe not found using PowerShell script block.")
         return nil
