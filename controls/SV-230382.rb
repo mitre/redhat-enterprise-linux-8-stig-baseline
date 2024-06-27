@@ -4,14 +4,15 @@ logon upon an SSH logon.'
   desc 'Providing users with feedback on when account accesses via SSH last
 occurred facilitates user recognition and reporting of unauthorized account
 use.'
-  desc 'check', 'Verify SSH provides users with feedback on when account accesses last occurred with the following command:
+  desc 'check', %q(Verify SSH provides users with feedback on when account accesses last occurred with the following command:
 
-$ sudo grep -ir printlastlog /etc/ssh/sshd_config*
+$ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '\n' ' ' | xargs sudo grep -iH '^\s*printlastlog'
 
 PrintLastLog yes
 
 If the "PrintLastLog" keyword is set to "no", is missing, or is commented out, this is a finding.
-If conflicting results are returned, this is a finding.'
+
+If conflicting results are returned, this is a finding.)
   desc 'fix', 'Configure SSH to provide users with feedback on when account accesses last
 occurred by setting the required configuration options in "/etc/pam.d/sshd"
 or in the "sshd_config" file used by the system ("/etc/ssh/sshd_config"
@@ -27,10 +28,11 @@ following:
     The SSH service must be restarted for changes to "sshd_config" to take
 effect.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230382'
-  tag rid: 'SV-230382r858717_rule'
+  tag rid: 'SV-230382r951614_rule'
   tag stig_id: 'RHEL-08-020350'
   tag fix_id: 'F-33026r567893_fix'
   tag cci: ['CCI-000366', 'CCI-000052']
@@ -44,7 +46,7 @@ effect.'
       skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
   else
-    describe sshd_config do
+    describe sshd_active_config do
       its('PrintLastLog') { should cmp 'yes' }
     end
   end
