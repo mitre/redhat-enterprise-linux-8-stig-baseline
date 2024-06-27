@@ -55,7 +55,7 @@ connections to the server by add or modifying the following line in the
     !(virtualization.system.eql?('docker') && !file('/etc/ssh/sshd_config').exist?)
   }
 
-  describe sshd_config do
+  describe sshd_active_config do
     its('RekeyLimit') { should cmp '1G 1h' }
   end
 end

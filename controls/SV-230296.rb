@@ -45,7 +45,7 @@ the SSH daemon, run the following command:
     !(virtualization.system.eql?('docker') && !directory('/etc/ssh').exist?)
   }
 
-  describe sshd_config do
+  describe sshd_active_config do
     its('PermitRootLogin') { should cmp input('permit_root_login') }
   end
 end
