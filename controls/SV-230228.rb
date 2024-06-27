@@ -9,9 +9,9 @@ Automated monitoring of remote access sessions allows organizations to detect cy
 
 Check that remote access methods are being logged by running the following command:
 
-$ sudo grep -E '(auth\.\*|authpriv\.\*|daemon\.\*)' /etc/rsyslog.conf /etc/rsyslog.d/*.conf
+    $ sudo grep -E '(auth\.\*|authpriv\.\*|daemon\.\*)' /etc/rsyslog.conf /etc/rsyslog.d/*.conf
 
-auth.*;authpriv.*;daemon.* /var/log/secure
+    auth.*;authpriv.*;daemon.* /var/log/secure
 
 If "auth.*", "authpriv.*" or "daemon.*" are not configured to be logged, this is a finding.)
   desc 'fix', 'Configure RHEL 8 to monitor all remote access methods by installing rsyslog
@@ -56,7 +56,7 @@ To restart the "rsyslog" service, run the following command:
     authpriv_pattern = %r{^\s*[a-z.;*]*authpriv(,[a-z,]+)*\.\*\s*/*}
     daemon_pattern = %r{^\s*[a-z.;*]*daemon(,[a-z,]+)*\.\*\s*/*}
 
-    rsyslog_conf = command('grep -E \'(auth.*|authpriv.*|daemon.*)\' /etc/rsyslog.conf')
+    rsyslog_conf = command('grep -E \'(auth.*|authpriv.*|daemon.*)\' /etc/rsyslog.conf /etc/rsyslog.d/*.conf')
 
     describe 'Logged remote access methods' do
       it 'should include auth.*' do
