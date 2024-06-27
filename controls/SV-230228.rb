@@ -9,7 +9,7 @@ Automated monitoring of remote access sessions allows organizations to detect cy
 
 Check that remote access methods are being logged by running the following command:
 
-    $ sudo grep -E '(auth\.\*|authpriv\.\*|daemon\.\*)' /etc/rsyslog.conf /etc/rsyslog.d/*.conf
+    $ sudo grep -E '(auth.*|authpriv.*|daemon.*)' /etc/rsyslog.conf /etc/rsyslog.d/*.conf
 
     auth.*;authpriv.*;daemon.* /var/log/secure
 
