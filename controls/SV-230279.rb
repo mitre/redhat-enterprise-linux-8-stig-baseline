@@ -49,7 +49,7 @@ configuration survives kernel updates:
   }
 
   grub_stdout = command('grub2-editenv - list').stdout
-  setting = /slub_debug\s*=\s*P/
+  setting = /slub_debug\s*=\s*.*P.*/
 
   describe 'GRUB config' do
     it 'should enable page poisoning' do
