@@ -74,12 +74,13 @@ control 'SV-251710' do
   tag nist: ['SI-6 a']
   tag 'host'
 
+  aide_check_fast = input('aide_check_fast', value: false) # Default to false if not specified
+
   only_if("This control takes a long time to execute so it has been disabled through 'slow_controls'") {
-    !input('disable_slow_controls') && !input('aide_check_fast')
+    !input('disable_slow_controls') && !aide_check_fast
   }
 
   file_integrity_tool = input('file_integrity_tool')
-  aide_check_fast = input('aide_check_fast', value: false) # Default to false if not specified
 
   only_if('Control not applicable within a container', impact: 0.0) do
     !virtualization.system.eql?('docker')
