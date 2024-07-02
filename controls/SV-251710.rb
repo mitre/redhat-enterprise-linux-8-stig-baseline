@@ -79,14 +79,22 @@ control 'SV-251710' do
   }
 
   file_integrity_tool = input('file_integrity_tool')
+  aide_check_fast = input('aide_check_fast', value: false) # Default to false if not specified
 
   only_if('Control not applicable within a container', impact: 0.0) do
     !virtualization.system.eql?('docker')
   end
 
+
   if file_integrity_tool == 'aide'
-    describe command('/usr/sbin/aide --check') do
-      its('stdout') { should_not include "Couldn't open file" }
+    if aide_check_fast
+      describe file('/var/lib/aide/aide.db.gz') do
+        it { should exist }
+      end
+    else
+      describe command('/usr/sbin/aide --check') do
+        its('stdout') { should_not include "Couldn't open file" }
+      end
     end
   end
 
