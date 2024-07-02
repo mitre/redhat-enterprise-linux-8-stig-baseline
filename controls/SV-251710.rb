@@ -86,7 +86,6 @@ control 'SV-251710' do
     !virtualization.system.eql?('docker')
   end
 
-
   if file_integrity_tool == 'aide'
     if aide_check_fast
       describe file('/var/lib/aide/aide.db.gz') do
