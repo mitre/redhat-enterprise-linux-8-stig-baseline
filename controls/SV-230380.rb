@@ -41,7 +41,7 @@ the SSH daemon, run the following command:
       skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
   else
-    describe sshd_config do
+    describe sshd_active_config do
       its('PermitEmptyPasswords') { should cmp 'no' }
     end
   end

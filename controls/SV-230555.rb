@@ -51,7 +51,7 @@ provided by a third-party vendor):
     !(virtualization.system.eql?('docker') && !file('/etc/ssh/sshd_config').exist?)
   }
 
-  describe sshd_config do
+  describe sshd_active_config do
     its('X11Forwarding') { should cmp 'no' }
   end
 end

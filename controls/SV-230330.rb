@@ -39,7 +39,7 @@ the SSH daemon, run the following command:
     !(virtualization.system.eql?('docker') && !file('/etc/ssh/sshd_config').exist?)
   }
 
-  describe sshd_config do
+  describe sshd_active_config do
     its('PermitUserEnvironment') { should eq 'no' }
   end
 end

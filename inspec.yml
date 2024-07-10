@@ -50,7 +50,6 @@ inputs:
     type: Boolean
     value: false
 
-
   # SV-230271, SV-237643
   - name: sudoers_config_files
     description: 'The files and directories you keep your sudoers configs'

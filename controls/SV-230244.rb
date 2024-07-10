@@ -55,7 +55,7 @@ If conflicting results are returned, this is a finding.)
   else
     describe 'SSH ClientAliveCountMax configuration' do
       it "should be set to #{client_alive_count}" do
-        expect(sshd_config.ClientAliveCountMax).to(cmp(client_alive_count), "SSH ClientAliveCountMax is commented out or not set to the expected value (#{client_alive_count})")
+        expect(sshd_active_config.ClientAliveCountMax).to(cmp(client_alive_count), "SSH ClientAliveCountMax is commented out or not set to the expected value (#{client_alive_count})")
       end
     end
   end
