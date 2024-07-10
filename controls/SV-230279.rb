@@ -44,17 +44,17 @@ configuration survives kernel updates:
   tag nist: ['SC-3']
   tag 'host'
 
-  only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+  only_if("This control is Not Applicable to containers", impact: 0.0) {
+    !virtualization.system.eql?("docker")
   }
 
-  grub_stdout = command('grub2-editenv - list').stdout
-  setting = /slub_debug\s*=\s*P/
+  grub_stdout = command("grub2-editenv - list").stdout
+  setting = /slub_debug\s*=\s*.*P.*/
 
-  describe 'GRUB config' do
-    it 'should enable page poisoning' do
-      expect(parse_config(grub_stdout)['kernelopts']).to match(setting), 'Current GRUB configuration does not disable this setting'
-      expect(parse_config_file('/etc/default/grub')['GRUB_CMDLINE_LINUX']).to match(setting), 'Setting not configured to persist between kernel updates'
+  describe "GRUB config" do
+    it "should enable page poisoning" do
+      expect(parse_config(grub_stdout)["kernelopts"]).to match(setting), "Current GRUB configuration does not disable this setting"
+      expect(parse_config_file("/etc/default/grub")["GRUB_CMDLINE_LINUX"]).to match(setting), "Setting not configured to persist between kernel updates"
     end
   end
 end
