@@ -257,7 +257,7 @@ inputs:
     type: String
     value: "faillog_t"
 
-  # SV-250317
+  # SV-250317, SV-230548
   - name: network_router
     description: This indicates if the system is acting as a rounter on the network
     type: Boolean

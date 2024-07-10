@@ -76,10 +76,11 @@ control 'SV-251710' do
   tag 'host'
 
   aide_check_fast = input("aide_check_fast") # Default to false if not specified
-
-  only_if("This control takes a long time to execute so it has been disabled through 'slow_controls'") {
-    !input("disable_slow_controls") && !aide_check_fast
-  }
+  # TODO:
+  # update to have aide_check_full, also disable slow control for specific use cases
+  # only_if("This control takes a long time to execute so it has been disabled through 'slow_controls'") {
+  #   !input("disable_slow_controls") && !aide_check_fast
+  # }
 
   file_integrity_tool = input("file_integrity_tool")
 
@@ -93,8 +94,15 @@ control 'SV-251710' do
         it { should exist }
       end
     else
-      describe command("/usr/sbin/aide --check") do
-        its("stdout") { should_not include "Couldn't open file" }
+      if !input('disable_slow_controls')
+        describe command("/usr/sbin/aide --check") do
+          its("stdout") { should_not include "Couldn't open file" }
+        end
+      else
+        impact 0.0
+        describe 'This control takes a long time to execute and has been disabled by slow_controls' do
+          skip 'To enable checks, you can either set disable_slow_controls to false or set aide_check_fast to true'
+        end
       end
     end
   end

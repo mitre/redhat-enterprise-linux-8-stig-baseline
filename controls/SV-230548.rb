@@ -61,10 +61,6 @@ $ sudo sysctl --system'
     !input('network_router')
   }
 
-  only_if("This system is acting as a container host, this control is Not Applicable", impact: 0.0) {
-    !input("container_host")
-  }
-
   # Define the kernel parameter to be checked
   parameter = 'user.max_user_namespaces'
   action = 'user namespaces'
@@ -79,8 +75,13 @@ $ sudo sysctl --system'
     describe 'Control not applicable within a container' do
       skip 'Control not applicable within a container'
     end
+  # Check if the system is a container host
+  elsif input('container_host')
+    impact 0.0
+    describe 'Control not applicable when system is a host for containers' do
+      skip 'Control not applicable for container hosts'
+    end
   else
-
     describe kernel_parameter(parameter) do
       it 'is disabled in sysctl -a' do
         expect(current_value.value).to cmp value
