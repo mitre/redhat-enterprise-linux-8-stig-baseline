@@ -38,6 +38,18 @@ supports:
 ###
 
 inputs:
+
+  - name: aide_check_fast
+    description: Perform fast check for AIDE tool. If true, check for the existence of the aide.db.gz file.
+    type: Boolean
+    value: false
+
+  - name: container_host
+    description: Specify whether the system is a container host
+    type: Boolean
+    value: true
+
+
   # SV-230271, SV-237643
   - name: sudoers_config_files
     description: 'The files and directories you keep your sudoers configs'

@@ -75,15 +75,27 @@ control 'SV-251710' do
   tag nist: ['SI-6 a']
   tag 'host'
 
-  file_integrity_tool = input('file_integrity_tool')
+  aide_check_fast = input("aide_check_fast") # Default to false if not specified
 
-  only_if('Control not applicable within a container', impact: 0.0) do
-    !virtualization.system.eql?('docker')
+  only_if("This control takes a long time to execute so it has been disabled through 'slow_controls'") {
+    !input("disable_slow_controls") && !aide_check_fast
+  }
+
+  file_integrity_tool = input("file_integrity_tool")
+
+  only_if("Control not applicable within a container", impact: 0.0) do
+    !virtualization.system.eql?("docker")
   end
 
-  if file_integrity_tool == 'aide'
-    describe command('/usr/sbin/aide --check') do
-      its('stdout') { should_not include "Couldn't open file" }
+  if file_integrity_tool == "aide"
+    if aide_check_fast
+      describe file("/var/lib/aide/aide.db.gz") do
+        it { should exist }
+      end
+    else
+      describe command("/usr/sbin/aide --check") do
+        its("stdout") { should_not include "Couldn't open file" }
+      end
     end
   end
 
