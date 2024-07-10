@@ -48,7 +48,7 @@ inputs:
   - name: container_host
     description: Specify whether the system is a container host
     type: Boolean
-    value: true
+    value: false
 
 
   # SV-230271, SV-237643
