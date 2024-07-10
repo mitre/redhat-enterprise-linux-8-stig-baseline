@@ -38,7 +38,7 @@ supports:
 ###
 
 inputs:
-
+  # SV-251710
   - name: aide_check_fast
     description: Perform fast check for AIDE tool. If true, check for the existence of the aide.db.gz file.
     type: Boolean
