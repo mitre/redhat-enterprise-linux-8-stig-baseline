@@ -61,6 +61,10 @@ $ sudo sysctl --system'
     !input('network_router')
   }
 
+  only_if("This system is acting as a container host, this control is Not Applicable", impact: 0.0) {
+    !input("container_host")
+  }
+
   # Define the kernel parameter to be checked
   parameter = 'user.max_user_namespaces'
   action = 'user namespaces'

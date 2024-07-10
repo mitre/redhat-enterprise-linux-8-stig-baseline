@@ -40,10 +40,11 @@ supports:
 inputs:
   # SV-251710
   - name: aide_check_fast
-    description: Perform fast check for AIDE tool. If true, check for the existence of the aide.db.gz file.
+    description: Perform fast check for AIDE tool. If true, check for the existence of the aide database (aide.db.gz) file.
     type: Boolean
     value: false
 
+  # SV-230548
   - name: container_host
     description: Specify whether the system is a container host
     type: Boolean
