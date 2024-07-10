@@ -76,11 +76,6 @@ control 'SV-251710' do
   tag 'host'
 
   aide_check_fast = input("aide_check_fast") # Default to false if not specified
-  # TODO:
-  # update to have aide_check_full, also disable slow control for specific use cases
-  # only_if("This control takes a long time to execute so it has been disabled through 'slow_controls'") {
-  #   !input("disable_slow_controls") && !aide_check_fast
-  # }
 
   file_integrity_tool = input("file_integrity_tool")
 
