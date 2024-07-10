@@ -1,9 +1,9 @@
-control 'SV-230484' do
-  title 'RHEL 8 must securely compare internal information system clocks at
+control "SV-230484" do
+  title "RHEL 8 must securely compare internal information system clocks at
 least every 24 hours with a server synchronized to an authoritative time
 source, such as the United States Naval Observatory (USNO) time servers, or a
 time server designated for the appropriate DoD network (NIPRNet/SIPRNet),
-and/or the Global Positioning System (GPS).'
+and/or the Global Positioning System (GPS)."
   desc 'Inaccurate time stamps make it more difficult to correlate events and
 can lead to an inaccurate analysis. Determining the correct time a particular
 event occurred on a system is critical when conducting forensic analysis and
@@ -33,7 +33,7 @@ local time, UTC, and the offset from UTC.
     Note that USNO offers authenticated NTP service to DoD and U.S. Government
 agencies operating on the NIPR and SIPR networks. Visit
 https://www.usno.navy.mil/USNO/time/ntp/dod-customers for more information.'
-  desc 'check', 'Verify RHEL 8 is securely comparing internal information system clocks at
+  desc "check", 'Verify RHEL 8 is securely comparing internal information system clocks at
 least every 24 hours with an NTP server with the following commands:
 
     $ sudo grep maxpoll /etc/chrony.conf
@@ -51,26 +51,26 @@ source by running the following command:
 
     If the parameter "server" is not set or is not set to an authoritative
 DoD time source, this is a finding.'
-  desc 'fix', 'Configure the operating system to securely compare internal information
+  desc "fix", "Configure the operating system to securely compare internal information
 system clocks at least every 24 hours with an NTP server by adding/modifying
 the following line in the /etc/chrony.conf file.
 
-    server [ntp.server.name] iburst maxpoll 16'
+    server [ntp.server.name] iburst maxpoll 16"
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
-  tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000355-GPOS-00143'
-  tag satisfies: ['SRG-OS-000355-GPOS-00143', 'SRG-OS-000356-GPOS-00144', 'SRG-OS-000359-GPOS-00146']
-  tag gid: 'V-230484'
-  tag rid: 'SV-230484r877038_rule'
-  tag stig_id: 'RHEL-08-030740'
-  tag fix_id: 'F-33128r568199_fix'
-  tag cci: ['CCI-001891']
-  tag nist: ['AU-8 (1) (a)']
-  tag 'host'
+  ref "DPMS Target Red Hat Enterprise Linux 8"
+  tag severity: "medium"
+  tag gtitle: "SRG-OS-000355-GPOS-00143"
+  tag satisfies: ["SRG-OS-000355-GPOS-00143", "SRG-OS-000356-GPOS-00144", "SRG-OS-000359-GPOS-00146"]
+  tag gid: "V-230484"
+  tag rid: "SV-230484r877038_rule"
+  tag stig_id: "RHEL-08-030740"
+  tag fix_id: "F-33128r568199_fix"
+  tag cci: ["CCI-001891"]
+  tag nist: ["AU-8 (1) (a)"]
+  tag "host"
 
-  only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+  only_if("This control is Not Applicable to containers", impact: 0.0) {
+    !virtualization.system.eql?("docker")
   }
   # No need to provide filepath
   time_sources = chrony_conf.server
@@ -86,30 +86,31 @@ the following line in the /etc/chrony.conf file.
 
   # Verify the "chrony.conf" file is configured to a time source by running the following command:
   describe chrony_conf do
-    its('server') { should_not be_nil }
+    its("server") { should_not be_nil }
   end
 
   unless chrony_conf.server.nil?
     # If there is only one server and the resource returns a string, check if the server matches the input
     if chrony_conf.server.is_a? String
       describe chrony_conf do
-        its('server') { should match input('authoritative_timeserver') }
+        its("server") { should match input("authoritative_timeserver") }
       end
     end
     # Check if each server in the server array exists in the input
     if chrony_conf.server.is_a? Array
       chrony_conf.server.each do |server|
         describe server do
-          its('server.join') { should match input('authoritative_timeserver') }
+          its("server.join") { should match input("authoritative_timeserver") }
         end
       end
     end
 
-  # All time sources must contain valid maxpoll entries
-  unless time_sources.nil?
-    describe 'chronyd maxpoll values (99=maxpoll absent)' do
-      subject { max_poll_values }
-      it { should all be < 17 }
+    # All time sources must contain valid maxpoll entries
+    unless time_sources.nil?
+      describe "chronyd maxpoll values (99=maxpoll absent)" do
+        subject { max_poll_values }
+        it { should all be < 17 }
+      end
     end
   end
 end
