@@ -43,7 +43,7 @@ Add the following line to the "/etc/pam.d/system-auth" file (or modify the line 
     os.release.to_f < 8.4
   end
 
-  describe pam_auth_files['system-auth'] do
+  describe pam(pam_auth_files['system-auth']) do
     its('lines') { should match_pam_rule('.* .* pam_pwquality.so').any_with_integer_arg('retry', '>=', input('min_retry')) }
   end
 end
