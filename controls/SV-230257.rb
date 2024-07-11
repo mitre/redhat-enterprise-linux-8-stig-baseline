@@ -33,7 +33,11 @@ $ sudo chmod 755 [FILE]'
   tag 'host'
   tag 'container'
 
-  failing_files = command("find -L #{input('system_command_dirs').join(' ')} -perm /0022 -exec ls -d '{}' \\;").stdout.split("\n")
+  system_command_dirs = input('system_command_dirs').join(' ')
+
+  failing_files = command("find -L #{system_command_dirs} -perm /0022 -exec ls -l '{}' \\;").stdout.split("\n")
+  
+  # failing_files = command("find -L #{input('system_command_dirs').join(' ')} -perm /0022 -exec ls -d '{}'' \\;").stdout.split("\n")
 
   describe 'System commands' do
     it "should have mode '0755' or less permissive" do
