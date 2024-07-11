@@ -89,7 +89,7 @@ $ sudo sysctl --system'
     # Parse the search results into a hash
     config_values = search_results.each_with_object({}) do |item, results|
       file, setting = item.split(':')
-file = 'grep did not return filename' if file.empty?
+      file = 'grep did not return filename' if file.empty?
 
       results[file] ||= []
       results[file] << setting.split('=').last

@@ -35,7 +35,6 @@ group.'
   tag 'host'
   tag 'container'
 
-
   if input('disable_slow_controls')
     describe 'This control consistently takes a long to run and has been disabled using the disable_slow_controls attribute.' do
       skip 'This control consistently takes a long to run and has been disabled using the disable_slow_controls attribute. You must enable this control for a full accredidation for production.'
