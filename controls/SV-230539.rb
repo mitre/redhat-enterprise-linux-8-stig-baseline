@@ -94,11 +94,13 @@ $ sudo sysctl --system'
     sysctl_config_files = input('sysctl_conf_files').map(&:strip).join(' ')
 
     # Search for the kernel parameter in the configuration files
-    search_results = command("grep -r #{parameter} #{sysctl_config_files} {} \;").stdout.split("\n")
+    search_results = command("grep -r ^#{parameter} #{sysctl_config_files} {} \;").stdout.split("\n")
 
     # Parse the search results into a hash
     config_values = search_results.each_with_object({}) do |item, results|
       file, setting = item.split(':')
+      file = 'grep did not return filename' if file.empty?
+
       results[file] ||= []
       results[file] << setting.split('=').last
     end
