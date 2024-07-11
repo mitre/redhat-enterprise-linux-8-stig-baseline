@@ -1,9 +1,9 @@
 name: RHEL-Official Hardened EC2 Testing Matrix
 
 on:
-  push:
-    branches-ignore:
-      - none
+  # push:
+  #   branches-ignore:
+  #     - none
   pull_request:
 
 jobs:

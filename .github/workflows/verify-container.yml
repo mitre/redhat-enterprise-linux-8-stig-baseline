@@ -1,9 +1,9 @@
 name: UBI8 Testing Matrix
 
 on:
-  push:
-    branches-ignore:
-      - none
+  # push:
+  #   branches-ignore:
+  #     - none
   pull_request:
 
 jobs:
