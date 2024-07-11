@@ -20,4 +20,3 @@ gem 'rubocop'
 gem 'rubocop-rake'
 gem 'test-kitchen'
 gem 'train-awsssm'
-
