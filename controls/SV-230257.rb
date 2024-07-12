@@ -37,7 +37,7 @@ $ sudo chmod 755 [FILE]'
   system_command_dirs = input('system_command_dirs').join(' ')
 
   failing_files = command("find -L #{system_command_dirs} -perm /0022 -exec ls -l '{}' \\;").stdout.split("\n")
-  
+
   # failing_files = command("find -L #{input('system_command_dirs').join(' ')} -perm /0022 -exec ls -d '{}'' \\;").stdout.split("\n")
 
   describe 'System commands' do

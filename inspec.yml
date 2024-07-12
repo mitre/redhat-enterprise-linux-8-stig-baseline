@@ -1040,5 +1040,11 @@ inputs:
     description: The audit rules to be applied to the system
     type: Hash
     value: {}
+  
+  # SV-230226
+  - name: banner_message_db
+    description: Database where the banner text message is expected to live
+    type: String
+    value: 'local'
 
   

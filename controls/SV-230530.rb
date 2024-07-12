@@ -52,8 +52,8 @@ user interface:
   }
 
   if package('gnome-desktop3').installed?
-    describe command('grep logout /etc/dconf/db/local.d/*') do
-      its('stdout.strip') { should cmp "logout=''" }
+    describe command('grep ^logout /etc/dconf/db/local.d/*') do
+      its('stdout.strip') { should match(/logout=''/) }
     end
   else
     impact 0.0

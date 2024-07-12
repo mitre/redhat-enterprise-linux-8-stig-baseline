@@ -36,14 +36,21 @@ group.'
   tag 'host'
   tag 'container'
 
-  partitions = etc_fstab.params.map { |partition| partition['mount_point'] }.uniq
+  if input('disable_slow_controls')
+    describe 'This control consistently takes a long to run and has been disabled using the disable_slow_controls attribute.' do
+      skip 'This control consistently takes a long to run and has been disabled using the disable_slow_controls attribute. You must enable this control for a full accredidation for production.'
+    end
+  else
 
-  cmd = "find #{partitions.join(' ')} -xdev -type d -perm -0002 -gid +999 -print"
-  failing_dirs = command(cmd).stdout.split("\n").uniq
+    partitions = etc_fstab.params.map { |partition| partition['mount_point'] }.uniq
 
-  describe 'Any world-writeable directories' do
-    it 'should be group-owned by system accounts' do
-      expect(failing_dirs).to be_empty, "Failing directories:\n\t- #{failing_dirs.join("\n\t- ")}"
+    cmd = "find #{partitions.join(' ')} -xdev -type d -perm -0002 -gid +999 -print"
+    failing_dirs = command(cmd).stdout.split("\n").uniq
+
+    describe 'Any world-writeable directories' do
+      it 'should be group-owned by system accounts' do
+        expect(failing_dirs).to be_empty, "Failing directories:\n\t- #{failing_dirs.join("\n\t- ")}"
+      end
     end
   end
 end
