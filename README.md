@@ -40,7 +40,7 @@ Table of Contents
     - [Tags](#tags)
       - [Major and Minor Version Tags](#major-and-minor-version-tags)
     - [Patch Releases](#patch-releases)
-  - [Updates, Releases \& Submitting PRs to the Profile](#updates-releases-submitting-prs-to-the-profile)
+  - [Updates, Releases \& Submitting PRs to the Profile](#updates-releases--submitting-prs-to-the-profile)
     - [Submitting Bugs](#submitting-bugs)
 - [Authors](#authors)
     - [NOTICE](#notice)
