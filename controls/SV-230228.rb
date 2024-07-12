@@ -40,11 +40,11 @@ To restart the "rsyslog" service, run the following command:
   tag 'host'
   tag 'container-conditional'
 
-  only_if("Control not applicable; remote access not configured within containerized RHEL", impact: 0.0) {
-    !(virtualization.system.eql?("docker") && !file("/etc/ssh/sshd_config").exist?)
+  only_if('Control not applicable; remote access not configured within containerized RHEL', impact: 0.0) {
+    !(virtualization.system.eql?('docker') && !file('/etc/ssh/sshd_config').exist?)
   }
 
-  rsyslog = file("/etc/rsyslog.conf")
+  rsyslog = file('/etc/rsyslog.conf')
 
   describe rsyslog do
     it { should exist }
@@ -57,15 +57,15 @@ To restart the "rsyslog" service, run the following command:
 
     rsyslog_conf = command('grep -E \'(auth.*|authpriv.*|daemon.*)\' /etc/rsyslog.conf /etc/rsyslog.d/*.conf')
 
-    describe "Logged remote access methods" do
-      it "should include auth.*" do
-        expect(rsyslog_conf.stdout).to match(auth_pattern), "auth.* not configured for logging"
+    describe 'Logged remote access methods' do
+      it 'should include auth.*' do
+        expect(rsyslog_conf.stdout).to match(auth_pattern), 'auth.* not configured for logging'
       end
-      it "should include authpriv.*" do
-        expect(rsyslog_conf.stdout).to match(authpriv_pattern), "authpriv.* not configured for logging"
+      it 'should include authpriv.*' do
+        expect(rsyslog_conf.stdout).to match(authpriv_pattern), 'authpriv.* not configured for logging'
       end
-      it "should include daemon.*" do
-        expect(rsyslog_conf.stdout).to match(daemon_pattern), "daemon.* not configured for logging"
+      it 'should include daemon.*' do
+        expect(rsyslog_conf.stdout).to match(daemon_pattern), 'daemon.* not configured for logging'
       end
     end
   end
