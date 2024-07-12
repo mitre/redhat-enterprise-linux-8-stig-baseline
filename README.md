@@ -26,7 +26,7 @@ Table of Contents
     - [Profile Inputs (see `inspec.yml` file)](#profile-inputs-see-inspecyml-file)
       - [**_Do not change the inputs in the `inspec.yml` file_**](#do-not-change-the-inputs-in-the-inspecyml-file)
       - [Update Profile Inputs from the CLI or Local File](#update-profile-inputs-from-the-cli-or-local-file)
-      - [Sample Input File](#sample-input-vfile)
+      - [Sample Input File](#sample-input-file)
 - [Running the Profile](#running-the-profile)
   - [Running the Profile in an Internet-Connected Environment](#running-the-profile-in-an-internet-connected-environment)
   - [Running the Profile in an Airgapped (disconnected) Environment](#running-the-profile-in-an-airgapped-disconnected-environment)
