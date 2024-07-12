@@ -20,7 +20,7 @@ Table of Contents
     - [Source Guidance](#source-guidance)
     - [Current Profile Statistics](#current-profile-statistics)
 - [Getting Started and Intended Usage](#getting-started-and-intended-usage)
-  - [Intended Usage - `main` vs `releases`](#intended-usage-_-main-vs-releases)
+  - [Intended Usage - `main` vs `releases`](#intended-usage---main-vs-releases)
   - [Environment Aware Testing](#environment-aware-testing)
   - [Tailoring to Your Environment](#tailoring-to-your-environment)
     - [Profile Inputs (see `inspec.yml` file)](#profile-inputs-see-inspecyml-file)
