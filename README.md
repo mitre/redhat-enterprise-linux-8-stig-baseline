@@ -41,6 +41,7 @@ Table of Contents
       - [Major and Minor Version Tags](#major-and-minor-version-tags)
     - [Patch Releases](#patch-releases)
   - [Updates, Releases \& Submitting PRs to the Profile](#updates-releases--submitting-prs-to-the-profile)
+    - [Create an InSpec Release](#create-an-inspec-release)
     - [Submitting Bugs](#submitting-bugs)
 - [Authors](#authors)
     - [NOTICE](#notice)
@@ -282,7 +283,8 @@ For example, after releasing `v1.13.0`, we point `v1.13` to that patch release: 
 This profile is updated and managed using our standard MITRE SAF InSpec Profile Development and Update process. You can learn more about this and how to help us keep the profile up to date from release to release of the Red Hat Enterprise Linux 8 STIG Benchmark at [SAF Profile Maintenance](https://mitre.github.io/saf-training-current/courses/profile-dev "Profile Maintenance Process") Process.
 
 For example, `v1.13.2` would be the Red Hat Enterprise Linux 8 STIG Version 1 Release 13 with two 'patch' releases from the first `v1.13.0` release.
-
+### Create an InSpec Release
+For information on how to create an InSpec Profile release referecnes instruction listed in the [SAF CLI Developers Corner](https://github.com/mitre/saf/wiki/How-to-Create-an-InSpec-Profile-Release)
 ### Submitting Bugs
 
 If you find an issue or a test that isn't operating as you expect, please submit an issue on the repository.
