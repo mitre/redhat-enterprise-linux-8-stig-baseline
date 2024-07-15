@@ -20,14 +20,13 @@ Table of Contents
     - [Source Guidance](#source-guidance)
     - [Current Profile Statistics](#current-profile-statistics)
 - [Getting Started and Intended Usage](#getting-started-and-intended-usage)
-  - [Intended Usage - `main` vs `releases`](#intended-usage-main-vs-releases)
+  - [Intended Usage - `main` vs `releases`](#intended-usage---main-vs-releases)
   - [Environment Aware Testing](#environment-aware-testing)
   - [Tailoring to Your Environment](#tailoring-to-your-environment)
     - [Profile Inputs (see `inspec.yml` file)](#profile-inputs-see-inspecyml-file)
       - [**_Do not change the inputs in the `inspec.yml` file_**](#do-not-change-the-inputs-in-the-inspecyml-file)
       - [Update Profile Inputs from the CLI or Local File](#update-profile-inputs-from-the-cli-or-local-file)
-      - [Expected versus max/min input values](#expected-versus-maxmin-input-values)
-      - [The following inputs may be configured in an inputs ".yml" file for the profile to run correctly for your specific environment.](#the-following-inputs-may-be-configured-in-an-inputs-yml-file-for-the-profile-to-run-correctly-for-your-specific-environment)
+      - [Sample Input File](#sample-input-file)
 - [Running the Profile](#running-the-profile)
   - [Running the Profile in an Internet-Connected Environment](#running-the-profile-in-an-internet-connected-environment)
   - [Running the Profile in an Airgapped (disconnected) Environment](#running-the-profile-in-an-airgapped-disconnected-environment)
@@ -41,7 +40,8 @@ Table of Contents
     - [Tags](#tags)
       - [Major and Minor Version Tags](#major-and-minor-version-tags)
     - [Patch Releases](#patch-releases)
-  - [Updates, Releases \& Submitting PRs to the Profile](#updates-releases-submitting-prs-to-the-profile)
+  - [Updates, Releases \& Submitting PRs to the Profile](#updates-releases--submitting-prs-to-the-profile)
+    - [Create an InSpec Release](#create-an-inspec-release)
     - [Submitting Bugs](#submitting-bugs)
 - [Authors](#authors)
     - [NOTICE](#notice)
@@ -280,10 +280,11 @@ For example, after releasing `v1.13.0`, we point `v1.13` to that patch release: 
 
 ## Updates, Releases & Submitting PRs to the Profile
 
-This profile is updated and managed using our standard MITRE SAF InSpec Profile Development and Update process. You can learn more about this and how to help us keep the profile up to date from release to release of the Red Hat Enterprise Linux 8 STIG Benchmark at [SAF Profile Maintenance](https://mitre.github.io/saf-training-current/courses/profile-dev "Profile Maintenance Process") Process.
+This profile is updated and managed using our standard MITRE SAF InSpec Profile Development and Update process. You can learn more about this and how to help us keep the profile up to date from release to release of the Red Hat Enterprise Linux 8 STIG Benchmark at [SAF Profile Maintenance](https://mitre.github.io/saf-training-current/courses/profile-dev-test) Process.
 
 For example, `v1.13.2` would be the Red Hat Enterprise Linux 8 STIG Version 1 Release 13 with two 'patch' releases from the first `v1.13.0` release.
-
+### Create an InSpec Release
+For information on how to create an InSpec Profile release referecnes instruction listed in the [SAF CLI Developers Corner](https://github.com/mitre/saf/wiki/How-to-Create-an-InSpec-Profile-Release)
 ### Submitting Bugs
 
 If you find an issue or a test that isn't operating as you expect, please submit an issue on the repository.
