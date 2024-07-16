@@ -25,6 +25,7 @@ directory with the following command:
 
     $ sudo chmod 0750 /home/smithj/<file or directory>'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244531'
@@ -34,6 +35,10 @@ directory with the following command:
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'
+
+  only_if("This control takes a long time to execute so it has been disabled through 'slow_controls'") {
+    !input('disable_slow_controls')
+  }
 
   ignore_shells = input('non_interactive_shells').join('|')
   exempt_home_users = input('exempt_home_users').join('|')

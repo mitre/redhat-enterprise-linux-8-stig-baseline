@@ -4,14 +4,15 @@ passwords.'
   desc 'If an account has an empty password, anyone could log on and run
 commands with the privileges of that account. Accounts with empty passwords
 should never be used in operational environments.'
-  desc 'check', 'To verify that null passwords cannot be used, run the following command:
+  desc 'check', %q(To verify that null passwords cannot be used, run the following command:
 
-$ sudo grep -ir permitemptypasswords /etc/ssh/sshd_config*
+$ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '\n' ' ' | xargs sudo grep -iH '^\s*permitemptypasswords'
 
 PermitEmptyPasswords no
 
 If "PermitEmptyPasswords" is set to "yes", this is a finding.
-If conflicting results are returned, this is a finding.'
+
+If conflicting results are returned, this is a finding.)
   desc 'fix', 'Edit the following line in "etc/ssh/sshd_config" to prevent logons with
 empty passwords.
 
@@ -22,10 +23,11 @@ the SSH daemon, run the following command:
 
     $ sudo systemctl restart sshd.service'
   impact 0.7
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230380'
-  tag rid: 'SV-230380r858715_rule'
+  tag rid: 'SV-230380r951612_rule'
   tag stig_id: 'RHEL-08-020330'
   tag fix_id: 'F-33024r743992_fix'
   tag cci: ['CCI-000366']
@@ -39,7 +41,7 @@ the SSH daemon, run the following command:
       skip 'Control not applicable - SSH is not installed within containerized RHEL'
     end
   else
-    describe sshd_config do
+    describe sshd_active_config do
       its('PermitEmptyPasswords') { should cmp 'no' }
     end
   end

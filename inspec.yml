@@ -4,7 +4,7 @@ maintainer: MITRE SAF Team
 copyright: MITRE
 license: Apache-2.0
 summary: "This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil."
-version: 1.13.0
+version: 1.14.0
 
 inspec_version: ">= 5.0"
 
@@ -38,6 +38,18 @@ supports:
 ###
 
 inputs:
+  # SV-251710
+  - name: aide_check_fast
+    description: Perform fast check for AIDE tool. If true, check for the existence of the aide database (aide.db.gz) file.
+    type: Boolean
+    value: false
+
+  # SV-230548
+  - name: container_host
+    description: Specify whether the system is a container host
+    type: Boolean
+    value: false
+
   # SV-230271, SV-237643
   - name: sudoers_config_files
     description: 'The files and directories you keep your sudoers configs'
@@ -245,7 +257,7 @@ inputs:
     type: String
     value: "faillog_t"
 
-  # SV-250317
+  # SV-250317, SV-230548
   - name: network_router
     description: This indicates if the system is acting as a rounter on the network
     type: Boolean

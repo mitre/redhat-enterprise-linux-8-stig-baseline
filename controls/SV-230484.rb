@@ -1,9 +1,9 @@
 control 'SV-230484' do
-  title 'RHEL 8 must securely compare internal information system clocks at
+  title "RHEL 8 must securely compare internal information system clocks at
 least every 24 hours with a server synchronized to an authoritative time
 source, such as the United States Naval Observatory (USNO) time servers, or a
 time server designated for the appropriate DoD network (NIPRNet/SIPRNet),
-and/or the Global Positioning System (GPS).'
+and/or the Global Positioning System (GPS)."
   desc 'Inaccurate time stamps make it more difficult to correlate events and
 can lead to an inaccurate analysis. Determining the correct time a particular
 event occurred on a system is critical when conducting forensic analysis and
@@ -51,12 +51,13 @@ source by running the following command:
 
     If the parameter "server" is not set or is not set to an authoritative
 DoD time source, this is a finding.'
-  desc 'fix', 'Configure the operating system to securely compare internal information
+  desc 'fix', "Configure the operating system to securely compare internal information
 system clocks at least every 24 hours with an NTP server by adding/modifying
 the following line in the /etc/chrony.conf file.
 
-    server [ntp.server.name] iburst maxpoll 16'
+    server [ntp.server.name] iburst maxpoll 16"
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000355-GPOS-00143'
   tag satisfies: ['SRG-OS-000355-GPOS-00143', 'SRG-OS-000356-GPOS-00144', 'SRG-OS-000359-GPOS-00146']
@@ -71,8 +72,8 @@ the following line in the /etc/chrony.conf file.
   only_if('This control is Not Applicable to containers', impact: 0.0) {
     !virtualization.system.eql?('docker')
   }
-
-  time_sources = ntp_conf('/etc/chrony.conf').server
+  # No need to provide filepath
+  time_sources = chrony_conf.server
 
   # Cover case when a single server is defined and resource returns a string and not an array
   time_sources = [time_sources] if time_sources.is_a? String
@@ -83,30 +84,33 @@ the following line in the /etc/chrony.conf file.
     }
   end
 
-  # Verify the "chrony.conf" file is configured to an authoritative DoD time source by running the following command:
-
-  describe ntp_conf('/etc/chrony.conf') do
+  # Verify the "chrony.conf" file is configured to a time source by running the following command:
+  describe chrony_conf do
     its('server') { should_not be_nil }
   end
 
-  unless ntp_conf('/etc/chrony.conf').server.nil?
-    if ntp_conf('/etc/chrony.conf').server.is_a? String
-      describe ntp_conf('/etc/chrony.conf') do
+  unless chrony_conf.server.nil?
+    # If there is only one server and the resource returns a string, check if the server matches the input
+    if chrony_conf.server.is_a? String
+      describe chrony_conf do
         its('server') { should match input('authoritative_timeserver') }
       end
     end
-
-    if ntp_conf('/etc/chrony.conf').server.is_a? Array
-      describe ntp_conf('/etc/chrony.conf') do
-        its('server.join') { should match input('authoritative_timeserver') }
+    # Check if each server in the server array exists in the input
+    if chrony_conf.server.is_a? Array
+      chrony_conf.server.each do |server|
+        describe server do
+          its('server.join') { should match input('authoritative_timeserver') }
+        end
       end
     end
-  end
-  # All time sources must contain valid maxpoll entries
-  unless time_sources.nil?
-    describe 'chronyd maxpoll values (99=maxpoll absent)' do
-      subject { max_poll_values }
-      it { should all be < 17 }
+
+    # All time sources must contain valid maxpoll entries
+    unless time_sources.nil?
+      describe 'chronyd maxpoll values (99=maxpoll absent)' do
+        subject { max_poll_values }
+        it { should all be < 17 }
+      end
     end
   end
 end

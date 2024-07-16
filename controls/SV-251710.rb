@@ -62,6 +62,7 @@ control 'SV-251710' do
 
         Done.'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag check_id: 'C-55147r880728_chk'
   tag severity: 'medium'
   tag gid: 'V-251710'
@@ -74,6 +75,8 @@ control 'SV-251710' do
   tag nist: ['SI-6 a']
   tag 'host'
 
+  aide_check_fast = input('aide_check_fast') # Default to false if not specified
+
   file_integrity_tool = input('file_integrity_tool')
 
   only_if('Control not applicable within a container', impact: 0.0) do
@@ -81,8 +84,19 @@ control 'SV-251710' do
   end
 
   if file_integrity_tool == 'aide'
-    describe command('/usr/sbin/aide --check') do
-      its('stdout') { should_not include "Couldn't open file" }
+    if aide_check_fast
+      describe file('/var/lib/aide/aide.db.gz') do
+        it { should exist }
+      end
+    elsif !input('disable_slow_controls')
+      describe command('/usr/sbin/aide --check') do
+        its('stdout') { should_not include "Couldn't open file" }
+      end
+    else
+      impact 0.0
+      describe 'This control takes a long time to execute and has been disabled by slow_controls' do
+        skip 'To enable checks, you can either set disable_slow_controls to false or set aide_check_fast to true'
+      end
     end
   end
 
