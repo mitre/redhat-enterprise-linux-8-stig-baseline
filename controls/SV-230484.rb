@@ -100,7 +100,7 @@ the following line in the /etc/chrony.conf file.
     if chrony_conf.server.is_a? Array
       chrony_conf.server.each do |server|
         describe server do
-          its('server') { should match input('authoritative_timeserver') }
+          it { should match input('authoritative_timeserver') }
         end
       end
     end
