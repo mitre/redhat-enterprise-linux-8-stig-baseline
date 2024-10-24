@@ -73,7 +73,6 @@ the following line in the /etc/chrony.conf file.
     !virtualization.system.eql?('docker')
   }
 
-
   # Get input, convert to array if string
   authoritative_timeserver = input('authoritative_timeserver')
   authoritative_timeserver = [authoritative_timeserver] if authoritative_timeserver.is_a? String
