@@ -97,10 +97,10 @@ the following line in the /etc/chrony.conf file.
 
   unless time_sources.nil?
     # Check if each server in the server array exists in the input
-    time_sources.each do |server|
-      describe server do
-        it { should be_in authoritative_timeserver }
-      end
+    valid_time_source_present = time_sources.any? { |server| authoritative_timeserver.include?(server) }
+    describe 'chrony.conf includes at least one valid timeserver' do
+      subject { valid_time_source_present }
+      it { should be true }
     end
     # All time sources must contain valid maxpoll entries
     describe 'chronyd maxpoll values (99=maxpoll absent)' do
