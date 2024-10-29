@@ -81,7 +81,7 @@ the following line in the /etc/chrony.conf file.
   time_sources = chrony_conf.server
 
   # Cover case when a single server is defined and resource returns a string and not an array
-  time_sources = [time_sources] if time_sources.is_a? String
+  time_sources = [time_sources].flatten
 
   # Get and map maxpoll values to an array
   unless time_sources.nil?
@@ -97,15 +97,10 @@ the following line in the /etc/chrony.conf file.
 
   unless time_sources.nil?
     # Check if each server in the server array exists in the input
-    valid_time_source_present = time_sources.any? { |server| authoritative_timeserver.include?(server) }
+    valid_time_source_present = time_sources.any? { |server, index| authoritative_timeserver.include?(server) && max_poll_values[index] < 17 }
     describe 'chrony.conf includes at least one valid timeserver' do
       subject { valid_time_source_present }
       it { should be true }
-    end
-    # All time sources must contain valid maxpoll entries
-    describe 'chronyd maxpoll values (99=maxpoll absent)' do
-      subject { max_poll_values }
-      it { should all be < 17 }
     end
   end
 end
