@@ -39,9 +39,11 @@ the following command:
     !virtualization.system.eql?('docker')
   }
 
+  var_log_messages_group = input('var_log_messages_group')
+
   describe.one do
     describe file('/var/log/messages') do
-      its('group') { should be_in input('var_log_messages_group') }
+      its('group') { should be_in var_log_messages_group }
     end
     describe file('/var/log/messages') do
       it { should_not exist }
