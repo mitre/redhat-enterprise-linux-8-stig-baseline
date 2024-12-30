@@ -85,7 +85,7 @@ jobs:
         if: ${{ !contains(steps.commit.outputs.message, 'only-validate-profile') }}
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ github.workflow }}-${{ env.COMMIT_SHORT_SHA }}-results
+          name: ${{ github.workflow }}-${{ env.COMMIT_SHORT_SHA }}-${{ matrix.suite }}-results
           path: spec/results/
           overwrite: true
 
