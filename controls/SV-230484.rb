@@ -102,26 +102,21 @@ the following line in the /etc/chrony.conf file.
   unless time_sources.nil?
     # Verify the chrony.conf file is configured to at least one authoritative DoD time source
     # Check for valid maxpoll value <17
-    describe "chrony.conf" do
+    describe 'chrony.conf' do
       # authoritative_timeservers_exact specifies whether to verify all inputted timeservers or just one
       if authoritative_timeservers_exact
-        it "should include all specified valid timeservers" do
+        it 'should include all specified valid timeservers' do
           expect(authoritative_timeservers.all? { |input|
-            server_values.include?(input) && max_poll_values[server_values.index(input)] < 17
-        }).to be true
-      end
+                   server_values.include?(input) && max_poll_values[server_values.index(input)] < 17
+                 }).to be true
+        end
       else
-        it "should include at least one valid timeserver" do
-          expect(authoritative_timeservers.any? { |input| 
-          server_values.include?(input) && max_poll_values[server_values.index(input)] < 17
+        it 'should include at least one valid timeserver' do
+          expect(authoritative_timeservers.any? { |input|
+            server_values.include?(input) && max_poll_values[server_values.index(input)] < 17
           }).to be true
         end
       end
     end
   end
-
 end
-
-
-
-
