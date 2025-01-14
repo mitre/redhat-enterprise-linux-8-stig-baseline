@@ -75,7 +75,7 @@ the following line in the /etc/chrony.conf file.
 
   # Get inputs
   authoritative_timeservers = input('authoritative_timeservers')
-  authoritative_timeservers_exact = input('authoritative_timeservers_exact')
+  match_all_authoritative_timeservers_enabled = input('match_all_authoritative_timeservers_enabled')
 
   # Get the system server values
   # Converts to array if only one value present
@@ -104,16 +104,16 @@ the following line in the /etc/chrony.conf file.
     # Check for valid maxpoll value <17
     describe 'chrony.conf' do
       # authoritative_timeservers_exact specifies whether to verify all inputted timeservers or just one
-      if authoritative_timeservers_exact
+      if match_all_authoritative_timeservers_enabled
         it 'should include all specified valid timeservers' do
           expect(authoritative_timeservers.all? { |input|
-                   server_values.include?(input) && max_poll_values[server_values.index(input)] < 17
+                   server_values.include?(input) && max_poll_values[server_values.index(input)] <= 16
                  }).to be true
         end
       else
         it 'should include at least one valid timeserver' do
           expect(authoritative_timeservers.any? { |input|
-            server_values.include?(input) && max_poll_values[server_values.index(input)] < 17
+            server_values.include?(input) && max_poll_values[server_values.index(input)] <= 16
           }).to be true
         end
       end

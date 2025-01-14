@@ -447,7 +447,7 @@ inputs:
     value: ["0.us.pool.ntp.mil"]
   
   # SV-230484
-  - name: authoritative_timeservers_exact
+  - name: match_all_authoritative_timeservers_enabled
     description: Specify that all timeservers in authoritative_timeservers must be present and valid
     type: Boolean
     value: false
