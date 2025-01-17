@@ -40,28 +40,28 @@ If the MACs entries in the "opensshserver.config" file have any hashes other tha
   else
     # Define the required algorithms
     required_algorithms = input('openssh_server_required_algorithms')
-  
+
     # TODO: make a simple resource for this based off 'login_defs' or 'yum' as a model
-  
+
     # Parse the configuration file to get the value of "CRYPTO_POLICY"
     crypto_policy = parse_config_file('/etc/crypto-policies/back-ends/opensshserver.config')['CRYPTO_POLICY']
-  
+
     # Parse the CRYPTO_POLICY string into a hash of configuration options
     config_options = crypto_policy.scan(/-o(\w+)=([\w\-,@]+.)/).to_h
-  
+
     # Split each configuration option's values into an array
     config_options.transform_values! { |v| v.split(',') }
-  
+
     # Define the path to the crypto policy file
     crypto_policy_file = '/etc/crypto-policies/back-ends/opensshserver.config'
-  
+
     # Test that the crypto policy file is configured with the required algorithms
     describe "The crypto policy file #{crypto_policy_file}" do
       it 'is configured with the required algorithms' do
         expect(crypto_policy).not_to be_nil, "The crypto policy file #{crypto_policy_file} \ndoes not contain the required algorithms\n\n\t#{required_algorithms}."
       end
     end
-  
+
     # Test that the MACS option in the crypto policy file contains the required algorithms in the correct order
     describe 'The MACs option in the crypto policy file' do
       it 'contains the required algorithms in the correct order' do
@@ -69,3 +69,4 @@ If the MACs entries in the "opensshserver.config" file have any hashes other tha
       end
     end
   end
+end
