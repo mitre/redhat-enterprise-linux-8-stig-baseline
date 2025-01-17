@@ -75,8 +75,8 @@ restart the "sssd" service, run the following command:
   tag cci: ['CCI-000044']
   tag nist: ['AC-7 a']
 
-  only_if('This check applies to RHEL versions 8.0, 8.1 and 8.2. If the system is RHEL version 8.3 or newer, this check is Not Applicable.', impact: 0.0) do
-    Gem::Version.new(os.release) <= Gem::Version.new('8.2')
+  only_if('This check applies to RHEL versions 8.0 or 8.1. If the system is RHEL version 8.3 or newer, this check is Not Applicable.', impact: 0.0) do
+    Gem::Version.new(os.release) < Gem::Version.new('8.2')
   end
 
   pam_auth_files = input('pam_auth_files')
