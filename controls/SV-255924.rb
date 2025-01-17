@@ -32,7 +32,19 @@ A reboot is required for the changes to take effect.'
   tag 'host'
   tag 'container'
 
-  describe parse_config_file('/etc/crypto-policies/back-ends/opensshserver.config') do
-    its('CRYPTO_POLICY') { should include '-oKexAlgorithms=ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512' }
+  if virtualization.system.eql?('docker')
+    impact 0.0
+    describe 'Control not applicable in a container' do
+      skip 'The host OS controls the FIPS mode settings. The host OS should also be scanned with the applicable OS validation profile.'
+    end
+  elsif input('use_fips') == false
+    impact 0.0
+    describe 'This control is Not Applicable as FIPS is not required for this system' do
+      skip 'This control is Not Applicable as FIPS is not required for this system'
+    end
+  else
+    describe parse_config_file('/etc/crypto-policies/back-ends/opensshserver.config') do
+      its('CRYPTO_POLICY') { should include '-oKexAlgorithms=ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521,diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha256,diffie-hellman-group16-sha512,diffie-hellman-group18-sha512' }
+    end
   end
 end
