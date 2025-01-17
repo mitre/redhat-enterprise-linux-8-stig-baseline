@@ -79,9 +79,9 @@ restart the "sssd" service, run the following command:
   tag 'host'
   tag 'container'
 
-  only_if('If the system is RHEL version 8.2 or newer, this check is not applicable.', impact: 0.0) {
-    (os.release.to_f) < 8.2
-  }
+  only_if('This check applies to RHEL versions 8.0 and 8.1. If the system is RHEL version 8.2 or newer, this check is Not Applicable.', impact: 0.0) do
+    Gem::Version.new(os.release) < Gem::Version.new('8.2')
+  end
 
   pam_auth_files = input('pam_auth_files')
 
