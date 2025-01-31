@@ -1046,5 +1046,3 @@ inputs:
     description: Database where the banner text message is expected to live
     type: String
     value: 'local'
-
-  
