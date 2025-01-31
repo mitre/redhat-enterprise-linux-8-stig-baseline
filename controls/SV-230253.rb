@@ -49,7 +49,14 @@ The SSH service must be restarted for changes to take effect.'
     !(virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?)
   }
 
-  describe parse_config_file('/etc/sysconfig/sshd') do
-    its('SSH_USE_STRONG_RNG') { should cmp 32 }
+  if ! input('hardware_random_generator')
+    impact 0.0
+    describe 'N/A' do
+      skip 'This setting is not recommended on computers without the hardware random generator because insufficient entropy causes the connection to be blocked until enough entropy is available.'
+    end
+  else
+    describe parse_config_file('/etc/sysconfig/sshd') do
+      its('SSH_USE_STRONG_RNG') { should cmp 32 }
+    end
   end
 end
