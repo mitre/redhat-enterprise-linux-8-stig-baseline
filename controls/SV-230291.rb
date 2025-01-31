@@ -41,7 +41,20 @@ the SSH daemon, run the following command:
     !(virtualization.system.eql?('docker') && !directory('/etc/ssh').exist?)
   }
 
-  describe sshd_active_config do
-    its('KerberosAuthentication') { should cmp 'no' }
+  kerb = package('krb5-server')
+
+  if (kerb.installed? && kerb.version >= '1.17-9.el8') || input('system_is_workstation')
+    impact 0.0
+    describe 'N/A' do
+      skip 'The system is a workstation or is utilizing krb5-server-1.17-9.el8 or newer; control is Not Applicable.'
+    end
+  elsif input('kerberos_required')
+    describe package('krb5-server') do
+      it { should be_installed }
+    end
+  else
+    describe sshd_active_config do
+      its('KerberosAuthentication') { should cmp 'no' }
+    end
   end
 end
