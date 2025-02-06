@@ -49,9 +49,14 @@ The SSH service must be restarted for changes to take effect.'
     !(virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?)
   }
 
+  file = '/etc/sysconfig/sshd'
+  parameter = 'SSH_USE_STRONG_RNG'
+  value = '32'
+  results = parse_config_file(file).params[parameter].to_i
+
   if random_number_generator.is_software?
     impact 0.0
-    desc 'justification': "The SSH_USE_STRONG_RNG setting relies on a hardware-based random number generator (HRNG) for sufficient entropy.
+    desc 'justification', "The SSH_USE_STRONG_RNG setting relies on a hardware-based random number generator (HRNG) for sufficient entropy.
                           This system lacks a Hardware Random Number Generator (HRNG), causing possible issues with the connection stability."
 
     describe 'This control is Not Applicable as the SSH server is not using a hardware random number generator.' do
@@ -68,14 +73,9 @@ The SSH service must be restarted for changes to take effect.'
       skip message
     end
   else
-    parameter = 'SSH_USE_STRONG_RNG'
-    value = '32'
-    file = '/etc/sysconfig/sshd'
-    search_results = parse_config_file(file).params[parameter].to_i
-
     describe 'The SSH server must ensure it uses strong entropy' do
-      it "and should configure '#{parameter}'" do
-        expect(search_results).to cmp(32), "The SSH file: '/etc/sysconfig/sshd' does not have the #{parameter} set to #{value}, it is set to #{search_results}."
+      it "via the '#{parameter}' setting" do
+        expect(results).to cmp(32), "The #{parameter} in the #{file} should be set to #{value}, it is set to #{results}."
       end
     end
   end
