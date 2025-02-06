@@ -1,6 +1,6 @@
 control 'SV-230342' do
-  title 'RHEL 8 must log user name information when unsuccessful logon attempts
-occur.'
+  title "RHEL 8 must log user name information when unsuccessful logon attempts
+occur."
   desc 'By limiting the number of failed logon attempts, the risk of
 unauthorized system access via user password guessing, otherwise known as
 brute-force attacks, is reduced. Limits are imposed by locking the account.
@@ -75,10 +75,11 @@ restart the "sssd" service, run the following command:
   tag cci: ['CCI-000044']
   tag nist: ['AC-7 a']
 
-  only_if("\n" + <<~MESSAGE, impact: 0.0) do
-    This check only applies to RHEL versions 8.0 or 8.1.
+  message = <<~MESSAGE
+    \nThis check only applies to RHEL versions 8.0 or 8.1.\n
     The system is running RHEL version: #{os.version}, this check is Not Applicable.
   MESSAGE
+  only_if(message, impact: 0.0) do
     ['8.0', '8.1'].include?(os.version)
   end
 
