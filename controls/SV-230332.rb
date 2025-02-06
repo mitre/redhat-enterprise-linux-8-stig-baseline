@@ -87,10 +87,14 @@ restart the "sssd" service, run the following command:
     !input('central_account_management')
   }
 
+  message = <<~MESSAGE
+    \n\nThis check only applies to RHEL versions 8.0 or 8.1.\n
+    The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
+  MESSAGE
   if os.version >= '8.2'
     impact 0.0
     describe 'This requirement only applies to RHEL 8 version(s) 8.0 and 8.1' do
-      skip "Currently on release #{os.version}, this control is Not Applicable."
+      skip message
     end
   else
     [
