@@ -57,9 +57,13 @@ to match the following lines:
   tag 'host'
   tag 'container'
 
-  only_if('This check applies to RHEL versions 8.2 or newer, if the system is RHEL version 8.0 or 8.1, this check is not applicable.', impact: 0.0) {
-    (os.release.to_f) >= 8.2
-  }
+  message = <<~MESSAGE
+    \nThis check only applies to RHEL versions 8.0 or 8.1.\n
+    The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
+  MESSAGE
+  only_if(message, impact: 0.0) do
+    ['8.0', '8.1'].include?(os.version)
+  end
 
   pam_auth_files = input('pam_auth_files')
 
