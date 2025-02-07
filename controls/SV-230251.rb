@@ -46,7 +46,7 @@ If the MACs entries in the "opensshserver.config" file have any hashes other tha
 
     # Define the required algorithms
     required_algorithms = input('openssh_server_required_algorithms')
-    required_algorithms.map! { |v| v.split(',') }
+    required_algorithms.map! { |v| v.join(',') }
 
     describe parse_config_file('/etc/crypto-policies/back-ends/opensshserver.config') do
       its('CRYPTO_POLICY') { should_not be_nil }
