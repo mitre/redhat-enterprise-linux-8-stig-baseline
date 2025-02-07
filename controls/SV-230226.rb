@@ -73,7 +73,7 @@ Run the following command to update the database:
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
   tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000228-GPOS-00088']
   tag gid: 'V-230226'
-  tag rid: 'SV-230226r743916_rule'
+  tag rid: 'SV-230226r1017045_rule'
   tag stig_id: 'RHEL-08-010050'
   tag fix_id: 'F-32870r743915_fix'
   tag cci: ['CCI-000048']

@@ -22,11 +22,11 @@ password lifetime:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000075-GPOS-00043'
   tag gid: 'V-230364'
-  tag rid: 'SV-230364r627750_rule'
+  tag rid: 'SV-230364r1017176_rule'
   tag stig_id: 'RHEL-08-020180'
   tag fix_id: 'F-33008r567839_fix'
-  tag cci: ['CCI-000198']
-  tag nist: ['IA-5 (1) (d)']
+  tag cci: ['CCI-000198', 'CCI-004066']
+  tag nist: ['IA-5 (1) (d)', 'IA-5 (1) (h)']
   tag 'host'
   tag 'container'
 

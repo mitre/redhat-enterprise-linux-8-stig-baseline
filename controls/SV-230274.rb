@@ -42,11 +42,11 @@ $ sudo systemctl restart sssd.service'
   tag gtitle: 'SRG-OS-000375-GPOS-00160'
   tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000377-GPOS-00162']
   tag gid: 'V-230274'
-  tag rid: 'SV-230274r858741_rule'
+  tag rid: 'SV-230274r1017089_rule'
   tag stig_id: 'RHEL-08-010400'
   tag fix_id: 'F-32918r809280_fix'
-  tag cci: ['CCI-001948']
-  tag nist: ['IA-2 (11)']
+  tag cci: ['CCI-001948', 'CCI-004046']
+  tag nist: ['IA-2 (11)', 'IA-2 (6) (a)']
   tag 'host'
 
   only_if('This requirement is Not Applicable inside the container', impact: 0.0) {

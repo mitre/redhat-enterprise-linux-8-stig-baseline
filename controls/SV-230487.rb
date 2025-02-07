@@ -41,7 +41,7 @@ removing the telnet-server package from the system with the following command:
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-230487'
-  tag rid: 'SV-230487r627750_rule'
+  tag rid: 'SV-230487r1017271_rule'
   tag stig_id: 'RHEL-08-040000'
   tag fix_id: 'F-33131r568208_fix'
   tag cci: ['CCI-000381']

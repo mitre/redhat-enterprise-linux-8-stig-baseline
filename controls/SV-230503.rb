@@ -31,7 +31,7 @@ Reboot the system for the settings to take effect.'
   tag gtitle: 'SRG-OS-000114-GPOS-00059'
   tag satisfies: ['SRG-OS-000114-GPOS-00059', 'SRG-OS-000378-GPOS-00163']
   tag gid: 'V-230503'
-  tag rid: 'SV-230503r942936_rule'
+  tag rid: 'SV-230503r1017285_rule'
   tag stig_id: 'RHEL-08-040080'
   tag fix_id: 'F-33147r942935_fix'
   tag cci: ['CCI-000778']

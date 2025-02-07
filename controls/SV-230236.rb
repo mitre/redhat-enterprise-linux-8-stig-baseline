@@ -24,7 +24,7 @@ mode by adding the following line to the
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag gid: 'V-230236'
-  tag rid: 'SV-230236r743928_rule'
+  tag rid: 'SV-230236r1017055_rule'
   tag stig_id: 'RHEL-08-010151'
   tag fix_id: 'F-32880r743927_fix'
   tag cci: ['CCI-000213']

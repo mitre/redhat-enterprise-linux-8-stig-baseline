@@ -28,7 +28,7 @@ $ sudo grub2-mkconfig -o /boot/grub2/grub.cfg'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag gid: 'V-244522'
-  tag rid: 'SV-244522r792984_rule'
+  tag rid: 'SV-244522r1017328_rule'
   tag stig_id: 'RHEL-08-010149'
   tag fix_id: 'F-47754r743814_fix'
   tag cci: ['CCI-000213']

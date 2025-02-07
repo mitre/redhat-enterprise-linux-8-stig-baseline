@@ -11,24 +11,24 @@ plainly read (i.e., clear text) and easily compromised.'
 
      $ sudo grep -E "^SHA_CRYPT_" /etc/login.defs
 
-If only one of "SHA_CRYPT_MIN_ROUNDS" or "SHA_CRYPT_MAX_ROUNDS" is set, and this value is below "5000", this is a finding.
+If only one of "SHA_CRYPT_MIN_ROUNDS" or "SHA_CRYPT_MAX_ROUNDS" is set, and this value is below "100000", this is a finding.
 
-If both "SHA_CRYPT_MIN_ROUNDS" and "SHA_CRYPT_MAX_ROUNDS" are set, and the highest value for either is below "5000", this is a finding.'
+If both "SHA_CRYPT_MIN_ROUNDS" and "SHA_CRYPT_MAX_ROUNDS" are set, and the highest value for either is below "100000", this is a finding.'
   desc 'fix', 'Configure RHEL 8 to encrypt all stored passwords with a strong cryptographic hash.
 
-Edit/modify the following line in the "/etc/login.defs" file and set "SHA_CRYPT_MIN_ROUNDS" to a value no lower than "5000":
+Edit/modify the following line in the "/etc/login.defs" file and set "SHA_CRYPT_MIN_ROUNDS" to a value no lower than "100000":
 
-SHA_CRYPT_MIN_ROUNDS 5000'
+SHA_CRYPT_MIN_ROUNDS 100000'
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000073-GPOS-00041'
   tag gid: 'V-230233'
-  tag rid: 'SV-230233r880705_rule'
+  tag rid: 'SV-230233r1044790_rule'
   tag stig_id: 'RHEL-08-010130'
-  tag fix_id: 'F-32877r809272_fix'
-  tag cci: ['CCI-000196']
-  tag nist: ['IA-5 (1) (c)']
+  tag fix_id: 'F-32877r1044789_fix'
+  tag cci: ['CCI-000196', 'CCI-004062']
+  tag nist: ['IA-5 (1) (c)', 'IA-5 (1) (d)']
   tag 'host'
   tag 'container'
 

@@ -45,7 +45,7 @@ configuration survives kernel updates:
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000341-GPOS-00132'
   tag gid: 'V-230469'
-  tag rid: 'SV-230469r877391_rule'
+  tag rid: 'SV-230469r958752_rule'
   tag stig_id: 'RHEL-08-030602'
   tag fix_id: 'F-33113r568154_fix'
   tag cci: ['CCI-001849']

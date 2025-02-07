@@ -24,7 +24,7 @@ A reboot is required for the changes to take effect.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230553'
-  tag rid: 'SV-230553r809324_rule'
+  tag rid: 'SV-230553r1017315_rule'
   tag stig_id: 'RHEL-08-040320'
   tag fix_id: 'F-33197r809323_fix'
   tag cci: ['CCI-000366']

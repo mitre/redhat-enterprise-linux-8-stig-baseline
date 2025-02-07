@@ -18,20 +18,21 @@ usbguard tool.
 Security Officer (ISSO) to determine a list of authorized peripherals and
 establish rules within the USBGuard software framework to allow only authorized
 devices.'
-  desc 'check', 'Verify the operating system has enabled the use of the USBGuard with the
-following command:
+  desc 'check', 'Verify the operating system has enabled the use of the USBGuard with the following command:
 
-    $ sudo systemctl status usbguard.service
+$ sudo systemctl status usbguard.service
 
-    usbguard.service - USBGuard daemon
-    Loaded: loaded (/usr/lib/systemd/system/usbguard.service; enabled; vendor
-preset: disabled)
-    Active: active (running)
+usbguard.service - USBGuard daemon
+Loaded: loaded (/usr/lib/systemd/system/usbguard.service; enabled; vendor preset: disabled)
+Active: active (running)
 
-    If the usbguard.service is not enabled and active, ask the SA to indicate
-how unauthorized peripherals are being blocked.
-    If there is no evidence that unauthorized peripherals are being blocked
-before establishing a connection, this is a finding.'
+If the usbguard.service is not enabled and active, ask the SA to indicate how unauthorized peripherals are being blocked.
+If there is no evidence that unauthorized peripherals are being blocked before establishing a connection, this is a finding.
+
+If the USBGuard package is not installed, ask the SA to indicate how unauthorized peripherals are being blocked.
+If there is no evidence that unauthorized peripherals are being blocked before establishing a connection, this is a finding.
+
+If the system is a virtual machine with no virtual or physical USB peripherals attached, this is not a finding.'
   desc 'fix', 'Configure the operating system to enable the blocking of unauthorized
 peripherals with the following commands:
 
@@ -47,7 +48,7 @@ a keyboard or mouse'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000378-GPOS-00163'
   tag gid: 'V-244548'
-  tag rid: 'SV-244548r854077_rule'
+  tag rid: 'SV-244548r1014815_rule'
   tag stig_id: 'RHEL-08-040141'
   tag fix_id: 'F-47780r743892_fix'
   tag cci: ['CCI-001958']

@@ -32,18 +32,17 @@ all direct access to the information system;
     3) All account creations, modifications, disabling, and terminations; and
 
     4) All kernel module load, unload, and restart actions.'
-  desc 'check', 'Verify RHEL 8 enables Linux audit logging of the USBGuard daemon with the
-following commands:
+  desc 'check', 'Verify RHEL 8 enables Linux audit logging of the USBGuard daemon with the following commands:
 
-    Note: If the USBGuard daemon is not installed and enabled, this requirement
-is not applicable.
+Note: If the USBGuard daemon is not installed and enabled, this requirement is Not Applicable.
 
-    $ sudo grep -i auditbackend /etc/usbguard/usbguard-daemon.conf
+$ sudo grep -i auditbackend /etc/usbguard/usbguard-daemon.conf
 
-    AuditBackend=LinuxAudit
+AuditBackend=LinuxAudit
 
-    If the "AuditBackend" entry does not equal "LinuxAudit", is missing, or
-the line is commented out, this is a finding.'
+If the "AuditBackend" entry does not equal "LinuxAudit", is missing, or the line is commented out, this is a finding.
+
+If the system is a virtual machine with no virtual or physical USB peripherals attached, this is not a finding.'
   desc 'fix', 'Configure RHEL 8 to enable Linux audit logging of the USBGuard daemon by
 adding or modifying the following line in
 "/etc/usbguard/usbguard-daemon.conf":
@@ -55,7 +54,7 @@ adding or modifying the following line in
   tag gtitle: 'SRG-OS-000062-GPOS-00031'
   tag satisfies: ['SRG-OS-000062-GPOS-00031', 'SRG-OS-000471-GPOS-00215']
   tag gid: 'V-230470'
-  tag rid: 'SV-230470r744006_rule'
+  tag rid: 'SV-230470r1017261_rule'
   tag stig_id: 'RHEL-08-030603'
   tag fix_id: 'F-33114r744005_fix'
   tag cci: ['CCI-000169']

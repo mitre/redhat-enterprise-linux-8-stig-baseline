@@ -30,7 +30,7 @@ If a separate entry for the file system/partition containing the nonprivileged i
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230328'
-  tag rid: 'SV-230328r902723_rule'
+  tag rid: 'SV-230328r1017139_rule'
   tag stig_id: 'RHEL-08-010800'
   tag fix_id: 'F-32972r902722_fix'
   tag cci: ['CCI-000366']

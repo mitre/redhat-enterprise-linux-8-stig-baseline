@@ -32,7 +32,7 @@ effect.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230382'
-  tag rid: 'SV-230382r951614_rule'
+  tag rid: 'SV-230382r991589_rule'
   tag stig_id: 'RHEL-08-020350'
   tag fix_id: 'F-33026r567893_fix'
   tag cci: ['CCI-000366', 'CCI-000052']

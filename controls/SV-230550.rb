@@ -31,7 +31,7 @@ restrict client connections to the local network with the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230550'
-  tag rid: 'SV-230550r627750_rule'
+  tag rid: 'SV-230550r1017312_rule'
   tag stig_id: 'RHEL-08-040290'
   tag fix_id: 'F-33194r568397_fix'
   tag cci: ['CCI-000366']

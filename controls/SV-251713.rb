@@ -24,7 +24,7 @@ Add the following line to the "/etc/pam.d/system-auth" file (or modify the line 
   tag check_id: 'C-55150r902738_chk'
   tag severity: 'medium'
   tag gid: 'V-251713'
-  tag rid: 'SV-251713r902740_rule'
+  tag rid: 'SV-251713r1017366_rule'
   tag stig_id: 'RHEL-08-020101'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-55104r902739_fix'

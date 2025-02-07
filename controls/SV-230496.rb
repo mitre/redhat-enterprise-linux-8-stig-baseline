@@ -40,7 +40,7 @@ Reboot the system for the settings to take effect.'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-230496'
-  tag rid: 'SV-230496r942924_rule'
+  tag rid: 'SV-230496r1017279_rule'
   tag stig_id: 'RHEL-08-040023'
   tag fix_id: 'F-33140r942923_fix'
   tag cci: ['CCI-000381']

@@ -33,11 +33,11 @@ following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000073-GPOS-00041'
   tag gid: 'V-230231'
-  tag rid: 'SV-230231r877397_rule'
+  tag rid: 'SV-230231r1017050_rule'
   tag stig_id: 'RHEL-08-010110'
   tag fix_id: 'F-32875r567440_fix'
-  tag cci: ['CCI-000196']
-  tag nist: ['IA-5 (1) (c)']
+  tag cci: ['CCI-000196', 'CCI-004062']
+  tag nist: ['IA-5 (1) (c)', 'IA-5 (1) (d)']
   tag 'host'
   tag 'container'
 

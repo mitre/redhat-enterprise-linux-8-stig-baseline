@@ -24,7 +24,7 @@ $ sudo chmod 755 [FILE]'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000259-GPOS-00100'
   tag gid: 'V-230260'
-  tag rid: 'SV-230260r792867_rule'
+  tag rid: 'SV-230260r1017080_rule'
   tag stig_id: 'RHEL-08-010330'
   tag fix_id: 'F-32904r792866_fix'
   tag cci: ['CCI-001499']

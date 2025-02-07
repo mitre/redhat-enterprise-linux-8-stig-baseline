@@ -72,7 +72,7 @@ restart the "sssd" service, run the following command:
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
   tag gid: 'V-230332'
-  tag rid: 'SV-230332r627750_rule'
+  tag rid: 'SV-230332r1017144_rule'
   tag stig_id: 'RHEL-08-020010'
   tag fix_id: 'F-32976r567743_fix'
   tag cci: ['CCI-000044']

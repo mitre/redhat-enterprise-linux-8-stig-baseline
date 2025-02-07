@@ -32,9 +32,9 @@ following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230532'
-  tag rid: 'SV-230532r627750_rule'
+  tag rid: 'SV-230532r1017294_rule'
   tag stig_id: 'RHEL-08-040180'
-  tag fix_id: 'F-33176r619892_fix'
+  tag fix_id: 'F-33176r1017293_fix'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'

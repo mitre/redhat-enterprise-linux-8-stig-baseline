@@ -18,7 +18,7 @@ system/partition.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230295'
-  tag rid: 'SV-230295r627750_rule'
+  tag rid: 'SV-230295r1017106_rule'
   tag stig_id: 'RHEL-08-010543'
   tag fix_id: 'F-32939r567632_fix'
   tag cci: ['CCI-000366']

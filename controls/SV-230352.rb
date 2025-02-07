@@ -47,7 +47,7 @@ lines:
   tag gtitle: 'SRG-OS-000029-GPOS-00010'
   tag satisfies: ['SRG-OS-000029-GPOS-00010', 'SRG-OS-000031-GPOS-00012']
   tag gid: 'V-230352'
-  tag rid: 'SV-230352r646876_rule'
+  tag rid: 'SV-230352r1017165_rule'
   tag stig_id: 'RHEL-08-020060'
   tag fix_id: 'F-32996r567803_fix'
   tag cci: ['CCI-000057']

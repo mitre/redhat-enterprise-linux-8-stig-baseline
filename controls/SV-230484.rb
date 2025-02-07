@@ -1,9 +1,9 @@
 control 'SV-230484' do
-  title "RHEL 8 must securely compare internal information system clocks at
+  title 'RHEL 8 must securely compare internal information system clocks at
 least every 24 hours with a server synchronized to an authoritative time
 source, such as the United States Naval Observatory (USNO) time servers, or a
 time server designated for the appropriate DoD network (NIPRNet/SIPRNet),
-and/or the Global Positioning System (GPS)."
+and/or the Global Positioning System (GPS).'
   desc 'Inaccurate time stamps make it more difficult to correlate events and
 can lead to an inaccurate analysis. Determining the correct time a particular
 event occurred on a system is critical when conducting forensic analysis and
@@ -51,22 +51,22 @@ source by running the following command:
 
     If the parameter "server" is not set or is not set to an authoritative
 DoD time source, this is a finding.'
-  desc 'fix', "Configure the operating system to securely compare internal information
+  desc 'fix', 'Configure the operating system to securely compare internal information
 system clocks at least every 24 hours with an NTP server by adding/modifying
 the following line in the /etc/chrony.conf file.
 
-    server [ntp.server.name] iburst maxpoll 16"
+    server [ntp.server.name] iburst maxpoll 16'
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000355-GPOS-00143'
   tag satisfies: ['SRG-OS-000355-GPOS-00143', 'SRG-OS-000356-GPOS-00144', 'SRG-OS-000359-GPOS-00146']
   tag gid: 'V-230484'
-  tag rid: 'SV-230484r877038_rule'
+  tag rid: 'SV-230484r1038944_rule'
   tag stig_id: 'RHEL-08-030740'
   tag fix_id: 'F-33128r568199_fix'
-  tag cci: ['CCI-001891']
-  tag nist: ['AU-8 (1) (a)']
+  tag cci: ['CCI-001891', 'CCI-004923']
+  tag nist: ['AU-8 (1) (a)', 'SC-45 (1) (a)']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

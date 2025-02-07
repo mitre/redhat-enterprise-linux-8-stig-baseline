@@ -33,10 +33,10 @@ the SSH daemon, run the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000109-GPOS-00056'
   tag gid: 'V-230296'
-  tag rid: 'SV-230296r951608_rule'
+  tag rid: 'SV-230296r1017107_rule'
   tag stig_id: 'RHEL-08-010550'
   tag fix_id: 'F-32940r567635_fix'
-  tag cci: ['CCI-000770']
+  tag cci: ['CCI-000770', 'CCI-004045']
   tag nist: ['IA-2 (5)']
   tag 'host'
   tag 'container-conditional'

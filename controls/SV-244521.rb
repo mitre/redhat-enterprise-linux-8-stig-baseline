@@ -30,7 +30,7 @@ $ sudo grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag gid: 'V-244521'
-  tag rid: 'SV-244521r792982_rule'
+  tag rid: 'SV-244521r1017327_rule'
   tag stig_id: 'RHEL-08-010141'
   tag fix_id: 'F-47753r743811_fix'
   tag cci: ['CCI-000213']

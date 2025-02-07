@@ -32,7 +32,7 @@ password sufficient pam_unix.so sha512'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000120-GPOS-00061'
   tag gid: 'V-230237'
-  tag rid: 'SV-230237r809276_rule'
+  tag rid: 'SV-230237r1017056_rule'
   tag stig_id: 'RHEL-08-010160'
   tag fix_id: 'F-32881r809275_fix'
   tag cci: ['CCI-000803']

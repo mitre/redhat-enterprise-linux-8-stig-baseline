@@ -19,7 +19,7 @@ ALL     ALL=(ALL:ALL) ALL'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-237641'
-  tag rid: 'SV-237641r646893_rule'
+  tag rid: 'SV-237641r1017324_rule'
   tag stig_id: 'RHEL-08-010382'
   tag fix_id: 'F-40823r646892_fix'
   tag cci: ['CCI-000366']

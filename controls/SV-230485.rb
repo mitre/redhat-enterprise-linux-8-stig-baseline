@@ -23,9 +23,9 @@ If the "port" option is not set to "0", is commented out or missing, this is a f
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-230485'
-  tag rid: 'SV-230485r928590_rule'
+  tag rid: 'SV-230485r1017269_rule'
   tag stig_id: 'RHEL-08-030741'
-  tag fix_id: 'F-33129r928589_fix'
+  tag fix_id: 'F-33129r1014805_fix'
   tag cci: ['CCI-000381']
   tag nist: ['CM-7 a']
   tag 'host'

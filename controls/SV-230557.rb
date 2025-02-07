@@ -30,7 +30,7 @@ line to "/etc/xinetd.d/tftp" (or modify the line to have the required value):
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230557'
-  tag rid: 'SV-230557r627750_rule'
+  tag rid: 'SV-230557r1017319_rule'
   tag stig_id: 'RHEL-08-040350'
   tag fix_id: 'F-33201r568418_fix'
   tag cci: ['CCI-000366']

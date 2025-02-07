@@ -30,7 +30,7 @@ Storage=none'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230314'
-  tag rid: 'SV-230314r627750_rule'
+  tag rid: 'SV-230314r1017125_rule'
   tag stig_id: 'RHEL-08-010674'
   tag fix_id: 'F-32958r567689_fix'
   tag cci: ['CCI-000366']

@@ -37,7 +37,7 @@ commands:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230298'
-  tag rid: 'SV-230298r627750_rule'
+  tag rid: 'SV-230298r1017108_rule'
   tag stig_id: 'RHEL-08-010561'
   tag fix_id: 'F-32942r567641_fix'
   tag cci: ['CCI-000366']

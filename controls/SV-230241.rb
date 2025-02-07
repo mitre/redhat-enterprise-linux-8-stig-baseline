@@ -31,7 +31,7 @@ installed with the following command:
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000134-GPOS-00068'
   tag gid: 'V-230241'
-  tag rid: 'SV-230241r627750_rule'
+  tag rid: 'SV-230241r1017060_rule'
   tag stig_id: 'RHEL-08-010171'
   tag fix_id: 'F-32885r567470_fix'
   tag cci: ['CCI-001084']

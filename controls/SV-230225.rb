@@ -81,7 +81,7 @@ The SSH service must be restarted for changes to take effect.'
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
   tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000228-GPOS-00088']
   tag gid: 'V-230225'
-  tag rid: 'SV-230225r951590_rule'
+  tag rid: 'SV-230225r1017044_rule'
   tag stig_id: 'RHEL-08-010040'
   tag fix_id: 'F-32869r951589_fix'
   tag cci: ['CCI-000048']

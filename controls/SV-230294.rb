@@ -23,7 +23,7 @@ data path, this is a finding.'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230294'
-  tag rid: 'SV-230294r627750_rule'
+  tag rid: 'SV-230294r1017105_rule'
   tag stig_id: 'RHEL-08-010542'
   tag fix_id: 'F-32938r567629_fix'
   tag cci: ['CCI-000366']

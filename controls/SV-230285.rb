@@ -27,7 +27,7 @@ If the service is not "enabled" and "active", this is a finding.'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230285'
-  tag rid: 'SV-230285r928587_rule'
+  tag rid: 'SV-230285r1017096_rule'
   tag stig_id: 'RHEL-08-010471'
   tag fix_id: 'F-32929r917875_fix'
   tag cci: ['CCI-000366']

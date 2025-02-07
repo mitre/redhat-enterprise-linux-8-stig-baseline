@@ -35,7 +35,7 @@ account that has a duplicate User ID (UID) with a unique UID.'
   tag gtitle: 'SRG-OS-000104-GPOS-00051'
   tag satisfies: ['SRG-OS-000104-GPOS-00051', 'SRG-OS-000121-GPOS-00062', 'SRG-OS-000042-GPOS-00020']
   tag gid: 'V-230371'
-  tag rid: 'SV-230371r627750_rule'
+  tag rid: 'SV-230371r1017183_rule'
   tag stig_id: 'RHEL-08-020240'
   tag fix_id: 'F-33015r567860_fix'
   tag cci: ['CCI-000764']

@@ -25,7 +25,7 @@ the /boot directory.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230300'
-  tag rid: 'SV-230300r743959_rule'
+  tag rid: 'SV-230300r1017110_rule'
   tag stig_id: 'RHEL-08-010571'
   tag fix_id: 'F-32944r567647_fix'
   tag cci: ['CCI-000366']

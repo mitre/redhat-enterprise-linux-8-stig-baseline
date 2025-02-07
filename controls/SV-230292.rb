@@ -17,7 +17,7 @@ If a separate entry for "/var" is not in use, this is a finding.'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230292'
-  tag rid: 'SV-230292r902718_rule'
+  tag rid: 'SV-230292r1017103_rule'
   tag stig_id: 'RHEL-08-010540'
   tag fix_id: 'F-32936r567623_fix'
   tag cci: ['CCI-000366']

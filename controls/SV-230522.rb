@@ -42,7 +42,7 @@ If results are returned and the "noexec" option is missing, or if /var/tmp is mo
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000368-GPOS-00154'
   tag gid: 'V-230522'
-  tag rid: 'SV-230522r854063_rule'
+  tag rid: 'SV-230522r958804_rule'
   tag stig_id: 'RHEL-08-040134'
   tag fix_id: 'F-33166r792932_fix'
   tag cci: ['CCI-001764']

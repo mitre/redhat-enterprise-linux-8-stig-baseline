@@ -42,7 +42,7 @@ If results are returned and the "nodev" option is missing, or if /var/tmp is mou
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000368-GPOS-00154'
   tag gid: 'V-230520'
-  tag rid: 'SV-230520r854061_rule'
+  tag rid: 'SV-230520r958804_rule'
   tag stig_id: 'RHEL-08-040132'
   tag fix_id: 'F-33164r792926_fix'
   tag cci: ['CCI-001764']

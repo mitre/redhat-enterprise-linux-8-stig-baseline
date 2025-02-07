@@ -43,7 +43,7 @@ control 'SV-230374' do
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000123-GPOS-00064'
   tag gid: 'V-230374'
-  tag rid: 'SV-230374r903129_rule'
+  tag rid: 'SV-230374r1017186_rule'
   tag stig_id: 'RHEL-08-020270'
   tag fix_id: 'F-33018r902730_fix'
   tag cci: ['CCI-001682']

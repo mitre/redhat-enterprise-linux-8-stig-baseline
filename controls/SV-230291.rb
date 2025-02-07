@@ -29,7 +29,7 @@ the SSH daemon, run the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230291'
-  tag rid: 'SV-230291r952105_rule'
+  tag rid: 'SV-230291r1017102_rule'
   tag stig_id: 'RHEL-08-010521'
   tag fix_id: 'F-32935r743956_fix'
   tag cci: ['CCI-000366']

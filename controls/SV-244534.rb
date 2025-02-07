@@ -50,7 +50,7 @@ file to match the following lines:
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
   tag gid: 'V-244534'
-  tag rid: 'SV-244534r743851_rule'
+  tag rid: 'SV-244534r1017341_rule'
   tag stig_id: 'RHEL-08-020026'
   tag fix_id: 'F-47766r743850_fix'
   tag cci: ['CCI-000044']

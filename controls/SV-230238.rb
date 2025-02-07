@@ -40,7 +40,7 @@ authentication.
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000120-GPOS-00061'
   tag gid: 'V-230238'
-  tag rid: 'SV-230238r646862_rule'
+  tag rid: 'SV-230238r1017057_rule'
   tag stig_id: 'RHEL-08-010161'
   tag fix_id: 'F-32882r567461_fix'
   tag cci: ['CCI-000803']

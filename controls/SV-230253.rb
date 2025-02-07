@@ -13,33 +13,34 @@ environment variable the OPENSSL random generator is reseeded from /dev/random.
  This setting is not recommended on computers without the hardware random
 generator because insufficient entropy causes the connection to be blocked
 until enough entropy is available.'
-  desc 'check', 'Verify the operating system SSH server uses strong entropy with the
-following command:
+  desc 'check', 'Note: If the operating system is RHEL versions 8.0 or 8.1, this requirement is not applicable.
 
-    Note: If the operating system is RHEL versions 8.0 or 8.1, this requirement
-is not applicable.
+Verify the operating system SSH server uses strong entropy with the following command:
 
-    $ sudo grep -i ssh_use_strong_rng /etc/sysconfig/sshd
+$ sudo grep -i ssh_use_strong_rng /etc/sysconfig/sshd
 
-    SSH_USE_STRONG_RNG=32
+SSH_USE_STRONG_RNG=32
 
-    If the "SSH_USE_STRONG_RNG" line does not equal "32", is commented out
-or missing, this is a finding.'
+If the "SSH_USE_STRONG_RNG" line does not equal "32", is commented out, or is missing, this is a finding.'
   desc 'fix', 'Configure the operating system SSH server to use strong entropy.
 
 Add or modify the following line in the "/etc/sysconfig/sshd" file.
 
 SSH_USE_STRONG_RNG=32
 
-The SSH service must be restarted for changes to take effect.'
+The SSH service must be restarted for changes to take effect.
+
+Restart the SSH Daemon with the following command:
+
+$ sudo systemctl restart sshd.service'
   impact 0.3
   ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230253'
-  tag rid: 'SV-230253r627750_rule'
+  tag rid: 'SV-230253r1044799_rule'
   tag stig_id: 'RHEL-08-010292'
-  tag fix_id: 'F-32897r567506_fix'
+  tag fix_id: 'F-32897r1044798_fix'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'

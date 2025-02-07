@@ -20,7 +20,7 @@ following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000067-GPOS-00035'
   tag gid: 'V-230230'
-  tag rid: 'SV-230230r627750_rule'
+  tag rid: 'SV-230230r1017049_rule'
   tag stig_id: 'RHEL-08-010100'
   tag fix_id: 'F-32874r567437_fix'
   tag cci: ['CCI-000186']

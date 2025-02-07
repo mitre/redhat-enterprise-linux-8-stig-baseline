@@ -29,13 +29,13 @@ rest by using disk encryption.
     Encrypting a partition in an already installed system is more difficult,
     because existing partitions will need to be resized and changed. To encrypt an
     entire partition, dedicate a partition for encryption in the partition layout.'
-  impact 0.5
+  impact 0.7
   ref 'DPMS Target Red Hat Enterprise Linux 8'
-  tag severity: 'medium'
+  tag severity: 'high'
   tag gtitle: 'SRG-OS-000185-GPOS-00079'
   tag satisfies: ['SRG-OS-000185-GPOS-00079', 'SRG-OS-000404-GPOS-00183', 'SRG-OS-000405-GPOS-00184']
   tag gid: 'V-230224'
-  tag rid: 'SV-230224r917864_rule'
+  tag rid: 'SV-230224r1044787_rule'
   tag stig_id: 'RHEL-08-010030'
   tag fix_id: 'F-32868r567419_fix'
   tag cci: ['CCI-001199']

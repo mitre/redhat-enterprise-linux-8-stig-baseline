@@ -32,11 +32,11 @@ Remove any duplicate or conflicting lines from /etc/sudoers and /etc/sudoers.d/ 
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000373-GPOS-00156'
   tag gid: 'V-237643'
-  tag rid: 'SV-237643r861088_rule'
+  tag rid: 'SV-237643r1050789_rule'
   tag stig_id: 'RHEL-08-010384'
   tag fix_id: 'F-40825r858763_fix'
-  tag cci: ['CCI-002038']
-  tag nist: ['IA-11']
+  tag cci: ['CCI-002038', 'CCI-004895']
+  tag nist: ['IA-11', 'SC-11 b']
   tag 'host'
   tag 'container-conditional'
 

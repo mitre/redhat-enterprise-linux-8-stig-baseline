@@ -43,7 +43,7 @@ assigned" in "/etc/passwd".
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230323'
-  tag rid: 'SV-230323r627750_rule'
+  tag rid: 'SV-230323r1017134_rule'
   tag stig_id: 'RHEL-08-010750'
   tag fix_id: 'F-32967r567716_fix'
   tag cci: ['CCI-000366']

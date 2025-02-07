@@ -54,7 +54,7 @@ following command:
   tag gtitle: 'SRG-OS-000299-GPOS-00117'
   tag satisfies: ['SRG-OS-000299-GPOS-00117', 'SRG-OS-000300-GPOS-00118', 'SRG-OS-000481-GPOS-000481']
   tag gid: 'V-230506'
-  tag rid: 'SV-230506r627750_rule'
+  tag rid: 'SV-230506r1017286_rule'
   tag stig_id: 'RHEL-08-040110'
   tag fix_id: 'F-33150r568265_fix'
   tag cci: ['CCI-001444']

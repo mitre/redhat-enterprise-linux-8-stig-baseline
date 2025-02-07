@@ -53,7 +53,7 @@ $ sudo sysctl --system'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230544'
-  tag rid: 'SV-230544r858820_rule'
+  tag rid: 'SV-230544r1017306_rule'
   tag stig_id: 'RHEL-08-040280'
   tag fix_id: 'F-33188r858819_fix'
   tag cci: ['CCI-000366']

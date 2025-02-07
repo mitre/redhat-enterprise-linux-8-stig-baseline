@@ -41,7 +41,7 @@ sticky bit:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000138-GPOS-00069'
   tag gid: 'V-230243'
-  tag rid: 'SV-230243r792857_rule'
+  tag rid: 'SV-230243r1017061_rule'
   tag stig_id: 'RHEL-08-010190'
   tag fix_id: 'F-32887r567476_fix'
   tag cci: ['CCI-001090']

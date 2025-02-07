@@ -47,7 +47,7 @@ by setting the "disk_error_action" to "SYSLOG".'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000047-GPOS-00023'
   tag gid: 'V-230390'
-  tag rid: 'SV-230390r627750_rule'
+  tag rid: 'SV-230390r1038966_rule'
   tag stig_id: 'RHEL-08-030040'
   tag fix_id: 'F-33034r567917_fix'
   tag cci: ['CCI-000140']

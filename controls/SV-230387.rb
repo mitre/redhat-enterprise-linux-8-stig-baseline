@@ -40,7 +40,7 @@ following line to "/etc/rsyslog.conf" or a configuration file in the
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230387'
-  tag rid: 'SV-230387r743996_rule'
+  tag rid: 'SV-230387r1017195_rule'
   tag stig_id: 'RHEL-08-030010'
   tag fix_id: 'F-33031r743995_fix'
   tag cci: ['CCI-000366']

@@ -32,7 +32,7 @@ UMASK 077'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230385'
-  tag rid: 'SV-230385r792902_rule'
+  tag rid: 'SV-230385r1017194_rule'
   tag stig_id: 'RHEL-08-020353'
   tag fix_id: 'F-33029r792901_fix'
   tag cci: ['CCI-000366']

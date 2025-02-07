@@ -42,7 +42,7 @@ command:
   tag gtitle: 'SRG-OS-000256-GPOS-00097'
   tag satisfies: ['SRG-OS-000256-GPOS-00097', 'SRG-OS-000257-GPOS-00098', 'SRG-OS-000258-GPOS-00099']
   tag gid: 'V-230473'
-  tag rid: 'SV-230473r744008_rule'
+  tag rid: 'SV-230473r1017264_rule'
   tag stig_id: 'RHEL-08-030630'
   tag fix_id: 'F-33117r568166_fix'
   tag cci: ['CCI-001493']

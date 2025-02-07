@@ -49,7 +49,7 @@ and add or update the following lines:
   tag gtitle: 'SRG-OS-000028-GPOS-00009'
   tag satisfies: ['SRG-OS-000028-GPOS-00009', 'SRG-OS-000030-GPOS-00011']
   tag gid: 'V-230347'
-  tag rid: 'SV-230347r627750_rule'
+  tag rid: 'SV-230347r1017160_rule'
   tag stig_id: 'RHEL-08-020030'
   tag fix_id: 'F-32991r567788_fix'
   tag cci: ['CCI-000056']

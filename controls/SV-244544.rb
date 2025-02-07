@@ -35,7 +35,7 @@ command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000297-GPOS-00115'
   tag gid: 'V-244544'
-  tag rid: 'SV-244544r854073_rule'
+  tag rid: 'SV-244544r958672_rule'
   tag stig_id: 'RHEL-08-040101'
   tag fix_id: 'F-47776r743880_fix'
   tag cci: ['CCI-002314']

@@ -5,38 +5,34 @@ least two name servers must be configured.'
 redundant name servers are mandated. A failure in name resolution could lead to
 the failure of security functions requiring name resolution, which may include
 time synchronization, centralized authentication, and remote system logging.'
-  desc 'check', %q(Determine whether the system is using local or DNS name resolution with the
-following command:
+  desc 'check', %q(Note: If the system is running in a cloud platform and the cloud provider gives a single, highly available IP address for DNS configuration, this is not applicable.
 
-    $ sudo grep hosts /etc/nsswitch.conf
+Determine whether the system is using local or DNS name resolution with the following command:
 
-    hosts: files dns
+$ sudo grep hosts /etc/nsswitch.conf
 
-    If the DNS entry is missing from the host's line in the
-"/etc/nsswitch.conf" file, the "/etc/resolv.conf" file must be empty.
+hosts: files dns
 
-    Verify the "/etc/resolv.conf" file is empty with the following command:
+If the DNS entry is missing from the host's line in the "/etc/nsswitch.conf" file, the "/etc/resolv.conf" file must be empty.
 
-    $ sudo ls -al /etc/resolv.conf
+Verify the "/etc/resolv.conf" file is empty with the following command:
 
-    -rw-r--r-- 1 root root 0 Aug 19 08:31 resolv.conf
+$ sudo ls -al /etc/resolv.conf
 
-    If local host authentication is being used and the "/etc/resolv.conf"
-file is not empty, this is a finding.
+-rw-r--r-- 1 root root 0 Aug 19 08:31 resolv.conf
 
-    If the DNS entry is found on the host's line of the "/etc/nsswitch.conf"
-file, verify the operating system is configured to use two or more name servers
-for DNS resolution.
+If local host authentication is being used and the "/etc/resolv.conf" file is not empty, this is a finding.
 
-    Determine the name servers used by the system with the following command:
+If the DNS entry is found on the host's line of the "/etc/nsswitch.conf" file, verify the operating system is configured to use two or more name servers for DNS resolution.
 
-    $ sudo grep nameserver /etc/resolv.conf
+Determine the name servers used by the system with the following command:
 
-    nameserver 192.168.1.2
-    nameserver 192.168.1.3
+$ sudo grep nameserver /etc/resolv.conf
 
-    If less than two lines are returned that are not commented out, this is a
-finding.)
+nameserver 192.168.1.2
+nameserver 192.168.1.3
+
+If fewer than two lines are returned that are not commented out, this is a finding.)
   desc 'fix', 'Configure the operating system to use two or more name servers for DNS
 resolution.
 
@@ -57,7 +53,7 @@ performed, the "/etc/resolv.conf" file must be empty. An empty
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230316'
-  tag rid: 'SV-230316r627750_rule'
+  tag rid: 'SV-230316r1044801_rule'
   tag stig_id: 'RHEL-08-010680'
   tag fix_id: 'F-32960r567695_fix'
   tag cci: ['CCI-000366']

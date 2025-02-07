@@ -56,7 +56,7 @@ $ sudo sysctl --system'
   tag gtitle: 'SRG-OS-000312-GPOS-00122'
   tag satisfies: ['SRG-OS-000312-GPOS-00122', 'SRG-OS-000312-GPOS-00123', 'SRG-OS-000312-GPOS-00124', 'SRG-OS-000324-GPOS-00125']
   tag gid: 'V-230267'
-  tag rid: 'SV-230267r858751_rule'
+  tag rid: 'SV-230267r1017085_rule'
   tag stig_id: 'RHEL-08-010373'
   tag fix_id: 'F-32911r858750_fix'
   tag cci: ['CCI-002165']

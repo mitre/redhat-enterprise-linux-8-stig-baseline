@@ -28,7 +28,7 @@ Add the following line to the "/etc/pam.d/password-auth" file (or modify the lin
   tag check_id: 'C-55152r902744_chk'
   tag severity: 'medium'
   tag gid: 'V-251715'
-  tag rid: 'SV-251715r902746_rule'
+  tag rid: 'SV-251715r1017368_rule'
   tag stig_id: 'RHEL-08-020103'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-55106r902745_fix'

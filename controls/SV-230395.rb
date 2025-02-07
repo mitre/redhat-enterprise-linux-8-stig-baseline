@@ -33,7 +33,7 @@ option:
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230395'
-  tag rid: 'SV-230395r627750_rule'
+  tag rid: 'SV-230395r1017201_rule'
   tag stig_id: 'RHEL-08-030063'
   tag fix_id: 'F-33039r567932_fix'
   tag cci: ['CCI-000366']

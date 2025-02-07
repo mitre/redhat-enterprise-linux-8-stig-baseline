@@ -117,7 +117,7 @@ Agreement for details."'
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
   tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000228-GPOS-00088']
   tag gid: 'V-230227'
-  tag rid: 'SV-230227r627750_rule'
+  tag rid: 'SV-230227r1017046_rule'
   tag stig_id: 'RHEL-08-010060'
   tag fix_id: 'F-32871r567428_fix'
   tag cci: ['CCI-000048']

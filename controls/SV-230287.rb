@@ -23,7 +23,7 @@ The SSH daemon must be restarted for the changes to take effect. To restart the 
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230287'
-  tag rid: 'SV-230287r880714_rule'
+  tag rid: 'SV-230287r1017098_rule'
   tag stig_id: 'RHEL-08-010490'
   tag fix_id: 'F-32931r880713_fix'
   tag cci: ['CCI-000366']

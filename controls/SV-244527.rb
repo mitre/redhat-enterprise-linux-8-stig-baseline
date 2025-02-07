@@ -11,15 +11,15 @@ one of the most important building blocks of cryptosystems.
     The rngd service feeds random data from hardware device to kernel random
 device. Quality (non-predictable) random number generation is important for
 several security functions (i.e., ciphers).'
-  desc 'check', 'Check that RHEL 8 has the packages required to enabled the hardware random
-number generator entropy gatherer service with the following command:
+  desc 'check', 'Note: For RHEL versions 8.4 and above running with kernel FIPS mode enabled as specified by RHEL-08-010020, this requirement is Not Applicable.
 
-    $ sudo yum list installed rng-tools
+Check that RHEL 8 has the packages required to enabled the hardware random number generator entropy gatherer service with the following command:
 
-    rng-tools.x86_64                       6.8-3.el8
-@anaconda
+$ sudo yum list installed rng-tools
 
-    If the "rng-tools" package is not installed, this is a finding.'
+rng-tools.x86_64                       6.8-3.el8                        @anaconda
+
+If the "rng-tools" package is not installed, this is a finding.'
   desc 'fix', 'Install the packages required to enabled the hardware random number
 generator entropy gatherer service with the following command:
 
@@ -29,7 +29,7 @@ generator entropy gatherer service with the following command:
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244527'
-  tag rid: 'SV-244527r743830_rule'
+  tag rid: 'SV-244527r1017333_rule'
   tag stig_id: 'RHEL-08-010472'
   tag fix_id: 'F-47759r743829_fix'
   tag cci: ['CCI-000366']

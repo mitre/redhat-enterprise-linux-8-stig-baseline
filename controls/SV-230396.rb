@@ -38,7 +38,7 @@ $ sudo chmod 0600 /var/log/audit/audit.log'
   tag gtitle: 'SRG-OS-000057-GPOS-00027'
   tag satisfies: ['SRG-OS-000057-GPOS-00027', 'SRG-OS-000058-GPOS-00028', 'SRG-OS-000059-GPOS-00029', 'SRG-OS-000206-GPOS-00084']
   tag gid: 'V-230396'
-  tag rid: 'SV-230396r902733_rule'
+  tag rid: 'SV-230396r1017202_rule'
   tag stig_id: 'RHEL-08-030070'
   tag fix_id: 'F-33040r902732_fix'
   tag cci: ['CCI-000162']

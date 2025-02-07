@@ -40,7 +40,7 @@ If the release is not supported by the vendor, this is a finding.'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230221'
-  tag rid: 'SV-230221r858734_rule'
+  tag rid: 'SV-230221r1017040_rule'
   tag stig_id: 'RHEL-08-010000'
   tag fix_id: 'F-32865r567410_fix'
   tag cci: ['CCI-000366']

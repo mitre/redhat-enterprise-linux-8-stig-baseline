@@ -44,7 +44,7 @@ required packages with the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230477'
-  tag rid: 'SV-230477r627750_rule'
+  tag rid: 'SV-230477r1017267_rule'
   tag stig_id: 'RHEL-08-030670'
   tag fix_id: 'F-33121r568178_fix'
   tag cci: ['CCI-000366']

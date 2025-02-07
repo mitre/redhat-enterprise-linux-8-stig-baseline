@@ -25,7 +25,7 @@ Remove any configurations that conflict with the above value.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00225'
   tag gid: 'V-230377'
-  tag rid: 'SV-230377r858789_rule'
+  tag rid: 'SV-230377r1017188_rule'
   tag stig_id: 'RHEL-08-020300'
   tag fix_id: 'F-33021r858788_fix'
   tag cci: ['CCI-000366']

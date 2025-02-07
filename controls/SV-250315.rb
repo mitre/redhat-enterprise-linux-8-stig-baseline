@@ -60,7 +60,7 @@ control 'SV-250315' do
   tag check_id: 'C-53749r793000_chk'
   tag severity: 'medium'
   tag gid: 'V-250315'
-  tag rid: 'SV-250315r854079_rule'
+  tag rid: 'SV-250315r1017356_rule'
   tag stig_id: 'RHEL-08-020027'
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag fix_id: 'F-53703r793001_fix'

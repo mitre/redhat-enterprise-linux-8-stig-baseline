@@ -27,9 +27,9 @@ The audit daemon must be restarted for the changes to take effect.'
   tag gtitle: 'SRG-OS-000062-GPOS-00031'
   tag satisfies: ['SRG-OS-000062-GPOS-00031', 'SRG-OS-000037-GPOS-00015', 'SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172', 'SRG-OS-000462-GPOS-00206', 'SRG-OS-000471-GPOS-00215']
   tag gid: 'V-230438'
-  tag rid: 'SV-230438r810464_rule'
+  tag rid: 'SV-230438r1017241_rule'
   tag stig_id: 'RHEL-08-030360'
-  tag fix_id: 'F-33082r810448_fix'
+  tag fix_id: 'F-33082r1017240_fix'
   tag cci: ['CCI-000169']
   tag nist: ['AU-12 a']
   tag 'host'

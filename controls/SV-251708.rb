@@ -12,10 +12,10 @@ If any system-wide shared library directory is returned, this is a finding.)
               $ sudo chown root [DIRECTORY]'
   impact 0.5
   ref 'DPMS Target Red Hat Enterprise Linux 8'
-  tag check_id: 'C-55145r810011_chk'
+  tag check_id: 'C-55145r1017361_chk'
   tag severity: 'medium'
   tag gid: 'V-251708'
-  tag rid: 'SV-251708r810012_rule'
+  tag rid: 'SV-251708r1017362_rule'
   tag stig_id: 'RHEL-08-010341'
   tag gtitle: 'SRG-OS-000259-GPOS-00100'
   tag fix_id: 'F-55099r809347_fix'

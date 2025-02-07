@@ -37,7 +37,7 @@ processing failure.
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000046-GPOS-00022'
   tag gid: 'V-230389'
-  tag rid: 'SV-230389r627750_rule'
+  tag rid: 'SV-230389r1017197_rule'
   tag stig_id: 'RHEL-08-030030'
   tag fix_id: 'F-33033r567914_fix'
   tag cci: ['CCI-000139']

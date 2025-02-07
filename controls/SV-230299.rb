@@ -39,7 +39,7 @@ file systems that contain user home directories for interactive users.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230299'
-  tag rid: 'SV-230299r627750_rule'
+  tag rid: 'SV-230299r1017109_rule'
   tag stig_id: 'RHEL-08-010570'
   tag fix_id: 'F-32943r567644_fix'
   tag cci: ['CCI-000366']

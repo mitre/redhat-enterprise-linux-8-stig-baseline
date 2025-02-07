@@ -35,7 +35,7 @@ file should be created under the appropriate subdirectory.
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244536'
-  tag rid: 'SV-244536r743857_rule'
+  tag rid: 'SV-244536r1017343_rule'
   tag stig_id: 'RHEL-08-020032'
   tag fix_id: 'F-47768r743856_fix'
   tag cci: ['CCI-000366']

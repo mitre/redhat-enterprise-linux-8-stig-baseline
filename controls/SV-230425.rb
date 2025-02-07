@@ -42,9 +42,9 @@ privileged-mount
   ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000062-GPOS-00031'
-  tag satisfies: ['SRG-OS-000062-GPOS-00031', 'SRG-OS-000037-GPOS-00015', 'SRG-OS-000042-GPOS-00020', 'SRG-OS-000062-GPOS-00031', 'SRG-OS-000392-GPOS-00172', 'SRG-OS-000462-GPOS-00206', 'SRG-OS-000471-GPOS-00215']
+  tag satisfies: ['SRG-OS-000062-GPOS-00031', 'SRG-OS-000037-GPOS-00015', 'SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172', 'SRG-OS-000462-GPOS-00206', 'SRG-OS-000471-GPOS-00215']
   tag gid: 'V-230425'
-  tag rid: 'SV-230425r627750_rule'
+  tag rid: 'SV-230425r1017226_rule'
   tag stig_id: 'RHEL-08-030302'
   tag fix_id: 'F-33069r568022_fix'
   tag cci: ['CCI-000169']

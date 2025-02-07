@@ -32,7 +32,7 @@ directory selection lists.'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230552'
-  tag rid: 'SV-230552r880724_rule'
+  tag rid: 'SV-230552r1017314_rule'
   tag stig_id: 'RHEL-08-040310'
   tag fix_id: 'F-33196r568403_fix'
   tag cci: ['CCI-000366']

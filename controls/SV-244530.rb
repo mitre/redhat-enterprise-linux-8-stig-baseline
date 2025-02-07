@@ -22,7 +22,7 @@ the /boot/efi directory.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244530'
-  tag rid: 'SV-244530r809336_rule'
+  tag rid: 'SV-244530r1017337_rule'
   tag stig_id: 'RHEL-08-010572'
   tag fix_id: 'F-47762r743838_fix'
   tag cci: ['CCI-000366']

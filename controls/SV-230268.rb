@@ -56,7 +56,7 @@ control 'SV-230268' do
   tag gtitle: 'SRG-OS-000312-GPOS-00122'
   tag satisfies: ['SRG-OS-000312-GPOS-00122', 'SRG-OS-000312-GPOS-00123', 'SRG-OS-000312-GPOS-00124', 'SRG-OS-000324-GPOS-00125']
   tag gid: 'V-230268'
-  tag rid: 'SV-230268r858754_rule'
+  tag rid: 'SV-230268r1017086_rule'
   tag stig_id: 'RHEL-08-010374'
   tag fix_id: 'F-32912r858753_fix'
   tag cci: ['CCI-002165']

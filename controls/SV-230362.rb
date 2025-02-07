@@ -33,11 +33,11 @@ Remove any configurations that conflict with the above value.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000072-GPOS-00040'
   tag gid: 'V-230362'
-  tag rid: 'SV-230362r858781_rule'
+  tag rid: 'SV-230362r1017174_rule'
   tag stig_id: 'RHEL-08-020160'
   tag fix_id: 'F-33006r858780_fix'
-  tag cci: ['CCI-000195']
-  tag nist: ['IA-5 (1) (b)']
+  tag cci: ['CCI-000195', 'CCI-004066']
+  tag nist: ['IA-5 (1) (b)', 'IA-5 (1) (h)']
   tag 'host'
   tag 'container'
 

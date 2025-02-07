@@ -29,7 +29,7 @@ file not owned by "root".
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000259-GPOS-00100'
   tag gid: 'V-230258'
-  tag rid: 'SV-230258r627750_rule'
+  tag rid: 'SV-230258r1017078_rule'
   tag stig_id: 'RHEL-08-010310'
   tag fix_id: 'F-32902r567521_fix'
   tag cci: ['CCI-001499']

@@ -31,7 +31,7 @@ The audit daemon must be restarted for the changes to take effect.'
   tag gtitle: 'SRG-OS-000062-GPOS-00031'
   tag satisfies: ['SRG-OS-000062-GPOS-00031', 'SRG-OS-000037-GPOS-00015', 'SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172', 'SRG-OS-000462-GPOS-00206', 'SRG-OS-000471-GPOS-00215', 'SRG-OS-000064-GPOS-00033', 'SRG-OS-000466-GPOS-00210']
   tag gid: 'V-230455'
-  tag rid: 'SV-230455r810459_rule'
+  tag rid: 'SV-230455r1017251_rule'
   tag stig_id: 'RHEL-08-030480'
   tag fix_id: 'F-33099r809307_fix'
   tag cci: ['CCI-000169']

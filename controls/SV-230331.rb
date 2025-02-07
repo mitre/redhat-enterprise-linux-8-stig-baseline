@@ -39,7 +39,7 @@ be created.
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000002-GPOS-00002'
   tag gid: 'V-230331'
-  tag rid: 'SV-230331r627750_rule'
+  tag rid: 'SV-230331r1017143_rule'
   tag stig_id: 'RHEL-08-020000'
   tag fix_id: 'F-32975r567740_fix'
   tag cci: ['CCI-000016']

@@ -36,7 +36,7 @@ by default this location is "/var/log/audit".'
   tag gtitle: 'SRG-OS-000057-GPOS-00027'
   tag satisfies: ['SRG-OS-000057-GPOS-00027', 'SRG-OS-000058-GPOS-00028', 'SRG-OS-000059-GPOS-00029']
   tag gid: 'V-230401'
-  tag rid: 'SV-230401r627750_rule'
+  tag rid: 'SV-230401r1017207_rule'
   tag stig_id: 'RHEL-08-030120'
   tag fix_id: 'F-33045r567950_fix'
   tag cci: ['CCI-000162']

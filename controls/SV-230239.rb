@@ -36,7 +36,7 @@ requirement or remove it from the system with the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000120-GPOS-00061'
   tag gid: 'V-230239'
-  tag rid: 'SV-230239r646864_rule'
+  tag rid: 'SV-230239r1017058_rule'
   tag stig_id: 'RHEL-08-010162'
   tag fix_id: 'F-32883r567464_fix'
   tag cci: ['CCI-000803']
