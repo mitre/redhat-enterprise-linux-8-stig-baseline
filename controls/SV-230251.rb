@@ -44,18 +44,19 @@ If the MACs entries in the "opensshserver.config" file have any hashes other tha
     end
   else
 
+    # Define the required algorithms
+    required_algorithms = input('openssh_server_required_algorithms')
+    required_algorithms.transform_values! { |v| v.split(',') }
+
     describe parse_config_file('/etc/crypto-policies/back-ends/opensshserver.config') do
       its('CRYPTO_POLICY') { should_not be_nil }
     end
 
     crypto_policy = parse_config_file('/etc/crypto-policies/back-ends/opensshserver.config')['CRYPTO_POLICY']
 
-    # Define the required algorithms
-    required_algorithms = input('openssh_server_required_algorithms')
-    required_algorithms.transform_values! { |v| v.split(',') }
     unless crypto_policy.nil?
       describe parse_config(crypto_policy.gsub(/\s|'/, "\n")) do
-        its('-oMACs') { should cmp required_algorithms}
+        its('-oMACs') { should cmp required_algorithms }
       end
     end
   end
