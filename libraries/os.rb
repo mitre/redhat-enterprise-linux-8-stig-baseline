@@ -1,5 +1,7 @@
 require "inspec/resources/platform"
-require 'active_support/core_ext/object/blank'
+require "active_support/core_ext/object/blank" 
+## ^^^ THIS SHOULD NOT BE NEEDED ^^^ ##
+# What version of inspec are you running?
 require "rubygems" unless defined?(Gem)  # This provides Gem::Version
 
 # module Inspec
