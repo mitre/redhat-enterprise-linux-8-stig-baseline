@@ -37,35 +37,25 @@ If the MACs entries in the "opensshserver.config" file have any hashes other tha
     describe 'This control is Not Applicable as FIPS is not required for this system' do
       skip 'This control is Not Applicable as FIPS is not required for this system'
     end
+  elsif !file('/etc/sysconfig/sshd').exist?
+    impact 0.0
+    describe 'Control not applicable - SSH is not installed within containerized RHEL' do
+      skip 'Control not applicable - SSH is not installed within containerized RHEL'
+    end
   else
-    # Define the required algorithms
-    required_algorithms = input('openssh_server_required_algorithms')
 
-    # TODO: make a simple resource for this based off 'login_defs' or 'yum' as a model
-
-    # Parse the configuration file to get the value of "CRYPTO_POLICY"
-    crypto_policy = parse_config_file('/etc/crypto-policies/back-ends/opensshserver.config')['CRYPTO_POLICY']
-
-    # Parse the CRYPTO_POLICY string into a hash of configuration options
-    config_options = crypto_policy.scan(/-o(\w+)=([\w\-,@]+.)/).to_h
-
-    # Split each configuration option's values into an array
-    config_options.transform_values! { |v| v.split(',') }
-
-    # Define the path to the crypto policy file
-    crypto_policy_file = '/etc/crypto-policies/back-ends/opensshserver.config'
-
-    # Test that the crypto policy file is configured with the required algorithms
-    describe "The crypto policy file #{crypto_policy_file}" do
-      it 'is configured with the required algorithms' do
-        expect(crypto_policy).not_to be_nil, "The crypto policy file #{crypto_policy_file} \ndoes not contain the required algorithms\n\n\t#{required_algorithms}."
-      end
+    describe parse_config_file('/etc/crypto-policies/back-ends/opensshserver.config') do
+      its('CRYPTO_POLICY') { should_not be_nil }
     end
 
-    # Test that the MACS option in the crypto policy file contains the required algorithms in the correct order
-    describe 'The MACs option in the crypto policy file' do
-      it 'contains the required algorithms in the correct order' do
-        expect(config_options['MACS']).to eq(required_algorithms), "The MACS option in the crypto policy file does not contain the required algorithms in the *exact order*:\n\n\texpected: #{required_algorithms}\n\tgot:#{config_options['MACS']}"
+    crypto_policy = parse_config_file('/etc/crypto-policies/back-ends/opensshserver.config')['CRYPTO_POLICY']
+
+    # Define the required algorithms
+    required_algorithms = input('openssh_server_required_algorithms')
+    required_algorithms.transform_values! { |v| v.split(',') }
+    unless crypto_policy.nil?
+      describe parse_config(crypto_policy.gsub(/\s|'/, "\n")) do
+        its('-oMACs') { should cmp required_algorithms}
       end
     end
   end
