@@ -18,11 +18,10 @@ If "mailx" package is not installed, this is a finding.'
 
      $ sudo yum install mailx'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag check_id: 'C-60652r902753_chk'
   tag severity: 'medium'
   tag gid: 'V-256974'
-  tag rid: 'SV-256974r902755_rule'
+  tag rid: 'SV-256974r1017374_rule'
   tag stig_id: 'RHEL-08-010358'
   tag gtitle: 'SRG-OS-000363-GPOS-00150'
   tag fix_id: 'F-60594r902754_fix'

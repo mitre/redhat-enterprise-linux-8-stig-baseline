@@ -44,11 +44,10 @@ control 'SV-230222' do
   desc 'fix', 'Install the operating system patches or updated packages
     available from Red Hat within 30 days or sooner as local policy dictates.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230222'
-  tag rid: 'SV-230222r627750_rule'
+  tag rid: 'SV-230222r1017041_rule'
   tag stig_id: 'RHEL-08-010010'
   tag fix_id: 'F-32866r567413_fix'
   tag cci: ['CCI-000366']

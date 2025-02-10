@@ -11,8 +11,6 @@ The sysctl --system command will load settings from all system configuration fil
 /etc/sysctl.conf'
   desc 'check', 'Verify RHEL 8 disables the use of user namespaces with the following commands:
 
-Note: User namespaces are used primarily for Linux containers. If containers are in use, this requirement is not applicable.
-
 $ sudo sysctl user.max_user_namespaces
 
 user.max_user_namespaces = 0
@@ -27,14 +25,14 @@ $ sudo grep -r user.max_user_namespaces /run/sysctl.d/*.conf /usr/local/lib/sysc
 
 If "user.max_user_namespaces" is not set to "0", is missing or commented out, this is a finding.
 
-If conflicting results are returned, this is a finding.'
-  desc 'fix', 'Configure RHEL 8 to disable the use of user namespaces by adding the following line to a file, in the "/etc/sysctl.d" directory:
+If conflicting results are returned, this is a finding.
 
-Note: User namespaces are used primarily for Linux containers. If containers are in use, this requirement is not applicable.
+If the use of namespaces is operationally required and documented with the ISSM, it is not a finding.'
+  desc 'fix', 'Configure RHEL 8 to disable the use of user namespaces by adding the following line to a file, in the "/etc/sysctl.d" directory:
 
 user.max_user_namespaces = 0
 
-Remove any configurations that conflict with the above from the following locations:
+Remove any configurations that conflict with the above from the following locations: 
 /run/sysctl.d/*.conf
 /usr/local/lib/sysctl.d/*.conf
 /usr/lib/sysctl.d/*.conf
@@ -46,13 +44,12 @@ The system configuration files need to be reloaded for the changes to take effec
 
 $ sudo sysctl --system'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230548'
-  tag rid: 'SV-230548r858828_rule'
+  tag rid: 'SV-230548r1017310_rule'
   tag stig_id: 'RHEL-08-040284'
-  tag fix_id: 'F-33192r858827_fix'
+  tag fix_id: 'F-33192r1014817_fix'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'

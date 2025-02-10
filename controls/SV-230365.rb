@@ -24,15 +24,14 @@ the required value):
 
     PASS_MIN_DAYS 1'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000075-GPOS-00043'
   tag gid: 'V-230365'
-  tag rid: 'SV-230365r858727_rule'
+  tag rid: 'SV-230365r1017177_rule'
   tag stig_id: 'RHEL-08-020190'
   tag fix_id: 'F-33009r567842_fix'
-  tag cci: ['CCI-000198']
-  tag nist: ['IA-5 (1) (d)']
+  tag cci: ['CCI-000198', 'CCI-004066']
+  tag nist: ['IA-5 (1) (d)', 'IA-5 (1) (h)']
   tag 'host'
   tag 'container'
 

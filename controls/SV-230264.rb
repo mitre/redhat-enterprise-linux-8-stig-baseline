@@ -39,15 +39,14 @@ repository prior to install by setting the following option in the
 
     gpgcheck=1'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000366-GPOS-00153'
   tag gid: 'V-230264'
-  tag rid: 'SV-230264r880711_rule'
+  tag rid: 'SV-230264r1017377_rule'
   tag stig_id: 'RHEL-08-010370'
   tag fix_id: 'F-32908r880710_fix'
-  tag cci: ['CCI-001749']
-  tag nist: ['CM-5 (3)']
+  tag cci: ['CCI-001749', 'CCI-003992']
+  tag nist: ['CM-5 (3)', 'CM-14']
   tag 'host'
   tag 'container'
 

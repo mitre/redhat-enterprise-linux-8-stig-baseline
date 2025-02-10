@@ -19,11 +19,10 @@ does not have the "noexec" option set, this is a finding.'
   desc 'fix', 'Configure the "/etc/fstab" to use the "noexec" option on
 file systems that are associated with removable media.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230304'
-  tag rid: 'SV-230304r627750_rule'
+  tag rid: 'SV-230304r1017114_rule'
   tag stig_id: 'RHEL-08-010610'
   tag fix_id: 'F-32948r567659_fix'
   tag cci: ['CCI-000366']

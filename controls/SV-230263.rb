@@ -44,12 +44,11 @@ The following example output is generic. It will set cron to run AIDE daily and 
 
 Note: Per requirement RHEL-08-010358, the "mailx" package must be installed on the system to enable email functionality.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000363-GPOS-00150'
   tag satisfies: ['SRG-OS-000363-GPOS-00150', 'SRG-OS-000446-GPOS-00200', 'SRG-OS-000447-GPOS-00201']
   tag gid: 'V-230263'
-  tag rid: 'SV-230263r902716_rule'
+  tag rid: 'SV-230263r1017083_rule'
   tag stig_id: 'RHEL-08-010360'
   tag fix_id: 'F-32907r902715_fix'
   tag cci: ['CCI-001744']

@@ -21,13 +21,15 @@ establish rules within the USBGuard software framework to allow only authorized
 devices.'
   desc 'check', 'Verify the USBGuard has a policy configured with the following command:
 
-    $ sudo usbguard list-rules
+$ sudo usbguard list-rules
 
-    If the command does not return results or an error is returned, ask the SA
-to indicate how unauthorized peripherals are being blocked.
+If the command does not return results or an error is returned, ask the SA to indicate how unauthorized peripherals are being blocked.
+If there is no evidence that unauthorized peripherals are being blocked before establishing a connection, this is a finding.
 
-    If there is no evidence that unauthorized peripherals are being blocked
-before establishing a connection, this is a finding.'
+If the USBGuard package is not installed, ask the SA to indicate how unauthorized peripherals are being blocked.
+If there is no evidence that unauthorized peripherals are being blocked before establishing a connection, this is a finding.
+
+If the system is a virtual machine with no virtual or physical USB peripherals attached, this is not a finding.'
   desc 'fix', 'Configure the operating system to enable the blocking of unauthorized
 peripherals with the following command:
     This command must be run from a root shell and will create an allow list
@@ -39,11 +41,10 @@ for any usb devices currently connect to the system.
 individual system will immediately prevent any access over a usb device such as
 a keyboard or mouse'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000378-GPOS-00163'
   tag gid: 'V-230524'
-  tag rid: 'SV-230524r854065_rule'
+  tag rid: 'SV-230524r1014813_rule'
   tag stig_id: 'RHEL-08-040140'
   tag fix_id: 'F-33168r744025_fix'
   tag cci: ['CCI-001958']

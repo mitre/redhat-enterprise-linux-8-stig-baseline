@@ -29,11 +29,10 @@ Remove any configurations that conflict with the above from the following locati
      /etc/sudoers
      /etc/sudoers.d/'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-237642'
-  tag rid: 'SV-237642r880727_rule'
+  tag rid: 'SV-237642r991589_rule'
   tag stig_id: 'RHEL-08-010383'
   tag fix_id: 'F-40824r880726_fix'
   tag cci: ['CCI-002227']

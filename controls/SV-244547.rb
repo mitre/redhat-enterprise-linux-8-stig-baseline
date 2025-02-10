@@ -16,27 +16,25 @@ usbguard tool.
 Security Officer (ISSO) to determine a list of authorized peripherals and
 establish rules within the USBGuard software framework to allow only authorized
 devices.'
-  desc 'check', 'Verify USBGuard is installed on the operating system with the following
-command:
+  desc 'check', 'Verify USBGuard is installed on the operating system with the following command:
 
-    $ sudo yum list installed usbguard
+$ sudo yum list installed usbguard
 
-    Installed Packages
-    usbguard.x86_64                   0.7.8-7.el8             @ol8_appstream
+Installed Packages
+usbguard.x86_64                   0.7.8-7.el8             @ol8_appstream
 
-    If the USBGuard package is not installed, ask the SA to indicate how
-unauthorized peripherals are being blocked.
-    If there is no evidence that unauthorized peripherals are being blocked
-before establishing a connection, this is a finding.'
+If the USBGuard package is not installed, ask the SA to indicate how unauthorized peripherals are being blocked.
+If there is no evidence that unauthorized peripherals are being blocked before establishing a connection, this is a finding.
+
+If the system is a virtual machine with no virtual or physical USB peripherals attached, this is not a finding.'
   desc 'fix', 'Install the USBGuard package with the following command:
 
 $ sudo yum install usbguard.x86_64'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000378-GPOS-00163'
   tag gid: 'V-244547'
-  tag rid: 'SV-244547r854076_rule'
+  tag rid: 'SV-244547r1014811_rule'
   tag stig_id: 'RHEL-08-040139'
   tag fix_id: 'F-47779r743889_fix'
   tag cci: ['CCI-001958']

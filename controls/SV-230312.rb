@@ -35,11 +35,10 @@ Reload the daemon for this change to take effect.
 
 $ sudo systemctl daemon-reload'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230312'
-  tag rid: 'SV-230312r833308_rule'
+  tag rid: 'SV-230312r1017122_rule'
   tag stig_id: 'RHEL-08-010672'
   tag fix_id: 'F-32956r833307_fix'
   tag cci: ['CCI-000366']

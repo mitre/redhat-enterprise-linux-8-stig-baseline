@@ -15,11 +15,10 @@ command:
 
 $ sudo rm /etc/ssh/shosts.equiv'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230283'
-  tag rid: 'SV-230283r627750_rule'
+  tag rid: 'SV-230283r1017094_rule'
   tag stig_id: 'RHEL-08-010460'
   tag fix_id: 'F-32927r567596_fix'
   tag cci: ['CCI-000366']

@@ -51,11 +51,10 @@ the PPSM Category Assurance List (CAL), this is a finding.'
 comply with the PPSM Component Local Service Assessment (CLSA) for the site or
 program and the PPSM CAL."
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000096-GPOS-00050'
   tag gid: 'V-230500'
-  tag rid: 'SV-230500r627750_rule'
+  tag rid: 'SV-230500r1017283_rule'
   tag stig_id: 'RHEL-08-040030'
   tag fix_id: 'F-33144r568247_fix'
   tag cci: ['CCI-000382']

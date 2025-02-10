@@ -36,11 +36,10 @@ Current End of Maintenance Support for RHEL 8.10 is 31 May 2029.
 If the release is not supported by the vendor, this is a finding.'
   desc 'fix', 'Upgrade to a supported version of RHEL 8.'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230221'
-  tag rid: 'SV-230221r858734_rule'
+  tag rid: 'SV-230221r1017040_rule'
   tag stig_id: 'RHEL-08-010000'
   tag fix_id: 'F-32865r567410_fix'
   tag cci: ['CCI-000366']

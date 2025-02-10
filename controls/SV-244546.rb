@@ -62,12 +62,11 @@ Once it is determined the whitelist is built correctly, set the fapolicyd to enf
 
 permissive = 0'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000368-GPOS-00154'
   tag satisfies: ['SRG-OS-000368-GPOS-00154', 'SRG-OS-000370-GPOS-00155', 'SRG-OS-000480-GPOS-00232']
   tag gid: 'V-244546'
-  tag rid: 'SV-244546r858730_rule'
+  tag rid: 'SV-244546r1017349_rule'
   tag stig_id: 'RHEL-08-040137'
   tag fix_id: 'F-47778r858729_fix'
   tag cci: ['CCI-001764']

@@ -14,27 +14,24 @@ functions).
 
     The gssproxy package is a proxy for GSS API credential handling and could
 expose secrets on some networks. It is not needed for normal function of the OS.'
-  desc 'check', 'Verify the gssproxy package has not been installed on the system with the
-following commands:
+  desc 'check', 'Verify the gssproxy package has not been installed on the system with the following commands:
 
-    $ sudo yum list installed gssproxy
+$ sudo yum list installed gssproxy
 
-    gssproxy.x86_64
-0.8.0-14.el8                                                  @anaconda
+gssproxy.x86_64                                                     0.8.0-14.el8                                                  @anaconda
 
-    If the gssproxy package is installed and is not documented with the
-Information System Security Officer (ISSO) as an operational requirement, this
-is a finding.'
+If the gssproxy package is installed and is not documented with the information system security officer (ISSO) as an operational requirement, this is a finding.
+
+If NFS mounts are being used, this is not a finding.'
   desc 'fix', 'Document the gssproxy package with the ISSO as an operational requirement
 or remove it from the system with the following command:
 
     $ sudo yum remove gssproxy'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230559'
-  tag rid: 'SV-230559r646887_rule'
+  tag rid: 'SV-230559r1014820_rule'
   tag stig_id: 'RHEL-08-040370'
   tag fix_id: 'F-33203r568424_fix'
   tag cci: ['CCI-000381']

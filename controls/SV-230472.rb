@@ -40,11 +40,10 @@ setting the correct permissive mode using the following command:
     Replace "[audit_tool]" with the audit tool that does not have the correct
 permissive mode.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000256-GPOS-00097'
   tag gid: 'V-230472'
-  tag rid: 'SV-230472r627750_rule'
+  tag rid: 'SV-230472r1017263_rule'
   tag stig_id: 'RHEL-08-030620'
   tag fix_id: 'F-33116r568163_fix'
   tag cci: ['CCI-001493']

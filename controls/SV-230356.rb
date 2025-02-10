@@ -20,11 +20,10 @@ Add the following line to the "/etc/pam.d/password-auth" file (or modify the lin
 
      password requisite pam_pwquality.so'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000069-GPOS-00037'
   tag gid: 'V-230356'
-  tag rid: 'SV-230356r902728_rule'
+  tag rid: 'SV-230356r982195_rule'
   tag stig_id: 'RHEL-08-020100'
   tag fix_id: 'F-33000r902727_fix'
   tag cci: ['CCI-000192', 'CCI-000366']

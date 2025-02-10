@@ -33,13 +33,12 @@ to "10" for all accounts and/or account types.
 
     * hard maxlogins 10'
   impact 0.3
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000027-GPOS-00008'
   tag gid: 'V-230346'
-  tag rid: 'SV-230346r877399_rule'
+  tag rid: 'SV-230346r1017159_rule'
   tag stig_id: 'RHEL-08-020024'
-  tag fix_id: 'F-32990r619863_fix'
+  tag fix_id: 'F-32990r1017158_fix'
   tag cci: ['CCI-000054']
   tag nist: ['AC-10']
   tag 'host'

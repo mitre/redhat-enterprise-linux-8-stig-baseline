@@ -40,11 +40,10 @@ control 'SV-251711' do
         Add or modify the following line:
         #includedir /etc/sudoers.d'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag check_id: 'C-55148r833384_chk'
   tag severity: 'medium'
   tag gid: 'V-251711'
-  tag rid: 'SV-251711r833385_rule'
+  tag rid: 'SV-251711r1017365_rule'
   tag stig_id: 'RHEL-08-010379'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-55102r809356_fix'

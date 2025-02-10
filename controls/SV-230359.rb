@@ -31,15 +31,14 @@ dcredit = -1
 
 Remove any configurations that conflict with the above value.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000071-GPOS-00039'
   tag gid: 'V-230359'
-  tag rid: 'SV-230359r858775_rule'
+  tag rid: 'SV-230359r1017171_rule'
   tag stig_id: 'RHEL-08-020130'
   tag fix_id: 'F-33003r858774_fix'
-  tag cci: ['CCI-000194']
-  tag nist: ['IA-5 (1) (a)']
+  tag cci: ['CCI-000194', 'CCI-004066']
+  tag nist: ['IA-5 (1) (a)', 'IA-5 (1) (h)']
   tag 'host'
   tag 'container'
 

@@ -62,11 +62,10 @@ control 'SV-251710' do
 
         Done.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag check_id: 'C-55147r880728_chk'
   tag severity: 'medium'
   tag gid: 'V-251710'
-  tag rid: 'SV-251710r880730_rule'
+  tag rid: 'SV-251710r958944_rule'
   tag stig_id: 'RHEL-08-010359'
   tag gtitle: 'SRG-OS-000445-GPOS-00199'
   tag fix_id: 'F-55101r880729_fix'

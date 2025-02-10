@@ -44,12 +44,11 @@ control 'SV-230351' do
 
     $sudo dconf update)
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000028-GPOS-00009'
   tag satisfies: ['SRG-OS-000028-GPOS-00009', 'SRG-OS-000030-GPOS-00011']
   tag gid: 'V-230351'
-  tag rid: 'SV-230351r792899_rule'
+  tag rid: 'SV-230351r1017164_rule'
   tag stig_id: 'RHEL-08-020050'
   tag fix_id: 'F-32995r792898_fix'
   tag cci: ['CCI-000056']

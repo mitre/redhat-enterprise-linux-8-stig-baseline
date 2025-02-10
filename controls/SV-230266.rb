@@ -48,15 +48,14 @@ Load settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000366-GPOS-00153'
   tag gid: 'V-230266'
-  tag rid: 'SV-230266r877463_rule'
+  tag rid: 'SV-230266r1017084_rule'
   tag stig_id: 'RHEL-08-010372'
   tag fix_id: 'F-32910r858747_fix'
-  tag cci: ['CCI-001749']
-  tag nist: ['CM-5 (3)']
+  tag cci: ['CCI-001749', 'CCI-003992']
+  tag nist: ['CM-5 (3)', 'CM-14']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {
