@@ -835,13 +835,13 @@ inputs:
   - name: sha_crypt_min_rounds
     description: Minimum rounds of hashing during password encryption
     type: Numeric
-    value: 5000
+    value: 100000
 
   # SV-230233
   - name: sha_crypt_max_rounds
     description: Maximum rounds of hashing during password encryption
     type: Numeric
-    value: 5000
+    value: 100000
 
   # SV-230378
   - name: login_prompt_delay
