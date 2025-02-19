@@ -46,8 +46,8 @@ $ sudo systemctl restart sshd.service'
   tag 'host'
   tag 'container-conditional'
 
-  only_if('Control not applicable - SSH is not installed within containerized RHEL', impact: 0.0) {
-    !(virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?)
+  only_if('Control not applicable - The system is RHEL 8/8.1 and/or SSH is not installed within containerized RHEL', impact: 0.0) {
+    !(virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist? && command("grep -e 8.0 -e 8.1 /etc/redhat-release").stdout.strip)
   }
 
   describe parse_config_file('/etc/sysconfig/sshd') do

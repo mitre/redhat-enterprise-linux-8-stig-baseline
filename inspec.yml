@@ -463,10 +463,10 @@ inputs:
     description: List of MACs employing FIPS 140-2-approved algorithms (order matters)
     type: Array
     value:
-      - "hmac-sha2-512"
-      - "hmac-sha2-256"
       - "hmac-sha2-512-etm@openssh.com"
       - "hmac-sha2-256-etm@openssh.com"
+      - "hmac-sha2-512"
+      - "hmac-sha2-256"
 
   # SV-230229
   - name: root_ca_file

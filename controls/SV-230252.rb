@@ -50,7 +50,7 @@ A reboot is required for the changes to take effect.)
 
   unless crypto_policy.nil?
     describe parse_config(crypto_policy.gsub(/\s|'/, "\n")) do
-      its('-oCiphers') { should cmp 'aes256-ctr,aes192-ctr,aes128-ctr,aes256-gcm@openssh.com,aes128-gcm@openssh.com' }
+      its('-oCiphers') { should cmp 'aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr' }
     end
   end
 end
