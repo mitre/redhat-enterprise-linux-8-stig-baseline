@@ -31,6 +31,7 @@ If the system is a virtual machine with no virtual or physical USB peripherals a
 
 $ sudo yum install usbguard.x86_64'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000378-GPOS-00163'
   tag gid: 'V-244547'
@@ -42,8 +43,9 @@ $ sudo yum install usbguard.x86_64'
   tag 'host'
 
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    (!virtualization.system.eql?('docker')) || (os.version.minor >= "4") 
   }
+
 
   peripherals_package = input('peripherals_package')
 

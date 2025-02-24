@@ -49,6 +49,7 @@ adding or modifying the following line in
 
     AuditBackend=LinuxAudit'
   impact 0.3
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000062-GPOS-00031'
   tag satisfies: ['SRG-OS-000062-GPOS-00031', 'SRG-OS-000471-GPOS-00215']
@@ -60,8 +61,8 @@ adding or modifying the following line in
   tag nist: ['AU-12 a']
   tag 'host'
 
-  only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+  only_if('This control is Not Applicable to containers or virtual machine', impact: 0.0) {
+    !virtualization.system.eql?('docker') || !virtualization.system.eql?('') || 
   }
 
   describe parse_config_file('/etc/usbguard/usbguard-daemon.conf') do

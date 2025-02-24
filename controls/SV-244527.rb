@@ -25,6 +25,7 @@ generator entropy gatherer service with the following command:
 
     $ sudo yum install rng-tools'
   impact 0.3
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244527'
@@ -38,7 +39,9 @@ generator entropy gatherer service with the following command:
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {
     !virtualization.system.eql?('docker')
   }
-
+  only_if('This check does not apply to RHEL versions 8.4 or newer, if the system is RHEL version 8.3 or older, this check is applicable.', impact: 0.0) {
+    (os.release.to_f) <= 8.3
+}
   describe package('rng-tools') do
     it { should be_installed }
   end

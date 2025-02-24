@@ -44,6 +44,7 @@ The system configuration files need to be reloaded for the changes to take effec
 
 $ sudo sysctl --system'
   impact 0.5
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230548'
@@ -67,18 +68,18 @@ $ sudo sysctl --system'
   current_value = kernel_parameter(parameter)
 
   # Check if the system is a Docker container
-  if virtualization.system.eql?('docker')
-    impact 0.0
-    describe 'Control not applicable within a container' do
-      skip 'Control not applicable within a container'
-    end
+  #if virtualization.system.eql?('docker')
+  #  impact 0.0
+  #  describe 'Control not applicable within a container' do
+  #    skip 'Control not applicable within a container'
+  #  end
   # Check if the system is a container host
-  elsif input('container_host')
-    impact 0.0
-    describe 'Control not applicable when system is a host for containers' do
-      skip 'Control not applicable for container hosts'
-    end
-  else
+  #if input('container_host')
+  #  impact 0.0
+  #  describe 'Control not applicable when system is a host for containers' do
+  #    skip 'Control not applicable for container hosts'
+  #  end
+  #else
     describe kernel_parameter(parameter) do
       it 'is disabled in sysctl -a' do
         expect(current_value.value).to cmp value
@@ -119,4 +120,4 @@ $ sudo sysctl --system'
       end
     end
   end
-end
+
