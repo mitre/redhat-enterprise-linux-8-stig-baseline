@@ -929,7 +929,7 @@ inputs:
     type: Boolean
     value: false
 
-    # SV-230640
+    # SV-230291,SV-230640
   - name: kerberos_required
     description: Set to true if there is a documented requirement for the target system to use Kerberos auth
     type: Boolean
@@ -1046,5 +1046,3 @@ inputs:
     description: Database where the banner text message is expected to live
     type: String
     value: 'local'
-
-  
