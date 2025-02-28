@@ -65,8 +65,11 @@ control 'SV-250316' do
   tag 'host'
   tag 'container'
 
-  only_if('This check applies to RHEL versions 8.0 and 8.1. If the system is RHEL version 8.2 or newer, this check is Not Applicable.', impact: 0.0) do
-    Gem::Version.new(os.release) < Gem::Version.new('8.2')
+  only_if("\n" + <<~MESSAGE, impact: 0.0) do
+    This check only applies to RHEL versions 8.0 or 8.1.
+    The system is running RHEL version: #{os.version}, this check is Not Applicable.
+  MESSAGE
+    ['8.0', '8.1'].include?(os.version)
   end
 
   describe selinux do
