@@ -39,13 +39,22 @@ or remove it from the system with the following command:
   tag 'host'
   tag 'container'
 
-  if input('gssproxy_required')
-    describe package('gssproxy') do
-      it { should be_installed }
+  nfs_mounts = command('mount -l | grep nfs')
+
+  if !nfs_mounts.empty?
+    impact 0.0
+    describe 'NFS mounts are being used' do
+      skip 'NFS mounts are being used, this control is Not Applicable.'
     end
   else
-    describe package('gssproxy') do
-      it { should_not be_installed }
+    if input('gssproxy_required')
+      describe package('gssproxy') do
+        it { should be_installed }
+      end
+    else
+      describe package('gssproxy') do
+        it { should_not be_installed }
+      end
     end
   end
 end

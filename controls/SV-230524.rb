@@ -64,6 +64,9 @@ a keyboard or mouse'
       end
     end
   else
+    describe package('usbguard') do
+      it { should be_installed }
+    end
     describe command('usbguard list-rules') do
       its('stdout') { should_not be_empty }
       its('exit_status') { should eq 0 }

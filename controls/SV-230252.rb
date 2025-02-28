@@ -41,6 +41,8 @@ A reboot is required for the changes to take effect.)
     !(virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?)
   }
 
+  required_ciphers = input('openssh_client_required_ciphers')
+
   describe parse_config_file('/etc/crypto-policies/back-ends/opensshserver.config') do
     its('CRYPTO_POLICY') { should_not be_nil }
   end
@@ -49,7 +51,8 @@ A reboot is required for the changes to take effect.)
 
   unless crypto_policy.nil?
     describe parse_config(crypto_policy.gsub(/\s|'/, "\n")) do
-      its('-oCiphers') { should cmp 'aes256-ctr,aes192-ctr,aes128-ctr,aes256-gcm@openssh.com,aes128-gcm@openssh.com' }
+      # -oCiphers is a single line of comma-delineated cipher values
+      its('-oCiphers') { should cmp required_ciphers.join(',') }
     end
   end
 end

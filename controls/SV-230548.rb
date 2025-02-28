@@ -67,6 +67,7 @@ $ sudo sysctl --system'
   # Get the current value of the kernel parameter
   current_value = kernel_parameter(parameter)
 
+  # **TODO: Should this code be removed?
   # Check if the system is a Docker container
   #if virtualization.system.eql?('docker')
   #  impact 0.0
