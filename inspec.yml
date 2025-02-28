@@ -1044,3 +1044,11 @@ inputs:
     description: Database where the banner text message is expected to live
     type: String
     value: 'local'
+
+  # SV-230253
+  - name: hardware_random_generator
+    description: This setting is not recommended on computers without the hardware random generator because insufficient entropy causes the connection to be blocked until enough entropy is available.
+    type: Boolean
+    value: true
+
+  
