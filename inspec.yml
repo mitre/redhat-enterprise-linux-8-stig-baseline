@@ -9,10 +9,8 @@ version: 1.14.1
 inspec_version: ">= 5.0"
 
 supports:
-- platform-name: centos
-  release: 8.*
-- platform-name: redhat
-  release: 8.*
+  - platform-family: redhat
+    release: 8.*
 
 ### INPUTS ###
 # Inputs are variables that can be referenced by any control in the profile, 
