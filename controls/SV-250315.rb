@@ -68,9 +68,13 @@ control 'SV-250315' do
   tag nist: ['AC-7 a', 'AC-7 b']
   tag 'host'
 
-  only_if('This check applies to RHEL version 8.2 and later. If the system is not RHEL version 8.2 or newer, this check is Not Applicable.', impact: 0.0) {
-    (os.release.to_f) >= 8.2
-  }
+  message = <<~MESSAGE
+    \n\nThis check only applies to RHEL versions 8.0 or 8.1.\n
+    The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
+  MESSAGE
+  only_if(message, impact: 0.0) do
+    os.version.minor.between?(0, 1)
+  end
 
   if virtualization.system.eql?('docker')
     impact 0.0
