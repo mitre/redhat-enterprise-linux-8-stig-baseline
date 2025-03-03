@@ -729,6 +729,12 @@ inputs:
     description: Whether to use fapolicyd, similar to SELinux whitelisting
     type: Boolean
     value: true
+    
+  # SV-230524,SV-230470,SV-244548,SV-244547
+  - name:  virtualized_system_no_usb_devices
+    description: Changable value based on Admin interaction to determine if USB devices are plugged in
+    type: Boolean
+    value: true
 
   # SV-230334
   - name: pam_auth_files

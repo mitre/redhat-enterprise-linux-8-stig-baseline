@@ -71,7 +71,12 @@ adding or modifying the following line in
   only_if('This control is Not Applicable to containers or virtual machine', impact: 0.0) {
     !virtualization.system.eql?('')
   }
-
+  virtual_usb = input('virtualized_system_no_usb_devices')
+if(virtual_usb == true){
+  impact: 0.0
+  puts"This control is not applicable if this is a virtual machine with no virtual or physical USB's attached. "
+}
+else
   # Control is Not Applicable if usbguard is not installed and enabled
   if (!(package('usbguard').installed? && service('usbguard').enabled?))
     impact 0.0

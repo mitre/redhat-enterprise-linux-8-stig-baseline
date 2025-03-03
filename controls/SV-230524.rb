@@ -54,8 +54,14 @@ a keyboard or mouse'
   only_if('This control is Not Applicable to containers', impact: 0.0) {
     !virtualization.system.eql?('docker')
   }
-
+ 
   peripherals_package = input('peripherals_package')
+  virtual_usb = input('virtualized_system_no_usb_devices')
+if(virtual_usb == true){
+  impact: 0.0
+  puts"This control is not applicable if this is a virtual machine with no virtual or physical USB's attached. "
+}
+else
 
   if peripherals_package != 'usbguard'
     describe 'Non-standard package' do
