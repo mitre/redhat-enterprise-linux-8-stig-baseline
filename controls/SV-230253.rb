@@ -1,4 +1,4 @@
-control "SV-230253" do
+control 'SV-230253' do
   title "RHEL 8 must ensure the SSH server uses strong entropy."
   desc "The most important characteristic of a random number generator is its
 randomness, namely its ability to deliver random numbers that are impossible to
@@ -13,7 +13,7 @@ environment variable the OPENSSL random generator is reseeded from /dev/random.
  This setting is not recommended on computers without the hardware random
 generator because insufficient entropy causes the connection to be blocked
 until enough entropy is available."
-  desc "check",
+  desc 'check',
        'Verify the operating system SSH server uses strong entropy with the
 following command:
 
@@ -26,7 +26,7 @@ is not applicable.
 
     If the "SSH_USE_STRONG_RNG" line does not equal "32", is commented out
 or missing, this is a finding.'
-  desc "fix",
+  desc 'fix',
        'Configure the operating system SSH server to use strong entropy.
 
 Add or modify the following line in the "/etc/sysconfig/sshd" file.
@@ -35,25 +35,25 @@ SSH_USE_STRONG_RNG=32
 
 The SSH service must be restarted for changes to take effect.'
   impact 0.3
-  ref "DPMS Target Red Hat Enterprise Linux 8"
-  tag severity: "low"
-  tag gtitle: "SRG-OS-000480-GPOS-00227"
-  tag gid: "V-230253"
-  tag rid: "SV-230253r627750_rule"
-  tag stig_id: "RHEL-08-010292"
-  tag fix_id: "F-32897r567506_fix"
-  tag cci: ["CCI-000366"]
-  tag nist: ["CM-6 b"]
-  tag "host"
-  tag "container-conditional"
+  ref 'DPMS Target Red Hat Enterprise Linux 8'
+  tag severity: 'low'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
+  tag gid: 'V-230253'
+  tag rid: 'SV-230253r627750_rule'
+  tag stig_id: 'RHEL-08-010292'
+  tag fix_id: 'F-32897r567506_fix'
+  tag cci: ['CCI-000366']
+  tag nist: ['CM-6 b']
+  tag 'host'
+  tag 'container-conditional'
 
   only_if(
-    "Control not applicable - SSH is not installed within containerized RHEL",
+    'Control not applicable - SSH is not installed within containerized RHEL',
     impact: 0.0
   ) do
     !(
-      virtualization.system.eql?("docker") &&
-        !file("/etc/sysconfig/sshd").exist?
+      virtualization.system.eql?('docker') &&
+        !file('/etc/sysconfig/sshd').exist?
     )
   end
 
