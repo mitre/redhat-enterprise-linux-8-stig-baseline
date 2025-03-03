@@ -1,7 +1,4 @@
 require "inspec/resources/platform"
-require "active_support/core_ext/object/blank" 
-## ^^^ THIS SHOULD NOT BE NEEDED ^^^ ##
-# What version of inspec are you running?
 require "rubygems" unless defined?(Gem)  # This provides Gem::Version
 
 # module Inspec
@@ -95,8 +92,8 @@ class OSResource < PlatformResource
     # Updated to_s returns the original version string
     # without the build if present, preserving trailing zeros.
     def to_s
-      if @version_data[:full].present?
-        if @version_data[:build].present?
+      if @version_data[:full] && !@version_data[:full].empty?
+        if @version_data[:build] && !@version_data[:build].empty?
           # For OSes like macOS that include build info, return only the base version.
           @version_data[:full].split("+").first
         else
