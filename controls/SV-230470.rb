@@ -61,32 +61,24 @@ adding or modifying the following line in
   tag nist: ['AU-12 a']
   tag 'host'
 
-  # ** TODO ** 
-  # "If the system is a virtual machine with no virtual or physical USB peripherals attached, this is not a finding"
-  # --> Determine if control should be skipped or passed for virtualized systems with no USB peripherals attached
+  virtualized_system_no_usb_devices = input('virtualized_system_no_usb_devices')
 
-  # If the system is a container or virtual system it will NOT evaluate to an empty string
-  # Skip only if the system is a container or virtual machine
-  # ** TODO ** Check if there are no USB peripherals attached using 'usbguard list-devices' probably
-  only_if('This control is Not Applicable to containers or virtual machine', impact: 0.0) {
-    !virtualization.system.eql?('')
-  }
-  virtual_usb = input('virtualized_system_no_usb_devices')
-if(virtual_usb == true){
-  impact: 0.0
-  puts"This control is not applicable if this is a virtual machine with no virtual or physical USB's attached. "
-}
-else
-  # Control is Not Applicable if usbguard is not installed and enabled
-  if (!(package('usbguard').installed? && service('usbguard').enabled?))
-    impact 0.0
-    describe 'The USBGuard service is not installed and enabled' do
-      skip 'The USBGuard service is not installed and enabled, this control is Not Applicable.'
+  if(virtualized_system_no_usb_devices == true)
+    describe virtualized_system_no_usb_devices do
+      it { should be true }
     end
   else
-    # Check if usbguard is conducting audits
-    describe parse_config_file('/etc/usbguard/usbguard-daemon.conf') do
-      its('AuditBackend') { should cmp 'LinuxAudit' }
+    # Control is Not Applicable if usbguard is not installed and enabled
+    if (!(package('usbguard').installed? && service('usbguard').enabled?))
+      impact 0.0
+      describe 'The USBGuard service is not installed and enabled' do
+        skip 'The USBGuard service is not installed and enabled, this control is Not Applicable.'
+      end
+    else
+      # Check if usbguard is conducting audits
+      describe parse_config_file('/etc/usbguard/usbguard-daemon.conf') do
+        its('AuditBackend') { should cmp 'LinuxAudit' }
+      end
     end
   end
 end

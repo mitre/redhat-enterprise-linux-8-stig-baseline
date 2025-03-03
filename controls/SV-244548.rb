@@ -57,20 +57,22 @@ a keyboard or mouse'
   only_if('This requirement does not apply to containers', impact: 0.0) {
     !virtualization.system.eql?('docker')
   }
-  virtual_usb = input('virtualized_system_no_usb_devices')
-if(virtual_usb == true){
-  impact: 0.0
-  puts"This control is not applicable if this is a virtual machine with no virtual or physical USB's attached. "
-}
-else
-  peripherals_service = input('peripherals_service')
+  virtualized_system_no_usb_devices = input('virtualized_system_no_usb_devices')
 
-  describe service(peripherals_service) do
-    it "is expected to be running. \n\tPlease ensure to configure the service to ensure your devices function as expected." do
-      expect(subject.running?).to be(true), "The #{peripherals_service} service is not running"
+  if(virtualized_system_no_usb_devices == true)
+    describe virtualized_system_no_usb_devices do
+      it { should be true }
     end
-    it "is expected to be enabled. \n\tPlease ensure to configure the service to ensure your devices function as expected." do
-      expect(subject.enabled?).to be(true), "The #{peripherals_service} service is not enabled"
+  else
+    peripherals_service = input('peripherals_service')
+
+    describe service(peripherals_service) do
+      it "is expected to be running. \n\tPlease ensure to configure the service to ensure your devices function as expected." do
+        expect(subject.running?).to be(true), "The #{peripherals_service} service is not running"
+      end
+      it "is expected to be enabled. \n\tPlease ensure to configure the service to ensure your devices function as expected." do
+        expect(subject.enabled?).to be(true), "The #{peripherals_service} service is not enabled"
+      end
     end
   end
 end

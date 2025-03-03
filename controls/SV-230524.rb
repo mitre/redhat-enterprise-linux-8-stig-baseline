@@ -56,26 +56,27 @@ a keyboard or mouse'
   }
  
   peripherals_package = input('peripherals_package')
-  virtual_usb = input('virtualized_system_no_usb_devices')
-if(virtual_usb == true){
-  impact: 0.0
-  puts"This control is not applicable if this is a virtual machine with no virtual or physical USB's attached. "
-}
-else
+  virtualized_system_no_usb_devices = input('virtualized_system_no_usb_devices')
 
-  if peripherals_package != 'usbguard'
-    describe 'Non-standard package' do
-      it 'is handling peripherals' do
-        expect(peripherals_package).to exist
-      end
+  if(virtualized_system_no_usb_devices == true)
+    describe virtualized_system_no_usb_devices do
+      it { should be true }
     end
   else
-    describe package('usbguard') do
-      it { should be_installed }
-    end
-    describe command('usbguard list-rules') do
-      its('stdout') { should_not be_empty }
-      its('exit_status') { should eq 0 }
+    if peripherals_package != 'usbguard'
+      describe 'Non-standard package' do
+        it 'is handling peripherals' do
+          expect(peripherals_package).to exist
+        end
+      end
+    else
+      describe package('usbguard') do
+        it { should be_installed }
+      end
+      describe command('usbguard list-rules') do
+        its('stdout') { should_not be_empty }
+        its('exit_status') { should eq 0 }
+      end
     end
   end
 end
