@@ -22,7 +22,7 @@ Note: Manual changes to the listed file may be overwritten by the "authselect" p
   tag nist: ['CM-6 b']
 
   describe command ("grep -i nullok /etc/pam.d/system-auth") do
-    its("stdout") {should eq ""}
+    its("stdout") {should be_empty}
   end
   
 end

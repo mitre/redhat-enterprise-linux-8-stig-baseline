@@ -34,7 +34,7 @@ $ sudo userdel <unauthorized_user>'
   tag 'host'
   tag 'container'
 
-  # Stores a list of user accounts that are not in the combined list of known system and user accounts
+  # Identifies a list of user accounts that are not in the combined list of known system and user accounts
   failing_users = passwd.users.reject { |u| (input('known_system_accounts') + input('user_accounts')).uniq.include?(u) }
 
   describe 'All users' do

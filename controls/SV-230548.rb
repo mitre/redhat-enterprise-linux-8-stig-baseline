@@ -67,20 +67,6 @@ $ sudo sysctl --system'
   # Get the current value of the kernel parameter
   current_value = kernel_parameter(parameter)
 
-  # **TODO: Should this code be removed?
-  # Check if the system is a Docker container
-  #if virtualization.system.eql?('docker')
-  #  impact 0.0
-  #  describe 'Control not applicable within a container' do
-  #    skip 'Control not applicable within a container'
-  #  end
-  # Check if the system is a container host
-  #if input('container_host')
-  #  impact 0.0
-  #  describe 'Control not applicable when system is a host for containers' do
-  #    skip 'Control not applicable for container hosts'
-  #  end
-  #else
     describe kernel_parameter(parameter) do
       it 'is disabled in sysctl -a' do
         expect(current_value.value).to cmp value

@@ -35,7 +35,7 @@ group-owned by "root".
   tag 'host'
   tag 'container'
 
-  failing_files = command("find -L #{input('system_libraries').join(' ')} ! -group root -exec ls -d {} \\;").stdout.split("\n")
+  failing_files = command("find #{input('system_libraries').join(' ')} ! -group root -exec ls -d {} \\;").stdout.split("\n")
 
   describe 'System libraries' do
     it 'should be group-owned by root' do
