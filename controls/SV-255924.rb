@@ -18,11 +18,10 @@ If the entries following "KexAlgorithms" have any algorithms defined other than 
 
 A reboot is required for the changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag check_id: 'C-59601r917887_chk'
   tag severity: 'medium'
   tag gid: 'V-255924'
-  tag rid: 'SV-255924r917888_rule'
+  tag rid: 'SV-255924r1017372_rule'
   tag stig_id: 'RHEL-08-040342'
   tag gtitle: 'SRG-OS-000250-GPOS-00093'
   tag fix_id: 'F-59544r880732_fix'

@@ -25,11 +25,10 @@ command:
 
     $ sudo chmod 0750 /home/smithj'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230321'
-  tag rid: 'SV-230321r627750_rule'
+  tag rid: 'SV-230321r1017132_rule'
   tag stig_id: 'RHEL-08-010730'
   tag fix_id: 'F-32965r567710_fix'
   tag cci: ['CCI-000366']

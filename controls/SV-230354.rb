@@ -60,12 +60,11 @@ file should be created under the appropriate subdirectory.
 
     /org/gnome/desktop/screensaver/lock-delay'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'
   tag satisfies: ['SRG-OS-000029-GPOS-00010', 'SRG-OS-000031-GPOS-00012', 'SRG-OS-000480-GPOS-00227']
   tag gid: 'V-230354'
-  tag rid: 'SV-230354r743990_rule'
+  tag rid: 'SV-230354r1017167_rule'
   tag stig_id: 'RHEL-08-020080'
   tag fix_id: 'F-32998r743989_fix'
   tag cci: ['CCI-000057']

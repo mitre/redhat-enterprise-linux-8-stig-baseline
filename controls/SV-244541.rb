@@ -15,11 +15,10 @@ If output is produced, this is a finding.'
     Note: Manual changes to the listed file may be overwritten by the
 "authselect" program.'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244541'
-  tag rid: 'SV-244541r743872_rule'
+  tag rid: 'SV-244541r1017347_rule'
   tag stig_id: 'RHEL-08-020332'
   tag fix_id: 'F-47773r743871_fix'
   tag cci: ['CCI-000366']

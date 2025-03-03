@@ -36,12 +36,11 @@ line:
 
     even_deny_root'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
   tag gid: 'V-230345'
-  tag rid: 'SV-230345r743984_rule'
+  tag rid: 'SV-230345r1017157_rule'
   tag stig_id: 'RHEL-08-020023'
   tag fix_id: 'F-32989r743983_fix'
   tag cci: ['CCI-000044']

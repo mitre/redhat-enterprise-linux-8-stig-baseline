@@ -10,11 +10,10 @@ control 'SV-251709' do
   by a required system account, this is a finding.)
   desc 'fix', 'Configure the system-wide shared library directories (/lib, /lib64, /usr/lib and /usr/lib64) to be protected from unauthorized access. Run the following command, replacing "[DIRECTORY]" with any library directory not group-owned by "root". $ sudo chgrp root [DIRECTORY]'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
-  tag check_id: 'C-55146r810013_chk'
+  tag check_id: 'C-55146r1017363_chk'
   tag severity: 'medium'
   tag gid: 'V-251709'
-  tag rid: 'SV-251709r810014_rule'
+  tag rid: 'SV-251709r1017364_rule'
   tag stig_id: 'RHEL-08-010351'
   tag gtitle: 'SRG-OS-000259-GPOS-00100'
   tag fix_id: 'F-55100r809350_fix'

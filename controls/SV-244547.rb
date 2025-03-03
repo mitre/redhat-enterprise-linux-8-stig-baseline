@@ -16,18 +16,17 @@ usbguard tool.
 Security Officer (ISSO) to determine a list of authorized peripherals and
 establish rules within the USBGuard software framework to allow only authorized
 devices.'
-  desc 'check', 'Verify USBGuard is installed on the operating system with the following
-command:
+  desc 'check', 'Verify USBGuard is installed on the operating system with the following command:
 
-    $ sudo yum list installed usbguard
+$ sudo yum list installed usbguard
 
-    Installed Packages
-    usbguard.x86_64                   0.7.8-7.el8             @ol8_appstream
+Installed Packages
+usbguard.x86_64                   0.7.8-7.el8             @ol8_appstream
 
-    If the USBGuard package is not installed, ask the SA to indicate how
-unauthorized peripherals are being blocked.
-    If there is no evidence that unauthorized peripherals are being blocked
-before establishing a connection, this is a finding.'
+If the USBGuard package is not installed, ask the SA to indicate how unauthorized peripherals are being blocked.
+If there is no evidence that unauthorized peripherals are being blocked before establishing a connection, this is a finding.
+
+If the system is a virtual machine with no virtual or physical USB peripherals attached, this is not a finding.'
   desc 'fix', 'Install the USBGuard package with the following command:
 
 $ sudo yum install usbguard.x86_64'
@@ -36,7 +35,7 @@ $ sudo yum install usbguard.x86_64'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000378-GPOS-00163'
   tag gid: 'V-244547'
-  tag rid: 'SV-244547r854076_rule'
+  tag rid: 'SV-244547r1014811_rule'
   tag stig_id: 'RHEL-08-040139'
   tag fix_id: 'F-47779r743889_fix'
   tag cci: ['CCI-001958']
@@ -44,14 +43,22 @@ $ sudo yum install usbguard.x86_64'
   tag 'host'
 
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    (!virtualization.system.eql?('docker')) || (os.version.minor >= "4") 
   }
 
-  peripherals_package = input('peripherals_package')
+  virtualized_system_no_usb_devices = input('virtualized_system_no_usb_devices')
 
-  describe package(peripherals_package) do
-    it "is expected to be installed. \n\tPlease ensure to configure the service to ensure your devices function as expected." do
-      expect(subject.installed?).to be(true), "The #{peripherals_package} package is not installed"
+  if(virtualized_system_no_usb_devices == true)
+    describe virtualized_system_no_usb_devices do
+      it { should be true }
+    end
+  else
+    peripherals_package = input('peripherals_package')
+
+    describe package(peripherals_package) do
+      it "is expected to be installed. \n\tPlease ensure to configure the service to ensure your devices function as expected." do
+        expect(subject.installed?).to be(true), "The #{peripherals_package} package is not installed"
+      end
     end
   end
 end

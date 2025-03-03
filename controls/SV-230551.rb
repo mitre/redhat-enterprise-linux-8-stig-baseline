@@ -37,11 +37,10 @@ attributes.
     If AIDE is installed, ensure the "xattrs" rule is present on all
 uncommented file and directory selection lists.'
   impact 0.3
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230551'
-  tag rid: 'SV-230551r627750_rule'
+  tag rid: 'SV-230551r1017313_rule'
   tag stig_id: 'RHEL-08-040300'
   tag fix_id: 'F-33195r568400_fix'
   tag cci: ['CCI-000366']

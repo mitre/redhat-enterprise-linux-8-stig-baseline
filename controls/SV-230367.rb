@@ -19,15 +19,14 @@ lifetime restriction.
 
     $ sudo chage -M 60 [user]'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000076-GPOS-00044'
   tag gid: 'V-230367'
-  tag rid: 'SV-230367r627750_rule'
+  tag rid: 'SV-230367r1038967_rule'
   tag stig_id: 'RHEL-08-020210'
   tag fix_id: 'F-33011r567848_fix'
-  tag cci: ['CCI-000199']
-  tag nist: ['IA-5 (1) (d)']
+  tag cci: ['CCI-000199', 'CCI-004066']
+  tag nist: ['IA-5 (1) (d)', 'IA-5 (1) (h)']
   tag 'host'
   tag 'container'
 

@@ -44,12 +44,11 @@ to match the following lines:
     auth required pam_faillock.so authfail
     account required pam_faillock.so'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
   tag gid: 'V-244533'
-  tag rid: 'SV-244533r743848_rule'
+  tag rid: 'SV-244533r1017340_rule'
   tag stig_id: 'RHEL-08-020025'
   tag fix_id: 'F-47765r743847_fix'
   tag cci: ['CCI-000044']

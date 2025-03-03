@@ -39,11 +39,10 @@ administrators are notified via email for those situations:
 
     action_mail_acct = root'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000046-GPOS-00022'
   tag gid: 'V-230388'
-  tag rid: 'SV-230388r627750_rule'
+  tag rid: 'SV-230388r1017196_rule'
   tag stig_id: 'RHEL-08-030020'
   tag fix_id: 'F-33032r567911_fix'
   tag cci: ['CCI-000139']

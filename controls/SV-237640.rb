@@ -31,11 +31,10 @@ requirement or remove it from the system with the following command:
 
     $ sudo yum remove krb5-server'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000120-GPOS-00061'
   tag gid: 'V-237640'
-  tag rid: 'SV-237640r646890_rule'
+  tag rid: 'SV-237640r1017323_rule'
   tag stig_id: 'RHEL-08-010163'
   tag fix_id: 'F-40822r646889_fix'
   tag cci: ['CCI-000803']

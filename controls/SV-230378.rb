@@ -33,11 +33,10 @@ between logon prompts following a failed console logon attempt.
 
     FAIL_DELAY 4'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00226'
   tag gid: 'V-230378'
-  tag rid: 'SV-230378r627750_rule'
+  tag rid: 'SV-230378r1017189_rule'
   tag stig_id: 'RHEL-08-020310'
   tag fix_id: 'F-33022r567881_fix'
   tag cci: ['CCI-000366']

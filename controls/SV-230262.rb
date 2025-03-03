@@ -11,14 +11,11 @@ libraries also include privileged programs that execute with escalated
 privileges. Only qualified and authorized individuals will be allowed to obtain
 access to information system components for purposes of initiating changes,
 including upgrades and modifications.'
-  desc 'check', 'Verify the system-wide shared library files are group-owned by "root"
-with the following command:
+  desc 'check', 'Verify the system-wide shared library files are group-owned by "root" with the following command:
 
-    $ sudo find -L /lib /lib64 /usr/lib /usr/lib64 ! -group root -exec ls -l {}
-\\;
+$ sudo find /lib /lib64 /usr/lib /usr/lib64 ! -group root -exec ls -l {} \\;
 
-    If any system wide shared library file is returned and is not group-owned
-by a required system account, this is a finding.'
+If any system wide shared library file is returned and is not group-owned by a required system account, this is a finding.'
   desc 'fix', 'Configure the system-wide shared library files (/lib, /lib64, /usr/lib and
 /usr/lib64) to be protected from unauthorized access.
 
@@ -27,11 +24,10 @@ group-owned by "root".
 
     $ sudo chgrp root [FILE]'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000259-GPOS-00100'
   tag gid: 'V-230262'
-  tag rid: 'SV-230262r627750_rule'
+  tag rid: 'SV-230262r1017082_rule'
   tag stig_id: 'RHEL-08-010350'
   tag fix_id: 'F-32906r567533_fix'
   tag cci: ['CCI-001499']
@@ -39,7 +35,7 @@ group-owned by "root".
   tag 'host'
   tag 'container'
 
-  failing_files = command("find -L #{input('system_libraries').join(' ')} ! -group root -exec ls -d {} \\;").stdout.split("\n")
+  failing_files = command("find #{input('system_libraries').join(' ')} ! -group root -exec ls -d {} \\;").stdout.split("\n")
 
   describe 'System libraries' do
     it 'should be group-owned by root' do

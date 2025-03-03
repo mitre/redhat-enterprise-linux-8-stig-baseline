@@ -41,15 +41,14 @@ updated versions have been installed.
 
     localpkg_gpgcheck=True'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000366-GPOS-00153'
   tag gid: 'V-230265'
-  tag rid: 'SV-230265r877463_rule'
+  tag rid: 'SV-230265r1017378_rule'
   tag stig_id: 'RHEL-08-010371'
   tag fix_id: 'F-32909r567542_fix'
-  tag cci: ['CCI-001749']
-  tag nist: ['CM-5 (3)']
+  tag cci: ['CCI-001749', 'CCI-003992']
+  tag nist: ['CM-5 (3)', 'CM-14']
   tag 'host'
   tag 'container'
 

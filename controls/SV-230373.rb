@@ -30,15 +30,14 @@ control 'SV-230373' do
     disable this feature, and "0" will disable the account immediately after the
     password expires.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000118-GPOS-00060'
   tag gid: 'V-230373'
-  tag rid: 'SV-230373r627750_rule'
+  tag rid: 'SV-230373r1017185_rule'
   tag stig_id: 'RHEL-08-020260'
   tag fix_id: 'F-33017r567866_fix'
-  tag cci: ['CCI-000795']
-  tag nist: ['IA-4 e']
+  tag cci: ['CCI-000795', 'CCI-003627']
+  tag nist: ['IA-4 e', 'AC-2 (3) (a)']
   tag 'host'
   tag 'container'
 

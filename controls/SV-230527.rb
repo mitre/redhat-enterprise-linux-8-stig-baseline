@@ -39,12 +39,11 @@ connections to the server by add or modifying the following line in the
 
     $ sudo systemctl restart sshd.service'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000033-GPOS-00014'
   tag satisfies: ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000420-GPOS-00186', 'SRG-OS-000424-GPOS-00188']
   tag gid: 'V-230527'
-  tag rid: 'SV-230527r951616_rule'
+  tag rid: 'SV-230527r1017288_rule'
   tag stig_id: 'RHEL-08-040161'
   tag fix_id: 'F-33171r568328_fix'
   tag cci: ['CCI-000068']

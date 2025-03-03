@@ -25,11 +25,10 @@ directory with the following command:
 
     $ sudo chmod 0750 /home/smithj/<file or directory>'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244531'
-  tag rid: 'SV-244531r743842_rule'
+  tag rid: 'SV-244531r1017338_rule'
   tag stig_id: 'RHEL-08-010731'
   tag fix_id: 'F-47763r743841_fix'
   tag cci: ['CCI-000366']

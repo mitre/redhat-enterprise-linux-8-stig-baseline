@@ -24,11 +24,10 @@ Add or update the following line in "/etc/audit/auditd.conf" file:
 
 local_events = yes'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230393'
-  tag rid: 'SV-230393r627750_rule'
+  tag rid: 'SV-230393r1017200_rule'
   tag stig_id: 'RHEL-08-030061'
   tag fix_id: 'F-33037r567926_fix'
   tag cci: ['CCI-000366']

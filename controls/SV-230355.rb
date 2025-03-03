@@ -44,11 +44,10 @@ The "sssd" service must be restarted for the changes to take effect. To restart 
 
 $ sudo systemctl restart sssd.service'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000068-GPOS-00036'
   tag gid: 'V-230355'
-  tag rid: 'SV-230355r858743_rule'
+  tag rid: 'SV-230355r1017168_rule'
   tag stig_id: 'RHEL-08-020090'
   tag fix_id: 'F-32999r818835_fix'
   tag cci: ['CCI-000187']

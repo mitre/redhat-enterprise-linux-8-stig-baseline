@@ -27,11 +27,10 @@ restrict client connections to the local network with the following command:
 
     $ sudo postconf -e 'smtpd_client_restrictions = permit_mynetworks,reject')
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230550'
-  tag rid: 'SV-230550r627750_rule'
+  tag rid: 'SV-230550r1017312_rule'
   tag stig_id: 'RHEL-08-040290'
   tag fix_id: 'F-33194r568397_fix'
   tag cci: ['CCI-000366']

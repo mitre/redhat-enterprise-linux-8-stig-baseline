@@ -30,11 +30,10 @@ removing the sendmail package from the system with the following command:
 
     $ sudo yum remove sendmail'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-230489'
-  tag rid: 'SV-230489r627750_rule'
+  tag rid: 'SV-230489r1017273_rule'
   tag stig_id: 'RHEL-08-040002'
   tag fix_id: 'F-33133r568214_fix'
   tag cci: ['CCI-000381']

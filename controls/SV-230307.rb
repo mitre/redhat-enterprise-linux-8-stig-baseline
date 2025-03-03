@@ -18,11 +18,10 @@ the "nodev" option set, this is a finding.'
   desc 'fix', 'Configure the "/etc/fstab" to use the "nodev" option on
 file systems that are being imported via NFS.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230307'
-  tag rid: 'SV-230307r627750_rule'
+  tag rid: 'SV-230307r1017117_rule'
   tag stig_id: 'RHEL-08-010640'
   tag fix_id: 'F-32951r567668_fix'
   tag cci: ['CCI-000366']

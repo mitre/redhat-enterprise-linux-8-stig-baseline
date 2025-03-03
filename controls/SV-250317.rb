@@ -55,11 +55,10 @@ If conflicting results are returned, this is a finding.'
 
     $ sudo sysctl --system'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag check_id: 'C-53751r833382_chk'
   tag severity: 'medium'
   tag gid: 'V-250317'
-  tag rid: 'SV-250317r858808_rule'
+  tag rid: 'SV-250317r1017358_rule'
   tag stig_id: 'RHEL-08-040259'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-53705r858807_fix'

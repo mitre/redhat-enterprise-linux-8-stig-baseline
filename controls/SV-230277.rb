@@ -39,12 +39,11 @@ configuration survives kernel updates:
 
     GRUB_CMDLINE_LINUX="page_poison=1"'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000134-GPOS-00068'
   tag satisfies: ['SRG-OS-000134-GPOS-00068', 'SRG-OS-000433-GPOS-00192']
   tag gid: 'V-230277'
-  tag rid: 'SV-230277r792884_rule'
+  tag rid: 'SV-230277r1017090_rule'
   tag stig_id: 'RHEL-08-010421'
   tag fix_id: 'F-32921r567578_fix'
   tag cci: ['CCI-001084']

@@ -28,12 +28,11 @@ If conflicting results are returned, this is a finding.)
 
             $ sudo systemctl restart sshd.service'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000163-GPOS-00072'
   tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000126-GPOS-00066', 'SRG-OS-000279-GPOS-00109']
   tag gid: 'V-230244'
-  tag rid: 'SV-230244r951594_rule'
+  tag rid: 'SV-230244r1017062_rule'
   tag stig_id: 'RHEL-08-010200'
   tag fix_id: 'F-32888r917866_fix'
   tag cci: ['CCI-001133']

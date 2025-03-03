@@ -26,11 +26,10 @@ Add or modify the following line in /etc/systemd/coredump.conf:
 
 ProcessSizeMax=0'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230315'
-  tag rid: 'SV-230315r627750_rule'
+  tag rid: 'SV-230315r1017126_rule'
   tag stig_id: 'RHEL-08-010675'
   tag fix_id: 'F-32959r567692_fix'
   tag cci: ['CCI-000366']
