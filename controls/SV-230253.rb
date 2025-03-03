@@ -1,5 +1,5 @@
 control 'SV-230253' do
-  title "RHEL 8 must ensure the SSH server uses strong entropy."
+  title 'RHEL 8 must ensure the SSH server uses strong entropy.'
   desc "The most important characteristic of a random number generator is its
 randomness, namely its ability to deliver random numbers that are impossible to
 predict.  Entropy in computer security is associated with the unpredictability
