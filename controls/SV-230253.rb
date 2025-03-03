@@ -57,21 +57,6 @@ The SSH service must be restarted for changes to take effect.'
     )
   end
 
-<<<<<<< HEAD
-  file = "/etc/sysconfig/sshd"
-  parameter = "SSH_USE_STRONG_RNG"
-  value = "32"
-  results = parse_config_file(file).params[parameter].to_i
-
-  if random_number_generator.software?
-    impact 0.0
-    desc "justification",
-         "The SSH_USE_STRONG_RNG setting relies on a hardware-based random number generator (HRNG) for sufficient entropy.
-                          This system lacks a Hardware Random Number Generator (HRNG), causing possible issues with the connection stability."
-
-    describe "This control is Not Applicable as the SSH server is not using a hardware random number generator." do
-      skip "This control is not applicable as the SSH server is not using a hardware random number generator."
-=======
   if random_number_generator.is_software?
     impact 0.0
     desc 'justification': "The SSH_USE_STRONG_RNG setting relies on a hardware-based random number generator (HRNG) for sufficient entropy.
@@ -79,7 +64,6 @@ The SSH service must be restarted for changes to take effect.'
 
     describe 'This control is Not Applicable as the SSH server is not using a hardware random number generator.' do
       skip 'This control is not applicable as the SSH server is not using a hardware random number generator.'
->>>>>>> 4121271 (updated control to use new resources and standard skip/NA patterns)
     end
   elsif os.version.minor.between?(0, 1)
     message = <<~MESSAGE
@@ -92,15 +76,6 @@ The SSH service must be restarted for changes to take effect.'
       skip message
     end
   else
-<<<<<<< HEAD
-    describe file(file) do
-      it { should exist }
-    end
-    describe "The SSH server must ensure it uses strong entropy" do
-      it "via the '#{parameter}' setting" do
-        expect(results).to cmp(32),
-        "The #{parameter} in the #{file} should be set to #{value}, it is set to #{results}."
-=======
     parameter = 'SSH_USE_STRONG_RNG'
     value = '32'
     file = '/etc/sysconfig/sshd'
@@ -109,7 +84,6 @@ The SSH service must be restarted for changes to take effect.'
     describe 'The SSH server must ensure it uses strong entropy' do
       it "and should configure '#{parameter}'" do
         expect(search_results).to cmp(32), "The SSH file: '/etc/sysconfig/sshd' does not have the #{parameter} set to #{value}, it is set to #{search_results}."
->>>>>>> 4121271 (updated control to use new resources and standard skip/NA patterns)
       end
     end
   end
