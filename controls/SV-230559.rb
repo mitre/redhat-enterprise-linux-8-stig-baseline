@@ -39,9 +39,9 @@ or remove it from the system with the following command:
   tag 'host'
   tag 'container'
 
-  nfs_mounts = command('mount -l | grep nfs')
+  nfs_systems = etc_fstab.nfs_file_systems.entries
 
-  if !nfs_mounts.empty?
+  if !nfs_systems.empty?
     impact 0.0
     describe 'NFS mounts are being used' do
       skip 'NFS mounts are being used, this control is Not Applicable.'
