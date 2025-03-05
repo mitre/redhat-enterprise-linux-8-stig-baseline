@@ -13,7 +13,7 @@ supports:
     release: 8.*
 
 ### INPUTS ###
-# Inputs are variables that can be referenced by any control in the profile, 
+# Inputs are variables that can be referenced by any control in the profile,
 # and are defined and given a default value in this file.
 
 # By default, each parameter is set to exactly comply with the STIG baseline
@@ -22,7 +22,7 @@ supports:
 
 # For example, control SV-230379 checks that only 'necessary accounts' exist
 # on the system. The list of 'necessary' accounts depends on the function of
-# the system, and you will likely need to add approved accounts to the 
+# the system, and you will likely need to add approved accounts to the
 # 'known_system_accounts' input. Also, depending on your local organizational
 # security policy, you may need to deviate from the STIG on some controls to
 # make the test profile 'stricter' or 'looser.'
@@ -350,7 +350,7 @@ inputs:
   - name: unapproved_ssl_tls_versions
     description:
     type: Array
-    value: 
+    value:
       - -VERS-DTLS0.9
       - -VERS-SSL3.0
       - -VERS-TLS1.0
@@ -469,8 +469,11 @@ inputs:
   # SV-230229
   - name: root_ca_file
     description: Path to an accepted trust anchor certificate file (DoD)
-    type: String
-    value: "/etc/sssd/pki/sssd_auth_ca_db.pem"
+    type: Hash
+    value:
+      path: "/etc/sssd/pki/sssd_auth_ca_db.pem" # https://dl.dod.cyber.mil/wp-content/uploads/pki-pke/zip/unclass-certificates_pkcs7_DoD.zip'
+      issuer_dn: '/C=US/O=U.S. Government/OU=DoD/OU=PKI/CN=DoD Root CA 3'
+      subject_dn: '/C=US/O=U.S. Government/OU=DoD/OU=PKI/CN=DoD Root CA 3'
 
   # SV-230353
   - name: system_inactivity_timeout
@@ -920,7 +923,7 @@ inputs:
     description: Set to true if there is a documented requirement for the target system to use iprutils
     type: Boolean
     value: false
-  
+
     # SV-230561
   - name: tuned_required
     description: Set to true if there is a documented requirement for the target system to use tuned
@@ -1038,7 +1041,7 @@ inputs:
     description: The audit rules to be applied to the system
     type: Hash
     value: {}
-  
+
   # SV-230226
   - name: banner_message_db
     description: Database where the banner text message is expected to live
