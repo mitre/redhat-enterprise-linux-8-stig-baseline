@@ -475,7 +475,6 @@ inputs:
       issuer_dn: '/C=US/O=U.S. Government/OU=DoD/OU=PKI/CN=DoD Root CA 3'
       subject_dn: '/C=US/O=U.S. Government/OU=DoD/OU=PKI/CN=DoD Root CA 3'
 
-
   # SV-230353
   - name: system_inactivity_timeout
     description: Maximum system inactivity timeout (time in seconds).
