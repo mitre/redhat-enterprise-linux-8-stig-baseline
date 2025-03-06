@@ -178,6 +178,3 @@ class OSResource < PlatformResource
     end
   end
 end
-
-#   end
-# end
