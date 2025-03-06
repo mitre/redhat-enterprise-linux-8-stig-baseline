@@ -29,11 +29,10 @@ the following command:
     Enter password:
     Confirm password:'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag gid: 'V-230234'
-  tag rid: 'SV-230234r743922_rule'
+  tag rid: 'SV-230234r1017053_rule'
   tag stig_id: 'RHEL-08-010140'
   tag fix_id: 'F-32878r743921_fix'
   tag cci: ['CCI-000213']

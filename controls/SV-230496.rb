@@ -36,11 +36,10 @@ Add or update the following lines in the file "/etc/modprobe.d/blacklist.conf":
 
 Reboot the system for the settings to take effect.'
   impact 0.3
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-230496'
-  tag rid: 'SV-230496r942924_rule'
+  tag rid: 'SV-230496r1017279_rule'
   tag stig_id: 'RHEL-08-040023'
   tag fix_id: 'F-33140r942923_fix'
   tag cci: ['CCI-000381']

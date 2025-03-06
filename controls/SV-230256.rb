@@ -36,12 +36,11 @@ adding the following line to "/etc/crypto-policies/back-ends/gnutls.config":
 
     A reboot is required for the changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000250-GPOS-00093'
   tag satisfies: ['SRG-OS-000250-GPOS-00093', 'SRG-OS-000423-GPOS-00187']
   tag gid: 'V-230256'
-  tag rid: 'SV-230256r877394_rule'
+  tag rid: 'SV-230256r1017076_rule'
   tag stig_id: 'RHEL-08-010295'
   tag fix_id: 'F-32900r567515_fix'
   tag cci: ['CCI-001453']

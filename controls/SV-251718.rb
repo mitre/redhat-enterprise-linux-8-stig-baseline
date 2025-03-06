@@ -15,11 +15,10 @@ $ sudo systemctl set-default multi-user.target
 
 A reboot is required for the changes to take effect.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag check_id: 'C-55155r809376_chk'
   tag severity: 'medium'
   tag gid: 'V-251718'
-  tag rid: 'SV-251718r809378_rule'
+  tag rid: 'SV-251718r1017371_rule'
   tag stig_id: 'RHEL-08-040321'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-55109r809377_fix'

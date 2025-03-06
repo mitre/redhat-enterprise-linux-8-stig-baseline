@@ -51,11 +51,10 @@ control 'SV-250316' do
 
   $ sudo restorecon -R -v /var/log/faillock'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag check_id: 'C-53750r793003_chk'
   tag severity: 'medium'
   tag gid: 'V-250316'
-  tag rid: 'SV-250316r854080_rule'
+  tag rid: 'SV-250316r1017357_rule'
   tag stig_id: 'RHEL-08-020028'
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag fix_id: 'F-53704r793004_fix'

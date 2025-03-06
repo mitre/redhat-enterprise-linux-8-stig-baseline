@@ -26,12 +26,11 @@ the /etc/audit/auditd.conf file:
 
     log_group = root'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000057-GPOS-00027'
   tag satisfies: ['SRG-OS-000057-GPOS-00027', 'SRG-OS-000058-GPOS-00028', 'SRG-OS-000059-GPOS-00029']
   tag gid: 'V-230398'
-  tag rid: 'SV-230398r627750_rule'
+  tag rid: 'SV-230398r1017204_rule'
   tag stig_id: 'RHEL-08-030090'
   tag fix_id: 'F-33042r567941_fix'
   tag cci: ['CCI-000162']

@@ -28,11 +28,10 @@ If the "acl" rule is not being used on all selection lines in the "/etc/aide.con
     If AIDE is installed, ensure the "acl" rule is present on all file and
 directory selection lists.'
   impact 0.3
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230552'
-  tag rid: 'SV-230552r880724_rule'
+  tag rid: 'SV-230552r1017314_rule'
   tag stig_id: 'RHEL-08-040310'
   tag fix_id: 'F-33196r568403_fix'
   tag cci: ['CCI-000366']

@@ -36,11 +36,10 @@ user interface:
 
     $ sudo dconf update"
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230530'
-  tag rid: 'SV-230530r646883_rule'
+  tag rid: 'SV-230530r1017290_rule'
   tag stig_id: 'RHEL-08-040171'
   tag fix_id: 'F-33174r568337_fix'
   tag cci: ['CCI-000366']

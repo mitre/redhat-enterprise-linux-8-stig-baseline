@@ -50,11 +50,10 @@ $ sudo firewall-cmd --permanent --zone=[custom] --change-interface=ens33
 Reload the firewall rules for changes to take effect:
 $ sudo firewall-cmd --reload'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000297-GPOS-00115'
   tag gid: 'V-230504'
-  tag rid: 'SV-230504r942942_rule'
+  tag rid: 'SV-230504r958672_rule'
   tag stig_id: 'RHEL-08-040090'
   tag fix_id: 'F-33148r942941_fix'
   tag cci: ['CCI-002314']

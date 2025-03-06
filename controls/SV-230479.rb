@@ -41,12 +41,11 @@ For UDP:
 For TCP:
      *.* @@[logaggregationserver.example.mil]:[port]'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
   tag satisfies: ['SRG-OS-000342-GPOS-00133', 'SRG-OS-000479-GPOS-00224']
   tag gid: 'V-230479'
-  tag rid: 'SV-230479r917883_rule'
+  tag rid: 'SV-230479r958754_rule'
   tag stig_id: 'RHEL-08-030690'
   tag fix_id: 'F-33123r917882_fix'
   tag cci: ['CCI-001851']

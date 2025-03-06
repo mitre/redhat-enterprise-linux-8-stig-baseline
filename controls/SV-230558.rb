@@ -21,11 +21,10 @@ or remove it from the system with the following command:
 
     $ sudo yum remove vsftpd'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230558'
-  tag rid: 'SV-230558r627750_rule'
+  tag rid: 'SV-230558r1017320_rule'
   tag stig_id: 'RHEL-08-040360'
   tag fix_id: 'F-33202r568421_fix'
   tag cci: ['CCI-000366']

@@ -24,11 +24,10 @@ control 'SV-251707' do
 
   $ sudo chmod 755 [DIRECTORY]'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000259-GPOS-00100'
   tag gid: 'V-251707'
-  tag rid: 'SV-251707r809345_rule'
+  tag rid: 'SV-251707r1017360_rule'
   tag stig_id: 'RHEL-08-010331'
   tag fix_id: 'F-55098r809344_fix'
   tag cci: ['CCI-001499']

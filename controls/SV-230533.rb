@@ -18,11 +18,10 @@ the ISSO, this is a finding.'
 
 $ sudo yum remove tftp-server'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230533'
-  tag rid: 'SV-230533r627750_rule'
+  tag rid: 'SV-230533r1017295_rule'
   tag stig_id: 'RHEL-08-040190'
   tag fix_id: 'F-33177r568346_fix'
   tag cci: ['CCI-000366']

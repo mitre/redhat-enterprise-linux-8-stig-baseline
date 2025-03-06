@@ -17,18 +17,17 @@ $ sudo vi /etc/pam.d/sudo
 
 Remove any occurrences of "pam_succeed_if" in the file.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag check_id: 'C-55149r809358_chk'
   tag severity: 'medium'
   tag gid: 'V-251712'
-  tag rid: 'SV-251712r854083_rule'
+  tag rid: 'SV-251712r1050789_rule'
   tag stig_id: 'RHEL-08-010385'
   tag gtitle: 'SRG-OS-000373-GPOS-00156'
   tag fix_id: 'F-55103r854082_fix'
   tag satisfies: ['SRG-OS-000373-GPOS-00156', 'SRG-OS-000373-GPOS-00157', 'SRG-OS-000373-GPOS-00158']
   tag 'documentable'
-  tag cci: ['CCI-002038']
-  tag nist: ['IA-11']
+  tag cci: ['CCI-002038', 'CCI-004895']
+  tag nist: ['IA-11', 'SC-11 b']
   tag 'host'
   tag 'container-conditional'
 

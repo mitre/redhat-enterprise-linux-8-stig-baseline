@@ -24,11 +24,10 @@ the following command:
 
     $ sudo chgrp root /var/log/messages'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000206-GPOS-00084'
   tag gid: 'V-230247'
-  tag rid: 'SV-230247r627750_rule'
+  tag rid: 'SV-230247r1017065_rule'
   tag stig_id: 'RHEL-08-010230'
   tag fix_id: 'F-32891r567488_fix'
   tag cci: ['CCI-001314']

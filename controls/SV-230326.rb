@@ -21,11 +21,10 @@ valid user, or assign a valid user to all unowned files and directories on RHEL
 
     $ sudo chown <user> <file>'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230326'
-  tag rid: 'SV-230326r627750_rule'
+  tag rid: 'SV-230326r1017137_rule'
   tag stig_id: 'RHEL-08-010780'
   tag fix_id: 'F-32970r567725_fix'
   tag cci: ['CCI-000366']

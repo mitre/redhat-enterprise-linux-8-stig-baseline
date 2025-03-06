@@ -37,11 +37,10 @@ local interactive user's files and directories, use the following command:
 
     $ sudo chgrp smithj /home/smithj/<file or directory>)
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244532'
-  tag rid: 'SV-244532r743845_rule'
+  tag rid: 'SV-244532r1017339_rule'
   tag stig_id: 'RHEL-08-010741'
   tag fix_id: 'F-47764r743844_fix'
   tag cci: ['CCI-000366']

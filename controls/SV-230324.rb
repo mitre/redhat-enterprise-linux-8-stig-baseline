@@ -18,11 +18,10 @@ users by setting the "CREATE_HOME" parameter in "/etc/login.defs" to
 
     CREATE_HOME yes'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230324'
-  tag rid: 'SV-230324r627750_rule'
+  tag rid: 'SV-230324r1017135_rule'
   tag stig_id: 'RHEL-08-010760'
   tag fix_id: 'F-32968r567719_fix'
   tag cci: ['CCI-000366']
