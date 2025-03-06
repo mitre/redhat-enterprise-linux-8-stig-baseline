@@ -117,7 +117,7 @@ module Inspec::Resources
     alias service_running running
     alias support_services services
     alias has_service_running? has_running?
-    alias has_support_services? has_services?
+    alias has_support_services? has_services?\
 
     def available?
       Inspec::Log.debug "Checking if RNG is available"

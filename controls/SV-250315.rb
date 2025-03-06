@@ -70,11 +70,11 @@ control 'SV-250315' do
   tag 'host'
 
   message = <<~MESSAGE
-    \n\nThis check only applies to RHEL versions 8.0 or 8.1.\n
+    \n\nThis check applies to RHEL versions 8.2 or newer.\n
     The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
   MESSAGE
   only_if(message, impact: 0.0) do
-    os.version.minor.between?(0, 1)
+    os.version.minor >= 2
   end
 
   if virtualization.system.eql?('docker')
