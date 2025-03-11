@@ -46,7 +46,7 @@ $ sudo systemctl restart sshd.service'
   tag 'container-conditional'
 
   message = <<~MESSAGE
-    \n\nThis check only applies to RHEL versions 8.0 or 8.1.\n
+    \n\nThis check does not apply to RHEL versions 8.0 or 8.1.\n
     The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
   MESSAGE
   only_if(message, impact: 0.0) do
