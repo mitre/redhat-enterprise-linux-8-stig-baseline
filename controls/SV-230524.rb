@@ -56,16 +56,16 @@ a keyboard or mouse'
   }
  
   peripherals_package = input('peripherals_package')
-  virtualized_system_no_usb_devices = input('virtualized_system_no_usb_devices')
+  is_virtualized_system_no_usb_devices = input('is_virtualized_system_no_usb_devices')
 
-  if(virtualized_system_no_usb_devices == true)
+  if is_virtualized_system_no_usb_devices
     impact 0.0
     describe 'The system is a virtual machine with no virtual or physical USB peripherals attached' do
       skip 'The system is a virtual machine with no virtual or physical USB peripherals attached, this control is Not Applicable.'
     end
   else
     if peripherals_package != 'usbguard'
-      describe 'Non-standard package' do
+      describe "Non-standard package #{peripherals_package}" do
         it 'is handling peripherals' do
           expect(peripherals_package).to exist
         end

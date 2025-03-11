@@ -61,9 +61,9 @@ adding or modifying the following line in
   tag nist: ['AU-12 a']
   tag 'host'
 
-  virtualized_system_no_usb_devices = input('virtualized_system_no_usb_devices')
+  is_virtualized_system_no_usb_devices = input('is_virtualized_system_no_usb_devices')
 
-  if(virtualized_system_no_usb_devices == true)
+  if is_virtualized_system_no_usb_devices
     impact 0.0
     describe 'The system is a virtual machine with no virtual or physical USB peripherals attached' do
       skip 'The system is a virtual machine with no virtual or physical USB peripherals attached, this control is Not Applicable.'

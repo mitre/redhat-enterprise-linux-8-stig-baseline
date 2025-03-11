@@ -50,7 +50,7 @@ $ sudo systemctl restart sshd.service'
     The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
   MESSAGE
   only_if(message, impact: 0.0) do
-    os.version.minor.between?(0, 1)
+    !os.version.minor.between?(0, 1)
   end
 
   if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?

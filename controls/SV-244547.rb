@@ -46,15 +46,15 @@ $ sudo yum install usbguard.x86_64'
     (!virtualization.system.eql?('docker'))
   }
 
-  virtualized_system_no_usb_devices = input('virtualized_system_no_usb_devices')
+  peripherals_package = input('peripherals_package')
+  is_virtualized_system_no_usb_devices = input('is_virtualized_system_no_usb_devices')
 
-  if(virtualized_system_no_usb_devices == true)
+  if is_virtualized_system_no_usb_devices
     impact 0.0
     describe 'The system is a virtual machine with no virtual or physical USB peripherals attached' do
       skip 'The system is a virtual machine with no virtual or physical USB peripherals attached, this control is Not Applicable.'
     end
   else
-    peripherals_package = input('peripherals_package')
 
     describe package(peripherals_package) do
       it "is expected to be installed. \n\tPlease ensure to configure the service to ensure your devices function as expected." do
