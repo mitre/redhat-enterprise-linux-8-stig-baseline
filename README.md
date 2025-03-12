@@ -2,8 +2,8 @@
 
 The Redhat Enterprise Linux 8.X Security Technical Implementation Guide (RHEL8.x STIG) InSpec Profile can help programs automate their compliance checks of RedHat Enterprise Linux 8.x System to Department of Defense (DoD) requirements.
 
-- Profile Version: `1.14.0`
-- RedHat Enterprise Linux 8 Security Technical Implementation Guide v1r14
+- Profile Version: `2.2.0`
+- RedHat Enterprise Linux 8 Security Technical Implementation Guide v2r2
 
 This profile was developed to reduce the time it takes to perform a security checks based upon the STIG Guidance from the Defense Information Systems Agency (DISA) in partnership between the DISA Services Directorate (SD) and the DISA Risk Management Executive (RME) office.
 
@@ -61,7 +61,7 @@ The RHEL8.x STIG profile checks were developed to provide technical implementati
 
 ### Source Guidance
 
-- RedHat Enterprise Linux 8 Security Technical Implementation Guide V1R14
+- RedHat Enterprise Linux 8 Security Technical Implementation Guide V2R2
 
 ### Current Profile Statistics
 
