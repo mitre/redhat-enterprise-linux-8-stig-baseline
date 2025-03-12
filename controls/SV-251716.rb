@@ -46,8 +46,8 @@ Remove any configurations that conflict with the above value.'
   tag 'host'
   tag 'container'
 
-  only_if('This requirement only applies to RHEL 8 versions above 8.4', impact: 0.0) {
-    os.release.to_f >= 8.4
+  only_if('This requirement only applies to RHEL 8 versions 8.4 or above', impact: 0.0) {
+    os.version.minor >= 4
   }
 
   describe 'System pwquality setting' do
