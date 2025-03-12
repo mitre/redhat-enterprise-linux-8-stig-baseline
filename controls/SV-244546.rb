@@ -93,7 +93,7 @@ permissive = 0'
     end
 
     # Determine the rules file based on the OS release
-    rules_file = os.version.minor <= 8.4 ? '/etc/fapolicyd/fapolicyd.rules' : '/etc/fapolicyd/compiled.rules'
+    rules_file = os.version.minor <= 4 ? '/etc/fapolicyd/fapolicyd.rules' : '/etc/fapolicyd/compiled.rules'
 
     # Check if the rules file exists
     describe file(rules_file) do
