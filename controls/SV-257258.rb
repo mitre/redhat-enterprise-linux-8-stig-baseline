@@ -33,7 +33,7 @@ $ sudo systemctl restart systemd-logind'
   tag 'host'
 
   only_if('This check applies to RHEL versions 8.7 or newer, if the system is RHEL version 8.6  or below, this check is not applicable.', impact: 0.0) {
-    (os.version.minor) >= "7"
+    (os.version.minor) >= 7
 }
   stop_idle_session_sec = input('stop_idle_session_sec')
 
