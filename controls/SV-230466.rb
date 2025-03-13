@@ -79,7 +79,7 @@ updating the following rules in the "/etc/audit/rules.d/audit.rules" file:
   tag nist: ['AU-12 a']
   tag 'host'
 
-  if os.version.minor < 8.2
+  if os.version.minor < 2
     m = /dir=(?<dir>\S*)/
     s = command('grep -i pam_faillock.so /etc/pam.d/system-auth').stdout
     dir_match = m.match(s)

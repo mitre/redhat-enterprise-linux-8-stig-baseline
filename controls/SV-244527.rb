@@ -40,7 +40,7 @@ generator entropy gatherer service with the following command:
     !virtualization.system.eql?('docker')
   }
  
-  if os.version.minor >= 8.4
+  if os.version.minor >= 4
     impact 0.0
     describe 'This check does not apply to RHEL versions 8.4 or newer' do
       skip 'This check does not apply to RHEL versions 8.4 or newer'
