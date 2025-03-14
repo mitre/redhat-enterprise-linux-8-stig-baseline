@@ -38,15 +38,14 @@ minlen = 15
 
 Remove any configurations that conflict with the above value.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000078-GPOS-00046'
   tag gid: 'V-230369'
-  tag rid: 'SV-230369r858785_rule'
+  tag rid: 'SV-230369r1017181_rule'
   tag stig_id: 'RHEL-08-020230'
   tag fix_id: 'F-33013r858784_fix'
-  tag cci: ['CCI-000205']
-  tag nist: ['IA-5 (1) (a)']
+  tag cci: ['CCI-000205', 'CCI-004066']
+  tag nist: ['IA-5 (1) (a)', 'IA-5 (1) (h)']
   tag 'host'
   tag 'container'
 

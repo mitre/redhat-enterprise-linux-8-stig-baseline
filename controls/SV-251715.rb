@@ -24,11 +24,10 @@ Add the following line to the "/etc/pam.d/password-auth" file (or modify the lin
 
      password requisite pam_pwquality.so retry=3'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag check_id: 'C-55152r902744_chk'
   tag severity: 'medium'
   tag gid: 'V-251715'
-  tag rid: 'SV-251715r902746_rule'
+  tag rid: 'SV-251715r1017368_rule'
   tag stig_id: 'RHEL-08-020103'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-55106r902745_fix'
@@ -39,7 +38,7 @@ Add the following line to the "/etc/pam.d/password-auth" file (or modify the lin
   tag 'container'
 
   only_if('This requirement only applies to RHEL 8 versions below 8.4', impact: 0.0) {
-    os.release.to_f < 8.4
+    os.version.minor < 4
   }
 
   pam_auth_files = input('pam_auth_files')

@@ -15,11 +15,10 @@ $ sudo passwd [username]
 Lock an account:
 $ sudo passwd -l [username]'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag check_id: 'C-55143r809340_chk'
   tag severity: 'high'
   tag gid: 'V-251706'
-  tag rid: 'SV-251706r809342_rule'
+  tag rid: 'SV-251706r1017359_rule'
   tag stig_id: 'RHEL-08-010121'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-55097r809341_fix'

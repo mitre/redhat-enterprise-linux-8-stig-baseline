@@ -14,11 +14,10 @@ If any ".shosts" files are found, this is a finding.)
 
 $ sudo rm /[path]/[to]/[file]/.shosts'
   impact 0.7
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230284'
-  tag rid: 'SV-230284r627750_rule'
+  tag rid: 'SV-230284r1017095_rule'
   tag stig_id: 'RHEL-08-010470'
   tag fix_id: 'F-32928r567599_fix'
   tag cci: ['CCI-000366']

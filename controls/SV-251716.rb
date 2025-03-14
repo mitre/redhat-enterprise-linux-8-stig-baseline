@@ -33,11 +33,10 @@ retry = 3
 
 Remove any configurations that conflict with the above value.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag check_id: 'C-55153r858735_chk'
   tag severity: 'medium'
   tag gid: 'V-251716'
-  tag rid: 'SV-251716r858737_rule'
+  tag rid: 'SV-251716r1017369_rule'
   tag stig_id: 'RHEL-08-020104'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-55107r858736_fix'
@@ -47,8 +46,8 @@ Remove any configurations that conflict with the above value.'
   tag 'host'
   tag 'container'
 
-  only_if('This requirement only applies to RHEL 8 versions above 8.4', impact: 0.0) {
-    os.release.to_f >= 8.4
+  only_if('This requirement only applies to RHEL 8 versions 8.4 or above', impact: 0.0) {
+    os.version.minor >= 4
   }
 
   describe 'System pwquality setting' do

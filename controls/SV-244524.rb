@@ -28,11 +28,10 @@ Edit/modify the following line in the "/etc/pam.d/system-auth" file to include t
 
 password sufficient pam_unix.so sha512'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000120-GPOS-00061'
   tag gid: 'V-244524'
-  tag rid: 'SV-244524r809331_rule'
+  tag rid: 'SV-244524r1017330_rule'
   tag stig_id: 'RHEL-08-010159'
   tag fix_id: 'F-47756r809330_fix'
   tag cci: ['CCI-000803']

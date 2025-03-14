@@ -41,12 +41,11 @@ configuration survives kernel updates:
 
     GRUB_CMDLINE_LINUX="vsyscall=none"'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000134-GPOS-00068'
   tag satisfies: ['SRG-OS-000134-GPOS-00068', 'SRG-OS-000433-GPOS-00192']
   tag gid: 'V-230278'
-  tag rid: 'SV-230278r792886_rule'
+  tag rid: 'SV-230278r1017091_rule'
   tag stig_id: 'RHEL-08-010422'
   tag fix_id: 'F-32922r743947_fix'
   tag cci: ['CCI-001084']

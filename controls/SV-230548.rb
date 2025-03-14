@@ -11,8 +11,6 @@ The sysctl --system command will load settings from all system configuration fil
 /etc/sysctl.conf'
   desc 'check', 'Verify RHEL 8 disables the use of user namespaces with the following commands:
 
-Note: User namespaces are used primarily for Linux containers. If containers are in use, this requirement is not applicable.
-
 $ sudo sysctl user.max_user_namespaces
 
 user.max_user_namespaces = 0
@@ -27,14 +25,14 @@ $ sudo grep -r user.max_user_namespaces /run/sysctl.d/*.conf /usr/local/lib/sysc
 
 If "user.max_user_namespaces" is not set to "0", is missing or commented out, this is a finding.
 
-If conflicting results are returned, this is a finding.'
-  desc 'fix', 'Configure RHEL 8 to disable the use of user namespaces by adding the following line to a file, in the "/etc/sysctl.d" directory:
+If conflicting results are returned, this is a finding.
 
-Note: User namespaces are used primarily for Linux containers. If containers are in use, this requirement is not applicable.
+If the use of namespaces is operationally required and documented with the ISSM, it is not a finding.'
+  desc 'fix', 'Configure RHEL 8 to disable the use of user namespaces by adding the following line to a file, in the "/etc/sysctl.d" directory:
 
 user.max_user_namespaces = 0
 
-Remove any configurations that conflict with the above from the following locations:
+Remove any configurations that conflict with the above from the following locations: 
 /run/sysctl.d/*.conf
 /usr/local/lib/sysctl.d/*.conf
 /usr/lib/sysctl.d/*.conf
@@ -50,9 +48,9 @@ $ sudo sysctl --system'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230548'
-  tag rid: 'SV-230548r858828_rule'
+  tag rid: 'SV-230548r1017310_rule'
   tag stig_id: 'RHEL-08-040284'
-  tag fix_id: 'F-33192r858827_fix'
+  tag fix_id: 'F-33192r1014817_fix'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'
@@ -69,57 +67,44 @@ $ sudo sysctl --system'
   # Get the current value of the kernel parameter
   current_value = kernel_parameter(parameter)
 
-  # Check if the system is a Docker container
-  if virtualization.system.eql?('docker')
-    impact 0.0
-    describe 'Control not applicable within a container' do
-      skip 'Control not applicable within a container'
+  describe kernel_parameter(parameter) do
+    it 'is disabled in sysctl -a' do
+      expect(current_value.value).to cmp value
+      expect(current_value.value).not_to be_nil
     end
-  # Check if the system is a container host
-  elsif input('container_host')
-    impact 0.0
-    describe 'Control not applicable when system is a host for containers' do
-      skip 'Control not applicable for container hosts'
-    end
-  else
-    describe kernel_parameter(parameter) do
-      it 'is disabled in sysctl -a' do
-        expect(current_value.value).to cmp value
-        expect(current_value.value).not_to be_nil
+  end
+
+  # Get the list of sysctl configuration files
+  sysctl_config_files = input('sysctl_conf_files').map(&:strip).join(' ')
+
+  # Search for the kernel parameter in the configuration files
+  search_results = command("grep -r ^#{parameter} #{sysctl_config_files} {} \;").stdout.split("\n")
+
+  # Parse the search results into a hash
+  config_values = search_results.each_with_object({}) do |item, results|
+    file, setting = item.split(':')
+    file = 'grep did not return filename' if file.empty?
+
+    results[file] ||= []
+    results[file] << setting.split('=').last
+  end
+
+  uniq_config_values = config_values.values.flatten.map(&:strip).map(&:to_i).uniq
+
+  # Check the configuration files
+  describe 'Configuration files' do
+    if search_results.empty?
+      it "do not explicitly set the `#{parameter}` parameter" do
+        expect(config_values).not_to be_empty, "Add the line `#{parameter}=#{value}` to a file in the `/etc/sysctl.d/` directory"
       end
-    end
-
-    # Get the list of sysctl configuration files
-    sysctl_config_files = input('sysctl_conf_files').map(&:strip).join(' ')
-
-    # Search for the kernel parameter in the configuration files
-    search_results = command("grep -r ^#{parameter} #{sysctl_config_files} {} \;").stdout.split("\n")
-
-    # Parse the search results into a hash
-    config_values = search_results.each_with_object({}) do |item, results|
-      file, setting = item.split(':')
-      file = 'grep did not return filename' if file.empty?
-
-      results[file] ||= []
-      results[file] << setting.split('=').last
-    end
-
-    uniq_config_values = config_values.values.flatten.map(&:strip).map(&:to_i).uniq
-
-    # Check the configuration files
-    describe 'Configuration files' do
-      if search_results.empty?
-        it "do not explicitly set the `#{parameter}` parameter" do
-          expect(config_values).not_to be_empty, "Add the line `#{parameter}=#{value}` to a file in the `/etc/sysctl.d/` directory"
-        end
-      else
-        it "do not have conflicting settings for #{action}" do
-          expect(uniq_config_values.count).to eq(1), "Expected one unique configuration, but got #{config_values}"
-        end
-        it "set the parameter to the right value for #{action}" do
-          expect(config_values.values.flatten.all? { |v| v.to_i.eql?(value) }).to be true
-        end
+    else
+      it "do not have conflicting settings for #{action}" do
+        expect(uniq_config_values.count).to eq(1), "Expected one unique configuration, but got #{config_values}"
+      end
+      it "set the parameter to the right value for #{action}" do
+        expect(config_values.values.flatten.all? { |v| v.to_i.eql?(value) }).to be true
       end
     end
   end
 end
+

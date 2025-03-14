@@ -28,11 +28,10 @@ local interactive user must log on to their account first and then switch the
 user to the application account with the correct option to gain the account's
 environment variables.)
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00228'
   tag gid: 'V-230384'
-  tag rid: 'SV-230384r858732_rule'
+  tag rid: 'SV-230384r1017193_rule'
   tag stig_id: 'RHEL-08-020352'
   tag fix_id: 'F-33028r567899_fix'
   tag cci: ['CCI-000366']

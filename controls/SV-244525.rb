@@ -28,12 +28,11 @@ For the changes to take effect, the SSH daemon must be restarted.
 
      $ sudo systemctl restart sshd.service'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000163-GPOS-00072'
   tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000126-GPOS-00066', 'SRG-OS-000279-GPOS-00109']
   tag gid: 'V-244525'
-  tag rid: 'SV-244525r951596_rule'
+  tag rid: 'SV-244525r1017331_rule'
   tag stig_id: 'RHEL-08-010201'
   tag fix_id: 'F-47757r917885_fix'
   tag cci: ['CCI-001133']

@@ -19,11 +19,10 @@ does not have the "nosuid" option set, this is a finding.'
   desc 'fix', 'Configure the "/etc/fstab" to use the "nosuid" option on
 file systems that are associated with removable media.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230305'
-  tag rid: 'SV-230305r627750_rule'
+  tag rid: 'SV-230305r1017115_rule'
   tag stig_id: 'RHEL-08-010620'
   tag fix_id: 'F-32949r567662_fix'
   tag cci: ['CCI-000366']

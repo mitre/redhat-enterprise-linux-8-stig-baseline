@@ -31,11 +31,10 @@ the following command:
 
     $ sudo chmod 0755 <file>'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230309'
-  tag rid: 'SV-230309r627750_rule'
+  tag rid: 'SV-230309r1017119_rule'
   tag stig_id: 'RHEL-08-010660'
   tag fix_id: 'F-32953r567674_fix'
   tag cci: ['CCI-000366']

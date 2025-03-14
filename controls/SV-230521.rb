@@ -38,11 +38,10 @@ If results are returned and the "nosuid" option is missing, or if /var/tmp is mo
 
 /dev/mapper/rhel-var-tmp /var/tmp xfs defaults,nodev,nosuid,noexec 0 0'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000368-GPOS-00154'
   tag gid: 'V-230521'
-  tag rid: 'SV-230521r854062_rule'
+  tag rid: 'SV-230521r958804_rule'
   tag stig_id: 'RHEL-08-040133'
   tag fix_id: 'F-33165r792929_fix'
   tag cci: ['CCI-001764']
