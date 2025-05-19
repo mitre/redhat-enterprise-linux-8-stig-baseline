@@ -67,14 +67,14 @@ this is a finding.'
         end
         expect(audit_rule.fields.flatten).to include('uid!=euid', 'gid!=egid', 'euid=0', 'egid=0')
 
-        # Ensure both inputs are arrays (if already arrays, they remain unchanged)
-        audit_rule_keynames = Array(input('audit_rule_keynames'))
-        audit_rule_keynames_overrides = Array(input('audit_rule_keynames_overrides'))
+        # Load the audit rule keynames and overrides from the input as hashes
+        audit_rule_keynames = input('audit_rule_keynames')
+        audit_rule_keynames_overrides = input('audit_rule_keynames_overrides')
 
-        # Merge the two arrays and ensure uniqueness
-        merged_keys = (audit_rule_keynames + audit_rule_keynames_overrides).uniq
+        # Merge the two hashes with overrides taking precedence
+        merged_keys = audit_rule_keynames.merge(audit_rule_keynames_overrides)
 
-        # Perform the expectation check
+        # Perform the expectation check that the audit rule's unique key exists within the merged keys
         expect(audit_rule.key.uniq).to include(merged_keys[audit_syscall])
       end
     end
