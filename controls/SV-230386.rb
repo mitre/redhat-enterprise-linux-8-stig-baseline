@@ -74,9 +74,12 @@ this is a finding.'
         # Merge the two hashes with overrides taking precedence
         merged_keys = audit_rule_keynames.merge(audit_rule_keynames_overrides)
 
-        # Perform the expectation check that the audit rule's unique key exists within the merged keys
-        expect(audit_rule.key.uniq).to include(merged_keys[audit_syscall])
-      end
+        # Get expected keys, automatically convert to array
+        expected_keys = Array(merged_keys[audit_syscall])
+
+        # Check that all expected keys are present
+        # Splat operator (*) is used to expand the array into individual arguments
+        expect(audit_rule.key.uniq).to include(*expected_keys)
     end
   end
 end
