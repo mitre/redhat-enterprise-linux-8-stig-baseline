@@ -80,6 +80,7 @@ this is a finding.'
         # Check that all expected keys are present
         # Splat operator (*) is used to expand the array into individual arguments
         expect(audit_rule.key.uniq).to include(*expected_keys)
+      end
     end
   end
 end
