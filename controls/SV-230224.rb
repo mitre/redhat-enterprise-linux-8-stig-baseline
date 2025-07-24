@@ -55,16 +55,20 @@ rest by using disk encryption.
   if virtualization.system.eql?('docker')
     impact 0.0
     describe_and_skip('Disk Encryption and Data At Rest Implementation is handled on the Container Host')
-  elsif input('data_at_rest_exempt') == true
+  elsif input('data_at_rest_exempt')
     impact 0.0
     describe_and_skip('Data At Rest Requirements have been set to Not Applicabe by the `data_at_rest_exempt` input.')
   elsif all_args.empty?
     # TODO: Determine if this is an NA vs and NR or even a pass
     describe_and_skip('Command blkid did not return and non-psuedo block devices.')
   else
-    all_args.each do |args|
-      describe args do
-        it { should match(/\bcrypto_LUKS\b/) }
+    unencrypted_drives = all_args.reject { |a| a.match(/\bcrypto_LUKS\b/) || 
+      input('luks_exceptions').include?(a.split(':').first) ||
+      a.split(':').first.match(%r{^/dev/mapper/})
+    }
+    describe 'All local disk partitions' do
+      it 'should be encrypted with crypto_LUKS' do
+        expect(unencrypted_drives).to be_empty, "The following partitions are not encrypted with crypto_LUKS:\t\n- #{unencrypted_drives.join("\t\n- ")}"
       end
     end
   end
