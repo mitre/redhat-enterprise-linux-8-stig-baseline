@@ -790,6 +790,12 @@ inputs:
     type: String
     value: mailx
 
+  # SV-230264
+  - name: alternate_patching_process
+    description: Set to true if the system uses an alternate patching process and does not need GPG enabled accordingly (e.g. local updates only)
+    type: Boolean
+    value: false
+
   # SV-256973
   - name: rpm_gpg_file
     description: Red Hat uses GPG keys labels defined in file

@@ -53,23 +53,31 @@ repository prior to install by setting the following option in the
 
   # TODO: create a plural resource for repo def files (`repositories`?)
 
-  # get list of all repo files
-  repo_def_files = command('ls /etc/yum.repos.d/*.repo').stdout.split("\n")
-
-  if repo_def_files.empty?
-    describe 'No repos found in /etc/yum.repos.d/*.repo' do
-      skip 'No repos found in /etc/yum.repos.d/*.repo'
+  # caveat outside process for updates
+  if input('alternate_patching_process')
+    describe 'Manual Attestation' do
+      skip 'Inputs indicate the system is not using the standard patching process -- ask the System Administrator how the certificates for patches and other operating system components are verified.'
     end
   else
-    # pull out all repo definitions from all files into one big hash
-    repos = repo_def_files.map { |file| parse_config_file(file).params }.inject(&:merge)
 
-    # check big hash for repos that fail the test condition
-    failing_repos = repos.keys.reject { |repo_name| repos[repo_name]['gpgcheck'] == '1' }
+    # get list of all repo files
+    repo_def_files = command('ls /etc/yum.repos.d/*.repo').stdout.split("\n")
 
-    describe 'All repositories' do
-      it 'should be configured to verify digital signatures' do
-        expect(failing_repos).to be_empty, "Misconfigured repositories:\n\t- #{failing_repos.join("\n\t- ")}"
+    if repo_def_files.empty?
+      describe 'No repos found in /etc/yum.repos.d/*.repo' do
+        skip 'No repos found in /etc/yum.repos.d/*.repo'
+      end
+    else
+      # pull out all repo definitions from all files into one big hash
+      repos = repo_def_files.map { |file| parse_config_file(file).params }.inject(&:merge)
+
+      # check big hash for repos that fail the test condition
+      failing_repos = repos.keys.reject { |repo_name| repos[repo_name]['gpgcheck'] == '1' }
+
+      describe 'All repositories' do
+        it 'should be configured to verify digital signatures' do
+          expect(failing_repos).to be_empty, "Misconfigured repositories:\n\t- #{failing_repos.join("\n\t- ")}"
+        end
       end
     end
   end
