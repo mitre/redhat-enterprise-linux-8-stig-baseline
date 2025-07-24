@@ -443,6 +443,12 @@ inputs:
     description: Timeserver used in /etc/chrony.conf
     type: String
     value: 0.us.pool.ntp.mil
+  
+  # SV-230484
+  - name: match_all_authoritative_timeservers_enabled
+    description: Whether to match all authoritative timeservers in /etc/chrony.conf or just any of them
+    type: Boolean
+    value: false
 
   # SV-230537
   - name: non_removable_media_fs
