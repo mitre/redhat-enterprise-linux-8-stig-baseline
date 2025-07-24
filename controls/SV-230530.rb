@@ -52,7 +52,7 @@ user interface:
   }
 
   if package('gnome-desktop3').installed?
-    describe command('grep ^logout /etc/dconf/db/local.d/*') do
+    describe command('grep logout /etc/dconf/db/local.d/*') do
       its('stdout.strip') { should match(/logout=''/) }
     end
   else

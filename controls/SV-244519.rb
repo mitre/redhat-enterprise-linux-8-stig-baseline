@@ -70,7 +70,7 @@ this requirement is Not Applicable.
       skip 'A GUI desktop is not installed, this control is Not Applicable.'
     end
   else
-    describe command('grep ^banner-message-enable /etc/dconf/db/local.d/*') do
+    describe command('grep banner-message-enable /etc/dconf/db/local.d/*') do
       its('stdout.strip') { should cmp 'banner-message-enable=true' }
     end
   end

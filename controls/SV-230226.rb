@@ -86,7 +86,7 @@ Run the following command to update the database:
 
   banner_message_db = input('banner_message_db')
 
-  banner = command("grep ^banner-message-text /etc/dconf/db/#{banner_message_db}.d/*").stdout.gsub(/[\r\n\s]/, '')
+  banner = command("grep banner-message-text /etc/dconf/db/#{banner_message_db}.d/*").stdout.gsub(/[\r\n\s]/, '')
   expected_banner = input('banner_message_text_gui').gsub(/[\r\n\s]/, '')
 
   describe 'The GUI Banner ' do
