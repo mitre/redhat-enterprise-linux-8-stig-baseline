@@ -66,7 +66,7 @@ Obtain a valid copy of the DoD root CA file from the PKI CA certificate bundle a
   tag 'container'
 
   only_if('If the System Administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.', impact: 0.0) {
-    !input('smart_card_enabled')
+    input('smart_card_enabled')
   }
 
   root_ca_file = input('root_ca_file') # This gets the entire hash from input
