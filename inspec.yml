@@ -364,6 +364,12 @@ inputs:
     value:
       - "/boot/grub2/user.cfg"
 
+  # SV-244521
+  - name: grub_superuser
+    description: the unique name for the grub superuser
+    type: String
+    value: "bootloader_user"
+
   # SV-230537
   - name: ipv4_enabled
     description: Set to 'true' if IPv4 is enabled on the system.

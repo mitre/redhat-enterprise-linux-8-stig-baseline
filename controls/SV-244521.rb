@@ -37,13 +37,15 @@ $ sudo grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg'
   tag nist: ['AC-3']
   tag 'host'
 
+  grub_superuser = input('grub_superuser')
+
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {
     !virtualization.system.eql?('docker')
   }
 
   if file('/sys/firmware/efi').exist?
     describe parse_config_file(input('grub_uefi_main_cfg')) do
-      its('set superusers') { should cmp '"root"' }
+      its('set superusers') { should cmp grub_superuser }
     end
   else
     impact 0.0
