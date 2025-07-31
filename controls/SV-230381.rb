@@ -33,7 +33,7 @@ account accesses last occurred by setting the required configuration options in
   tag 'container'
 
   describe pam('/etc/pam.d/postlogin') do
-    its('lines') { should match_pam_rule('session .* pam_lastlog.so').all_with_args('showfailed') }
+    its('lines') { should match_pam_rule('session .* pam_lastlog.so showfailed') }
     its('lines') { should_not match_pam_rule('session .* pam_lastlog.so').all_without_args('silent') }
   end
 end
