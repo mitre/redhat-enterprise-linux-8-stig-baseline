@@ -83,7 +83,7 @@ file should be created under the appropriate subdirectory.
     end
   else
     describe command('grep -i lock-enabled /etc/dconf/db/local.d/locks/*') do
-      its('stdout.split') { should include '/org/gnome/desktop/screensaver/lock-enabled' }
+      its('stdout.strip') { should match %r{/org/gnome/desktop/screensaver/lock-enabled} }
     end
   end
 end
