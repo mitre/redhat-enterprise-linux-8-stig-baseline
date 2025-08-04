@@ -84,14 +84,21 @@ Run the following command to update the database:
   only_if("The system does not have GNOME installed; this requirement is Not
         Applicable.", impact: 0.0) { package('gnome-desktop3').installed? }
 
-  banner_message_db = input('banner_message_db')
+  banner_message_db_path = input('banner_message_db_path')
+  banner_message_dconf_file = file(banner_message_db_path)
 
-  banner = command("grep banner-message-text /etc/dconf/db/#{banner_message_db}.d/*").stdout.gsub(/[\r\n\s]/, '')
-  expected_banner = input('banner_message_text_gui').gsub(/[\r\n\s]/, '')
+  describe "dconf file setting the GUI banner message at #{banner_message_db_path}" do
+    subject { banner_message_dconf_file }
+    it { should exist }
+  end
 
-  describe 'The GUI Banner ' do
-    it 'is set to the standard banner and has the correct text' do
-      expect(banner).to eq(expected_banner), 'Banner does not match expected text'
+  if !banner_message_dconf_file.exist?
+    actual_banner = command("grep banner-message-text #{banner_message_db_path}").stdout.gsub(/[\r\n\s]/, '').split('=').last
+    expected_banner = input('banner_message_text_gui').gsub(/[\r\n\s]/, '')
+    describe 'The GUI Banner ' do
+      it 'is set to the standard banner and has the correct text' do
+        expect(banner).to eq(expected_banner), 'Banner does not match expected text'
+      end
     end
   end
 end
