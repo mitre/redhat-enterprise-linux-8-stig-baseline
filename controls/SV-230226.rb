@@ -93,7 +93,8 @@ Run the following command to update the database:
   end
 
   if !banner_message_dconf_file.exist?
-    actual_banner = command("grep banner-message-text #{banner_message_db_path}").stdout.gsub(/[\r\n\s]/, '').split('=').last
+    banner_ini = ini(banner_message_db_path)
+    actual_banner = banner_ini['org/gnome/login-screen','banner-message-text'].gsub(/[\r\n\s\\n']/, '')
     expected_banner = input('banner_message_text_gui').gsub(/[\r\n\s]/, '')
     describe 'The GUI Banner ' do
       it 'is set to the standard banner and has the correct text' do
