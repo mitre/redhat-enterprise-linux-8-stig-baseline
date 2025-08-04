@@ -81,7 +81,7 @@ the following line in the /etc/chrony.conf file.
   # Converts to array if only one value present
   time_sources = []
   time_sources = [chrony_conf.server].flatten if chrony_conf.server
-  time_sources += chrony_conf.pool if chrony_conf.pool
+  time_sources << chrony_conf.pool if chrony_conf.pool
 
   # Get and map maxpoll values to an array
   unless time_sources.nil?
