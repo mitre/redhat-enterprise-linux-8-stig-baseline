@@ -24,11 +24,10 @@ directories are not group-owned by a system account, this must be investigated.
  Following this, the directories must be deleted or assigned to an appropriate
 group.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230319'
-  tag rid: 'SV-230319r743961_rule'
+  tag rid: 'SV-230319r1017130_rule'
   tag stig_id: 'RHEL-08-010710'
   tag fix_id: 'F-32963r567704_fix'
   tag cci: ['CCI-000366']

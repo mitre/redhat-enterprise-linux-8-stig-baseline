@@ -32,12 +32,11 @@ configuration survives kernel updates:
 
     GRUB_CMDLINE_LINUX="slub_debug=P"'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000134-GPOS-00068'
   tag satisfies: ['SRG-OS-000134-GPOS-00068', 'SRG-OS-000433-GPOS-00192']
   tag gid: 'V-230279'
-  tag rid: 'SV-230279r951598_rule'
+  tag rid: 'SV-230279r1017092_rule'
   tag stig_id: 'RHEL-08-010423'
   tag fix_id: 'F-32923r567584_fix'
   tag cci: ['CCI-001084']

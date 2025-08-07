@@ -20,11 +20,10 @@ account accesses last occurred by setting the required configuration options in
 
     session required pam_lastlog.so showfailed'
   impact 0.3
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230381'
-  tag rid: 'SV-230381r858726_rule'
+  tag rid: 'SV-230381r991589_rule'
   tag stig_id: 'RHEL-08-020340'
   tag fix_id: 'F-33025r567890_fix'
   tag cci: ['CCI-000366', 'CCI-000052']

@@ -39,11 +39,10 @@ audit records.
     If audit records are not stored on a partition made specifically for audit
 records, a new partition with sufficient space will need be to be created.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000341-GPOS-00132'
   tag gid: 'V-230476'
-  tag rid: 'SV-230476r877391_rule'
+  tag rid: 'SV-230476r958752_rule'
   tag stig_id: 'RHEL-08-030660'
   tag fix_id: 'F-33120r568175_fix'
   tag cci: ['CCI-001849']

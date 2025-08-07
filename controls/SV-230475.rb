@@ -47,11 +47,10 @@ integrity of the audit tools.
     /usr/sbin/rsyslogd p+i+n+u+g+s+b+acl+xattrs+sha512
     /usr/sbin/augenrules p+i+n+u+g+s+b+acl+xattrs+sha512'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000278-GPOS-00108'
   tag gid: 'V-230475'
-  tag rid: 'SV-230475r880722_rule'
+  tag rid: 'SV-230475r1017266_rule'
   tag stig_id: 'RHEL-08-030650'
   tag fix_id: 'F-33119r568172_fix'
   tag cci: ['CCI-001496']

@@ -23,11 +23,10 @@ command:
 
     $ sudo chown root /var/log'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000206-GPOS-00084'
   tag gid: 'V-230249'
-  tag rid: 'SV-230249r627750_rule'
+  tag rid: 'SV-230249r1017067_rule'
   tag stig_id: 'RHEL-08-010250'
   tag fix_id: 'F-32893r567494_fix'
   tag cci: ['CCI-001314']

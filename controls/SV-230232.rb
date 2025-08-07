@@ -20,15 +20,14 @@ begin with "$6$", this is a finding.'
   desc 'fix', 'Lock all interactive user accounts not using SHA-512 hashing
 until the passwords can be regenerated with SHA-512.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000073-GPOS-00041'
   tag gid: 'V-230232'
-  tag rid: 'SV-230232r877397_rule'
+  tag rid: 'SV-230232r1017051_rule'
   tag stig_id: 'RHEL-08-010120'
   tag fix_id: 'F-32876r567443_fix'
-  tag cci: ['CCI-000196']
-  tag nist: ['IA-5 (1) (c)']
+  tag cci: ['CCI-000196', 'CCI-004062']
+  tag nist: ['IA-5 (1) (c)', 'IA-5 (1) (d)']
   tag 'host'
   tag 'container'
 

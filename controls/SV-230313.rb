@@ -31,13 +31,12 @@ all domains that have the "core" item assigned, this is a finding.)
 
     * hard core 0'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230313'
-  tag rid: 'SV-230313r627750_rule'
+  tag rid: 'SV-230313r1017124_rule'
   tag stig_id: 'RHEL-08-010673'
-  tag fix_id: 'F-32957r619861_fix'
+  tag fix_id: 'F-32957r1017123_fix'
   tag cci: ['CCI-000366']
   tag legacy: []
   tag nist: ['CM-6 b']

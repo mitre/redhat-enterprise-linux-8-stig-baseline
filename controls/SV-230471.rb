@@ -31,11 +31,10 @@ commands:
     $ sudo chmod 0640 /etc/audit/rules.d/[customrulesfile].rules
     $ sudo chmod 0640 /etc/audit/auditd.conf'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000063-GPOS-00032'
   tag gid: 'V-230471'
-  tag rid: 'SV-230471r627750_rule'
+  tag rid: 'SV-230471r1017262_rule'
   tag stig_id: 'RHEL-08-030610'
   tag fix_id: 'F-33115r568160_fix'
   tag cci: ['CCI-000171']

@@ -35,11 +35,10 @@ file system and it does not have the "noexec" option set, this is a finding.)
   desc 'fix', 'Configure the "/etc/fstab" to use the "noexec" option on
 file systems that contain user home directories for interactive users.'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230302'
-  tag rid: 'SV-230302r627750_rule'
+  tag rid: 'SV-230302r1017112_rule'
   tag stig_id: 'RHEL-08-010590'
   tag fix_id: 'F-32946r567653_fix'
   tag cci: ['CCI-000366']

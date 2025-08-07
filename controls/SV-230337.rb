@@ -37,12 +37,11 @@ line:
 
     unlock_time = 0'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
   tag gid: 'V-230337'
-  tag rid: 'SV-230337r743972_rule'
+  tag rid: 'SV-230337r1017149_rule'
   tag stig_id: 'RHEL-08-020015'
   tag fix_id: 'F-32981r743971_fix'
   tag cci: ['CCI-000044']

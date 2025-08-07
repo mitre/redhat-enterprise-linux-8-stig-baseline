@@ -46,12 +46,11 @@ this requirement is Not Applicable.
 
     $ sudo dconf update'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
   tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000228-GPOS-00088']
   tag gid: 'V-244519'
-  tag rid: 'SV-244519r743806_rule'
+  tag rid: 'SV-244519r1017326_rule'
   tag stig_id: 'RHEL-08-010049'
   tag fix_id: 'F-47751r743805_fix'
   tag cci: ['CCI-000048']
