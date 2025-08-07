@@ -65,20 +65,12 @@ control 'SV-250316' do
   tag 'host'
   tag 'container'
 
-<<<<<<< HEAD
   message = <<~MESSAGE
     \n\nThis check only applies to RHEL versions 8.0 or 8.1.\n
     The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
   MESSAGE
   only_if(message, impact: 0.0) do
     os.version.minor.between?(0, 1)
-=======
-  only_if("\n" + <<~MESSAGE, impact: 0.0) do
-    This check only applies to RHEL versions 8.0 or 8.1.
-    The system is running RHEL version: #{os.version}, this check is Not Applicable.
-  MESSAGE
-    ['8.0', '8.1'].include?(os.version)
->>>>>>> 0e8e703 (updated the new controls to use the updated  resource, which is in PR review)
   end
 
   describe selinux do
