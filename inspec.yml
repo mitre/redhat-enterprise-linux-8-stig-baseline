@@ -955,15 +955,12 @@ inputs:
     type: Boolean
     value: false
 
-<<<<<<< HEAD
-=======
   # SV-230224
   - name: luks_exceptions
     description: List of exceptions to the LUKS requirement for drives on this system (e.g. boot partitions)
     type: Array
     value: []
 
->>>>>>> caf4cee (allow for LVM and LUKS excpetions in SV-230224)
   # Default values for expected keynames for all audit rules
   # NOTE: DO NOT override this hash
   # If you need to override these values, do so via adding the desired key/value to
