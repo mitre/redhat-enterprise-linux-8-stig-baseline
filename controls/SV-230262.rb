@@ -44,8 +44,8 @@ group-owned by "root".
   failing_files = command("find -L #{input('system_libraries').join(' ')} ! #{required_system_account_caveats} -exec ls -d {} \\;").stdout.split("\n")
 
   describe 'System libraries' do
-    it 'should be group-owned by root' do
-      expect(failing_files).to be_empty, "Files not group-owned by root:\n\t- #{failing_files.join("\n\t- ")}"
+    it 'should be group-owned by root or a required system account' do
+      expect(failing_files).to be_empty, "Files not group-owned by root or required system accounts:\n\t- #{failing_files.join("\n\t- ")}"
     end
   end
 end
