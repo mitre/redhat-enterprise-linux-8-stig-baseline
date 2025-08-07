@@ -43,8 +43,9 @@ $ sudo grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg'
   }
 
   if file('/sys/firmware/efi').exist?
-    describe parse_config_file(input('grub_uefi_main_cfg')) do
-      its('set superusers') { should cmp grub_superuser }
+    describe "UEFI grub superuser name" do
+      subject { parse_config_file(input('grub_uefi_main_cfg')).params['set superusers'].gsub("\"", '') }
+      it { should cmp grub_superuser }
     end
   else
     impact 0.0
