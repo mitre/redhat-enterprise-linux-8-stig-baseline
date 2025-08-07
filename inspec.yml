@@ -1049,7 +1049,7 @@ inputs:
     type: Hash
     value: {}
   # SV-230226
-  - name: banner_message_db
+  - name: banner_message_db_path
     description: Database where the banner text message is expected to live
     type: String
-    value: 'local'
+    value: '/etc/dconf/db/local.d/01-banner-message'
