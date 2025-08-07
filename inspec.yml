@@ -446,6 +446,11 @@ inputs:
     type: String
     value: 0.us.pool.ntp.mil
 
+  - name: match_all_authoritative_timeservers_enabled
+    description: Check for *all* listed timeservers to be present (true) or just one of them (false)
+    type: Boolean
+    value: false
+
   # SV-230537
   - name: non_removable_media_fs
     description: File systems listed in /etc/fstab which are not removable media devices
@@ -1053,3 +1058,4 @@ inputs:
     description: Database where the banner text message is expected to live
     type: String
     value: '/etc/dconf/db/local.d/01-banner-message'
+
