@@ -92,8 +92,8 @@ class OSResource < PlatformResource
     # Updated to_s returns the original version string
     # without the build if present, preserving trailing zeros.
     def to_s
-      if @version_data[:full] && !@version_data[:full].empty?
-        if @version_data[:build] && !@version_data[:build].empty?
+      if @version_data[:full].present?
+        if @version_data[:build].present?
           # For OSes like macOS that include build info, return only the base version.
           @version_data[:full].split("+").first
         else
