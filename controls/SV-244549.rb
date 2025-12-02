@@ -40,21 +40,30 @@ $ sudo yum install openssh-server.x86_64'
   tag 'container-conditional'
 
   openssh_present = package('openssh-server').installed?
+  is_container = virtualization.system == 'docker'
 
-  only_if('This requirement is Not Applicable in the container without open-ssh installed', impact: 0.0) {
-    !(virtualization.system.eql?('docker') && !openssh_present)
-  }
+  only_if('This requirement is Not Applicable in the container without open-ssh installed', impact: 0.0) do
+    !(is_container && !openssh_present)
+  end
 
-  if input('allow_container_openssh_server') == false
-    describe 'In a container Environment' do
-      it 'the OpenSSH Server should be installed only when allowed in a container environment' do
-        expect(openssh_present).to eq(false), 'OpenSSH Server is installed but not approved for the container environment'
+  if is_container
+    if input('allow_container_openssh_server')
+      describe 'Container environment (OpenSSH allowed)' do
+        it 'OpenSSH Server should be installed' do
+          expect(openssh_present).to eq(true), 'OpenSSH Server is not installed in a permitted container environment'
+        end
+      end
+    else
+      describe 'Container environment (OpenSSH not allowed)' do
+        it 'OpenSSH Server should NOT be installed' do
+          expect(openssh_present).to eq(false), 'OpenSSH Server is installed but not approved for the container environment'
+        end
       end
     end
   else
-    describe 'In a machine environment' do
-      it 'the OpenSSH Server should be installed' do
-        expect(package('openssh-server').installed?).to eq(true), 'the OpenSSH Server is not installed'
+    describe 'Non-container host' do
+      it 'OpenSSH Server should be installed' do
+        expect(openssh_present).to eq(true), 'the OpenSSH Server is not installed on a non-container host'
       end
     end
   end
