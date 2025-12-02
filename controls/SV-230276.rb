@@ -45,7 +45,10 @@ BIOS.'
     assignment_regex: /^\s*([^:]*?)\s*:\s*(.*?)\s*$/
   }
 
-  dmesg_nx_conf = command('dmesg | grep NX').stdout.match(/:\s+(\S+)$/).captures.first
+  # Be robust to missing matches and restricted dmesg; grep -i for case variations
+  dmesg_out = command("dmesg | grep -i 'NX' || true").stdout
+  # Capture the token after the colon (e.g., 'active'), return nil if no match, and normalize case
+  dmesg_nx_conf = dmesg_out[/NX.*?:\s+(\S+)/i, 1]&.downcase
   cpuinfo_flags = parse_config_file('/proc/cpuinfo', options).flags.split
 
   describe.one do
