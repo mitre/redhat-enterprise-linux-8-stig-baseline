@@ -3,35 +3,38 @@ control 'SV-230557' do
 RHEL 8 TFTP daemon must be configured to operate in secure mode.'
   desc 'Restricting TFTP to a specific directory prevents remote users from
 copying, transferring, or overwriting system files.'
-  desc 'check', 'Verify the TFTP daemon is configured to operate in secure mode with the
-following commands:
+  desc 'check', 'Note: IAW RHEL-08-040190 if TFTP is not required, it should not be installed.  If TFTP is not installed, this rule is not applicable.
 
-    $ sudo yum list installed tftp-server
+Check to see if TFTP server is installed with the following command:
 
-    tftp-server.x86_64 x.x-x.el8
+$ sudo dnf list installed | grep tftp-server 
+tftp-server.x86_64 x.x-x.el8
 
-    If a TFTP server is not installed, this is Not Applicable.
+Verify that the TFTP daemon, if tftp.server is installed, is configured to operate in secure mode with the following command:
 
-    If a TFTP server is installed, check for the server arguments with the
-following command:
+$ grep -i execstart /usr/lib/systemd/system/tftp.service
+ExecStart=/usr/sbin/in.tftpd -s /var/lib/tftpboot
 
-    $ sudo grep server_args /etc/xinetd.d/tftp
+Note: The "-s" option ensures that the TFTP server only serves files from the specified directory, which is a security measure to prevent unauthorized access to other parts of the file system.
 
-    server_args = -s /var/lib/tftpboot
+If the TFTP server is installed but the TFTP daemon is not configured to operate in secure mode, this is a finding.'
+  desc 'fix', 'Configure the TFTP daemon to operate in secure mode with the following command:
+$ sudo systemctl edit tftp.service
 
-    If the "server_args" line does not have a "-s" option, and a
-subdirectory is not assigned, this is a finding.'
-  desc 'fix', 'Configure the TFTP daemon to operate in secure mode by adding the following
-line to "/etc/xinetd.d/tftp" (or modify the line to have the required value):
+In the editor enter:
+[Service]
+ExecStart=/usr/sbin/in.tftpd -s /var/lib/tftpboot
 
-    server_args = -s /var/lib/tftpboot'
+After making changes, reload the systemd daemon and restart the TFTP service as follows:
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart tftp.service'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230557'
-  tag rid: 'SV-230557r1017319_rule'
+  tag rid: 'SV-230557r1088855_rule'
   tag stig_id: 'RHEL-08-040350'
-  tag fix_id: 'F-33201r568418_fix'
+  tag fix_id: 'F-33201r1069173_fix'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'

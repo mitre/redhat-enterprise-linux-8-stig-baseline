@@ -9,21 +9,14 @@ additional attack vectors.
     The IEEE 1394 (FireWire) is a serial bus standard for high-speed real-time
 communication. Disabling FireWire protects the system against exploitation of
 any flaws in its implementation.'
-  desc 'check', 'Verify the operating system disables the ability to load the firewire-core kernel module.
+  desc 'check', 'Verify the operating system disables the ability to load the firewire-core kernel module and ensure that the firewire-core kernel module is disabled with the following command:
 
-     $ sudo grep -r firewire-core /etc/modprobe.d/* | grep "/bin/false"
-     install firewire-core /bin/false
+$ sudo grep -r firewire-core /etc/modprobe.d/* | grep "blacklist"
 
-If the command does not return any output, or the line is commented out, and use of the firewire-core protocol is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding.
+/etc/modprobe.d/blacklist.conf:install firewire-core /bin/false
+/etc/modprobe.d/blacklist.conf:blacklist firewire-core
 
-Verify the operating system disables the ability to use the firewire-core kernel module.
-
-Check to see if the firewire-core kernel module is disabled with the following command:
-
-     $ sudo grep -r firewire-core /etc/modprobe.d/* | grep "blacklist"
-     blacklist firewire-core
-
-If the command does not return any output or the output is not "blacklist firewire-core", and use of the firewire-core kernel module is not documented with the ISSO as an operational requirement, this is a finding.'
+If the command does not return any output, or the line is commented out, and use of the firewire-core protocol is not documented with the Information System Security Officer (ISSO) as an operational requirement, this is a finding.'
   desc 'fix', 'Configure the operating system to disable the ability to use the firewire-core kernel module.
 
 Add or update the following lines in the file "/etc/modprobe.d/blacklist.conf":
@@ -36,7 +29,7 @@ Reboot the system for the settings to take effect.'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
   tag gid: 'V-230499'
-  tag rid: 'SV-230499r1017282_rule'
+  tag rid: 'SV-230499r1069315_rule'
   tag stig_id: 'RHEL-08-040026'
   tag fix_id: 'F-33143r942932_fix'
   tag cci: ['CCI-000381']

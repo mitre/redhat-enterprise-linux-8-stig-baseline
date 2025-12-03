@@ -8,7 +8,7 @@ authentication, even in the event of misconfiguration elsewhere.'
 
 $ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '\n' ' ' | xargs sudo grep -iH '^\s*kerberosauthentication'
 
-KerberosAuthentication no
+/etc/ssh/sshd_config:KerberosAuthentication no
 
 If the value is returned as "yes", the returned line is commented out, no output is returned, or has not been documented with the information system security officer (ISSO), this is a finding.
 
@@ -28,7 +28,7 @@ the SSH daemon, run the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230291'
-  tag rid: 'SV-230291r1017102_rule'
+  tag rid: 'SV-230291r1069303_rule'
   tag stig_id: 'RHEL-08-010521'
   tag fix_id: 'F-32935r743956_fix'
   tag cci: ['CCI-000366']

@@ -7,15 +7,13 @@ case of a mixed OS environment, this can create the risk of short-term loss of
 availability of systems due to unintentional reboot. In a graphical user
 environment, risk of unintentional reboot from the Ctrl-Alt-Delete sequence is
 reduced because the user will be prompted before any action is taken.'
-  desc 'check', 'Verify RHEL 8 is not configured to reboot the system when Ctrl-Alt-Delete
-is pressed seven times within two seconds with the following command:
+  desc 'check', 'Verify RHEL 8 is not configured to reboot the system when Ctrl-Alt-Delete is pressed seven times within two seconds with the following command:
 
-    $ sudo grep -i ctrl /etc/systemd/system.conf
+$ sudo grep -i ctrl /etc/systemd/system.conf
 
-    CtrlAltDelBurstAction=none
+CtrlAltDelBurstAction=none
 
-    If the "CtrlAltDelBurstAction" is not set to "none", commented out, or
-is missing, this is a finding.'
+If the "CtrlAltDelBurstAction" is not set to "none", is commented out, or is missing, this is a finding.'
   desc 'fix', 'Configure the system to disable the CtrlAltDelBurstAction by added or
 modifying the following line in the "/etc/systemd/system.conf" configuration
 file:
@@ -29,7 +27,7 @@ file:
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230531'
-  tag rid: 'SV-230531r1017292_rule'
+  tag rid: 'SV-230531r1134890_rule'
   tag stig_id: 'RHEL-08-040172'
   tag fix_id: 'F-33175r1017291_fix'
   tag cci: ['CCI-000366']

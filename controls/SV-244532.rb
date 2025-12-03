@@ -4,30 +4,24 @@ in local interactive user home directories are group-owned by a group of which
 the home directory owner is a member.'
   desc "If a local interactive user's files are group-owned by a group of
 which the user is not a member, unintended users may be able to access them."
-  desc 'check', %q(Verify all files and directories in a local interactive user home directory
-are group-owned by a group that the user is a member.
+  desc 'check', %q(Verify all files and directories in a local interactive user home directory are group-owned by a group that the user is a member.
 
-    Check the group owner of all files and directories in a local interactive
-user's home directory with the following command:
+Check the group owner of all files and directories in a local interactive user's home directory with the following command:
 
-    Note: The example will be for the user "smithj", who has a home directory
-of "/home/smithj".
+Note: The example will be for the user "smithj", who has a home directory of "/home/smithj".
 
-    $ sudo ls -lLR /<home directory>/<users home directory>/
-    -rw-r--r-- 1 smithj smithj  18 Mar  5 17:06 file1
-    -rw-r--r-- 1 smithj smithj 193 Mar  5 17:06 file2
-    -rw-r--r-- 1 smithj sa        231 Mar  5 17:06 file3
+$ sudo ls -lLR /<home directory>/<users home directory>/
+-rw-r--r-- 1 smithj smithj  18 Mar  5 17:06 file1
+-rw-r--r-- 1 smithj smithj 193 Mar  5 17:06 file2
+-rw-r--r-- 1 smithj sa        231 Mar  5 17:06 file3
 
-    If any files found with a group-owner different from the home directory
-user private group, check to see if the user is a member of that group with the
-following command:
+If any files are found with a group owner different from the home directory user private group, check to see if the user is a member of that group with the following command:
 
-    $ sudo grep smithj /etc/group
-    sa:x:100:juan,shelley,bob,smithj
-    smithj:x:521:smithj
+$ sudo grep smithj /etc/group
+sa:x:100:juan,shelley,bob,smithj 
+smithj:x:521:smithj
 
-    If any files or directories are group owned by a group that the directory
-owner is not a member of, this is a finding.)
+If any files or directories are group owned by a group that the directory owner is not a member of verify that it is documented with the information system security officer (ISSO). If it is not, this is a finding.)
   desc 'fix', %q(Change the group of a local interactive user's files and directories to a
 group that the interactive user is a member. To change the group owner of a
 local interactive user's files and directories, use the following command:
@@ -40,7 +34,7 @@ local interactive user's files and directories, use the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244532'
-  tag rid: 'SV-244532r1017339_rule'
+  tag rid: 'SV-244532r1101906_rule'
   tag stig_id: 'RHEL-08-010741'
   tag fix_id: 'F-47764r743844_fix'
   tag cci: ['CCI-000366']

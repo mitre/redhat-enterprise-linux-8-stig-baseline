@@ -23,7 +23,7 @@ mode by adding the following line to the
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag gid: 'V-244523'
-  tag rid: 'SV-244523r1017329_rule'
+  tag rid: 'SV-244523r1117265_rule'
   tag stig_id: 'RHEL-08-010152'
   tag fix_id: 'F-47755r743817_fix'
   tag cci: ['CCI-000213']

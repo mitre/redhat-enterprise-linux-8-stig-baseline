@@ -16,19 +16,13 @@ etc.) users to allow the centralized platform to solely manage user lockout.
 "pam_faillock" uses is usually cleared on system boot so the access will be
 reenabled after system reboot. If that is undesirable a different tally
 directory must be set with the "dir" option.'
-  desc 'check', %q(Note: This check applies to RHEL versions 8.2 or newer, if the system is
-RHEL version 8.0 or 8.1, this check is not applicable.
+  desc 'check', %q(Verify the "/etc/security/faillock.conf" file is configured to lock an account until released by an administrator after three unsuccessful logon attempts:
 
-    Verify the "/etc/security/faillock.conf" file is configured to lock an
-account until released by an administrator after three unsuccessful logon
-attempts:
+$ sudo grep 'unlock_time =' /etc/security/faillock.conf
 
-    $ sudo grep 'unlock_time =' /etc/security/faillock.conf
+unlock_time = 0
 
-    unlock_time = 0
-
-    If the "unlock_time" option is not set to "0", is missing or commented
-out, this is a finding.)
+If the "unlock_time" option is not set to "0", or is missing or commented out, this is a finding.)
   desc 'fix', 'Configure the operating system to lock an account until released by an
 administrator when three unsuccessful logon attempts occur in 15 minutes.
 
@@ -41,7 +35,7 @@ line:
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
   tag gid: 'V-230337'
-  tag rid: 'SV-230337r1017149_rule'
+  tag rid: 'SV-230337r1134885_rule'
   tag stig_id: 'RHEL-08-020015'
   tag fix_id: 'F-32981r743971_fix'
   tag cci: ['CCI-000044']

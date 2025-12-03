@@ -44,29 +44,29 @@ other than "local" is being used.
 
     If the command does not return at least the example result, this is a
 finding.'
-  desc 'fix', 'Configure the operating system to prevent a user from overriding settings
-for graphical user interfaces.
+  desc 'fix', 'Configure the operating system to prevent a user from overriding settings for graphical user interfaces.
 
-    Create a database to contain the system-wide screensaver settings (if it
-does not already exist) with the following command:
+Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following command: 
 
-    Note: The example below is using the database "local" for the system, so
-if the system is using another database in "/etc/dconf/profile/user", the
-file should be created under the appropriate subdirectory.
+Note: The example below is using the database "local" for the system, so if the system is using another database in "/etc/dconf/profile/user", the file should be created under the appropriate subdirectory.
 
-    $ sudo touch /etc/dconf/db/local.d/locks/session
+$ sudo touch /etc/dconf/db/local.d/locks/session
 
-    Add the following setting to prevent non-privileged users from modifying it:
+Add the following setting to prevent non-privileged users from modifying it:
 
-    /org/gnome/desktop/screensaver/lock-enabled'
+/org/gnome/desktop/screensaver/lock-enabled
+
+Run the following command to update the database:
+
+$ sudo dconf update'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'
   tag satisfies: ['SRG-OS-000029-GPOS-00010', 'SRG-OS-000031-GPOS-00012', 'SRG-OS-000480-GPOS-00227']
   tag gid: 'V-244539'
-  tag rid: 'SV-244539r1017346_rule'
+  tag rid: 'SV-244539r1069325_rule'
   tag stig_id: 'RHEL-08-020082'
-  tag fix_id: 'F-47771r743865_fix'
+  tag fix_id: 'F-47771r1069259_fix'
   tag cci: ['CCI-000057']
   tag nist: ['AC-11 a']
   tag 'host'

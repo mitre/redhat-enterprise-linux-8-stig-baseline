@@ -17,23 +17,22 @@ reenabled after system reboot. If that is undesirable a different tally
 directory must be set with the "dir" option.
     The preauth argument must be used when the module is called before the
 modules which ask for the user credentials such as the password.'
-  desc 'check', 'Note: This check applies to RHEL versions 8.2 or newer, if the system is
-RHEL version 8.0 or 8.1, this check is not applicable.
+  desc 'check', %q(Note: This check applies to RHEL versions 8.2 or newer, if the system is RHEL version 8.0 or 8.1, this check is not applicable.
 
-    Verify the pam_faillock.so module is present in the
-"/etc/pam.d/password-auth" file:
+Verify the pam_faillock.so module is present and is listed before the pam.unix.so line in the "/etc/pam.d/password-auth" file:
+Note: The first field in the output is the line number of the entry
 
-    $ sudo grep pam_faillock.so /etc/pam.d/password-auth
+$ sudo grep -E -n 'pam_faillock.so|pam_unix.so' /etc/pam.d/password-auth
 
-    auth               required                               pam_faillock.so
-preauth
-    auth               required                               pam_faillock.so
-authfail
-    account        required                                pam_faillock.so
+7:auth required pam_faillock.so preauth silent
+11:auth sufficient pam_unix.so
+15:auth required pam_faillock.so authfail
+19:account required pam_faillock.so
+20:account required pam_unix.so
+31:password sufficient pam_unix.so sha512 shadow use_authtok
+40:session required pam_unix.so
 
-    If the pam_faillock.so module is not present in the
-"/etc/pam.d/password-auth" file with the "preauth" line listed before
-pam_unix.so, this is a finding.'
+If the pam_faillock.so module is not present in the "/etc/pam.d/password-auth" file with the "preauth" line listed before pam_unix.so, this is a finding.)
   desc 'fix', 'Configure the operating system to include the use of the pam_faillock.so
 module in the /etc/pam.d/password-auth file.
 
@@ -49,7 +48,7 @@ file to match the following lines:
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
   tag gid: 'V-244534'
-  tag rid: 'SV-244534r1017341_rule'
+  tag rid: 'SV-244534r1069319_rule'
   tag stig_id: 'RHEL-08-020026'
   tag fix_id: 'F-47766r743850_fix'
   tag cci: ['CCI-000044']
