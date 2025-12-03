@@ -11,21 +11,23 @@ libraries also include privileged programs that execute with escalated
 privileges. Only qualified and authorized individuals will be allowed to obtain
 access to information system components for purposes of initiating changes,
 including upgrades and modifications.'
-  desc 'check', 'Verify the system-wide shared library files contained in the following directories have mode "755" or less permissive with the following command:
+  desc 'check', %q(Verify the systemwide shared library files contained in the directories "/lib", "/lib64", "/usr/lib", and "/usr/lib64" have mode 0755 or less permissive.
 
-$ sudo find -L /lib /lib64 /usr/lib /usr/lib64 -perm /022 -type f -exec ls -l {} \\;
+Check that the systemwide shared library files have mode 0755 or less permissive with the following command:
 
-If any system-wide shared library file is found to be group-writable or world-writable, this is a finding.'
-  desc 'fix', 'Configure the library files to be protected from unauthorized access. Run the following command, replacing "[FILE]" with any library file with a mode more permissive than 755.
+$ sudo find /lib /lib64 /usr/lib /usr/lib64 -type f -name '*.so*' -perm /022 -exec stat -c "%n %a" {} +
 
-$ sudo chmod 755 [FILE]'
+If any output is returned, this is a finding.)
+  desc 'fix', %q(Configure the systemwide shared library files contained in the directories "/lib", "/lib64", "/usr/lib", and "/usr/lib64" have mode 0755 or less permissive with the following command.
+
+$ sudo find /lib /lib64 /usr/lib /usr/lib64 -type f -name '*.so*' -perm /022 -exec chmod go-w {} +)
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000259-GPOS-00100'
   tag gid: 'V-230260'
-  tag rid: 'SV-230260r1017080_rule'
+  tag rid: 'SV-230260r1101888_rule'
   tag stig_id: 'RHEL-08-010330'
-  tag fix_id: 'F-32904r792866_fix'
+  tag fix_id: 'F-32904r1101887_fix'
   tag cci: ['CCI-001499']
   tag nist: ['CM-5 (6)']
   tag 'host'

@@ -20,33 +20,27 @@ operating system must support the organizational requirements, providing only
 essential capabilities and limiting the use of ports, protocols, and/or
 services to only those required, authorized, and approved to conduct official
 business or to address authorized quality-of-life issues.'
-  desc 'check', 'Inspect the firewall configuration and running services to verify it is
-configured to prohibit or restrict the use of functions, ports, protocols,
-and/or services that are unnecessary or prohibited.
+  desc 'check', 'Inspect the firewall configuration and running services to verify it is configured to prohibit or restrict the use of functions, ports, protocols, and/or services that are unnecessary or prohibited.
 
-    Check which services are currently active with the following command:
+Check which services are currently active with the following command:
 
-    $ sudo firewall-cmd --list-all-zones
+$ firewall-cmd --list-all-zones | grep -e "active" -e "services"
 
-    custom (active)
-    target: DROP
-    icmp-block-inversion: no
-    interfaces: ens33
-    sources:
-    services: dhcpv6-client dns http https ldaps rpc-bind ssh
-    ports:
-    masquerade: no
-    forward-ports:
-    icmp-blocks:
-    rich rules:
+custom (active)
+target: DROP
+icmp-block-inversion: no
+interfaces: ens33
+sources:
+services: dhcpv6-client dns http https ldaps rpc-bind ssh
+ports:
+masquerade: no
+forward-ports:
+icmp-blocks:
+rich rules:
 
-    Ask the System Administrator for the site or program Ports, Protocols, and
-Services Management Component Local Service Assessment (PPSM CLSA). Verify the
-services allowed by the firewall match the PPSM CLSA.
+Ask the system administrator (SA) for the site or program Ports, Protocols, and Services Management Component Local Service Assessment (PPSM CLSA). Verify the services allowed by the firewall match the PPSM CLSA.
 
-    If there are additional ports, protocols, or services that are not in the
-PPSM CLSA, or there are ports, protocols, or services that are prohibited by
-the PPSM Category Assurance List (CAL), this is a finding.'
+If there are additional ports, protocols, or services that are not in the PPSM CLSA, or there are ports, protocols, or services that are prohibited by the PPSM Category Assurance List (CAL), this is a finding.'
   desc 'fix', "Update the host's firewall settings and/or running services to
 comply with the PPSM Component Local Service Assessment (CLSA) for the site or
 program and the PPSM CAL."
@@ -54,7 +48,7 @@ program and the PPSM CAL."
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000096-GPOS-00050'
   tag gid: 'V-230500'
-  tag rid: 'SV-230500r1017283_rule'
+  tag rid: 'SV-230500r1101900_rule'
   tag stig_id: 'RHEL-08-040030'
   tag fix_id: 'F-33144r568247_fix'
   tag cci: ['CCI-000382']

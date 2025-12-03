@@ -22,18 +22,16 @@ control 'SV-230374' do
     the circumstances but it must not be extended indefinitely. A documented
     permanent account should be established for privileged users who need long-term
     maintenance accounts.'
-  desc 'check', 'Verify temporary accounts have been provisioned with an
-    expiration date of 72 hours.
+  desc 'check', 'Note: If temporary accounts do not exist or are not used this is not applicable.
 
-    For every existing temporary account, run the following command to obtain its
-    account expiration information:
+Verify temporary accounts have been provisioned with an expiration date of 72 hours.
 
-    $ sudo chage -l <temporary_account_name> | grep -i "account expires"
+For every existing temporary account, run the following command to obtain its account expiration information:
 
-    Verify each of these accounts has an expiration date set within 72 hours.
+     $ sudo chage -l <temporary_account_name> | grep -i "account expires"
 
-    If any temporary accounts have no expiration date set or do not expire within
-    72 hours, this is a finding.'
+Verify each of these accounts has an expiration date set within 72 hours.
+If any temporary accounts have no expiration date set or do not expire within 72 hours, this is a finding.'
   desc 'fix', 'Configure the operating system to expire temporary accounts after
     72 hours with the following command:
 
@@ -42,7 +40,7 @@ control 'SV-230374' do
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000123-GPOS-00064'
   tag gid: 'V-230374'
-  tag rid: 'SV-230374r1017186_rule'
+  tag rid: 'SV-230374r1069293_rule'
   tag stig_id: 'RHEL-08-020270'
   tag fix_id: 'F-33018r902730_fix'
   tag cci: ['CCI-001682']

@@ -58,13 +58,13 @@ This must be documented with the information system security officer (ISSO) as a
   tag check_id: 'C-58004r928594_chk'
   tag severity: 'medium'
   tag gid: 'V-254520'
-  tag rid: 'SV-254520r958726_rule'
+  tag rid: 'SV-254520r1069331_rule'
   tag stig_id: 'RHEL-08-040400'
   tag gtitle: 'SRG-OS-000324-GPOS-00125'
-  tag fix_id: 'F-57953r928805_fix'
+  tag fix_id: 'F-57953r1069272_fix'
   tag 'documentable'
-  tag cci: ['CCI-002265']
-  tag nist: ['AC-16 b']
+  tag cci: ['CCI-002265', 'CCI-002235']
+  tag nist: ['AC-16 b', 'AC-6 (10)']
   tag 'host'
   tag 'container'
 

@@ -54,7 +54,7 @@ a keyboard or mouse'
   only_if('This control is Not Applicable to containers', impact: 0.0) {
     !virtualization.system.eql?('docker')
   }
- 
+
   peripherals_package = input('peripherals_package')
   is_virtualized_system_no_usb_devices = input('is_virtualized_system_no_usb_devices')
 
@@ -63,21 +63,19 @@ a keyboard or mouse'
     describe 'The system is a virtual machine with no virtual or physical USB peripherals attached' do
       skip 'The system is a virtual machine with no virtual or physical USB peripherals attached, this control is Not Applicable.'
     end
+  elsif peripherals_package != 'usbguard'
+    describe "Non-standard package #{peripherals_package}" do
+      it 'is handling peripherals' do
+        expect(peripherals_package).to exist
+      end
+    end
   else
-    if peripherals_package != 'usbguard'
-      describe "Non-standard package #{peripherals_package}" do
-        it 'is handling peripherals' do
-          expect(peripherals_package).to exist
-        end
-      end
-    else
-      describe package('usbguard') do
-        it { should be_installed }
-      end
-      describe command('usbguard list-rules') do
-        its('stdout') { should_not be_empty }
-        its('exit_status') { should eq 0 }
-      end
+    describe package('usbguard') do
+      it { should be_installed }
+    end
+    describe command('usbguard list-rules') do
+      its('stdout') { should_not be_empty }
+      its('exit_status') { should eq 0 }
     end
   end
 end

@@ -9,19 +9,19 @@ associated public key has been installed.'
 For each private key stored on the system, use the following command:
 
 $ sudo ssh-keygen -y -f /path/to/file
+Enter passphrase:
 
 If the contents of the key are displayed, this is a finding.'
-  desc 'fix', 'Create a new private and public key pair that utilizes a passcode with the
-following command:
+  desc 'fix', 'Create a new private and public key pair that utilizes a passcode with the following command:
 
-    $ sudo ssh-keygen -n [passphrase]'
+$ sudo ssh-keygen -p -f /path/to/file'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000067-GPOS-00035'
   tag gid: 'V-230230'
-  tag rid: 'SV-230230r1017049_rule'
+  tag rid: 'SV-230230r1069287_rule'
   tag stig_id: 'RHEL-08-010100'
-  tag fix_id: 'F-32874r567437_fix'
+  tag fix_id: 'F-32874r1069183_fix'
   tag cci: ['CCI-000186']
   tag nist: ['IA-5 (2) (b)', 'IA-5 (2) (a) (1)']
   tag 'host'

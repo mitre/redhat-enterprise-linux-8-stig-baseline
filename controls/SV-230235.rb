@@ -31,7 +31,7 @@ the following command:
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag gid: 'V-230235'
-  tag rid: 'SV-230235r1017054_rule'
+  tag rid: 'SV-230235r1117265_rule'
   tag stig_id: 'RHEL-08-010150'
   tag fix_id: 'F-32879r743924_fix'
   tag cci: ['CCI-000213']

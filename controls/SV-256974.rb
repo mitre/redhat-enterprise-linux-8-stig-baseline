@@ -5,7 +5,7 @@ control 'SV-256974' do
 Detecting such changes and providing an automated response can help avoid unintended, negative consequences that could ultimately affect the security state of the operating system. The operating system's IMO/ISSO and SAs must be notified via email and/or monitoring system trap when there is an unauthorized modification of a configuration item."
   desc 'check', 'Verify that the operating system is configured to allow sending email notifications.
 
-Note: The "mailx" package provides the "mail" command that is used to send email messages.
+Note: The "mailx" package provides the "mail" command that is used to send email messages. The s-nail package is also suitable and may be used in place of mailx.
 
 Verify that the "mailx" package is installed on the system:
 
@@ -18,10 +18,10 @@ If "mailx" package is not installed, this is a finding.'
 
      $ sudo yum install mailx'
   impact 0.5
-  tag check_id: 'C-60652r902753_chk'
+  tag check_id: 'C-60652r1069251_chk'
   tag severity: 'medium'
   tag gid: 'V-256974'
-  tag rid: 'SV-256974r1017374_rule'
+  tag rid: 'SV-256974r1069321_rule'
   tag stig_id: 'RHEL-08-010358'
   tag gtitle: 'SRG-OS-000363-GPOS-00150'
   tag fix_id: 'F-60594r902754_fix'

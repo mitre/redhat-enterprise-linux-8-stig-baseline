@@ -6,18 +6,15 @@ for which they do not have authorization.
 
     When operating systems provide the capability to escalate a functional
 capability, it is critical the user reauthenticate.'
-  desc 'check', 'Verify that "/etc/sudoers" has no occurrences of "NOPASSWD".
+  desc 'check', %q(Verify that "/etc/sudoers" has no occurrences of "NOPASSWD".
 
-    Check that the "/etc/sudoers" file has no occurrences of "NOPASSWD" by
-running the following command:
+Check that the "/etc/sudoers" file has no occurrences of "NOPASSWD" by running the following command:
 
-    $ sudo grep -i nopasswd /etc/sudoers /etc/sudoers.d/*
+$ sudo grep -iR 'NOPASSWD' /etc/sudoers /etc/sudoers.d/
 
-    %admin ALL=(ALL) NOPASSWD: ALL
+%admin ALL=(ALL) NOPASSWD: ALL
 
-    If any occurrences of "NOPASSWD" are returned from the command and have
-not been documented with the ISSO as an organizationally defined administrative
-group utilizing MFA, this is a finding.'
+If any occurrences of "NOPASSWD" are returned from the command and have not been documented with the information system security officer (ISSO) as an organizationally defined administrative group utilizing multifactor authentication (MFA), this is a finding.)
   desc 'fix', 'Remove any occurrence of "NOPASSWD" found in "/etc/sudoers"
 file or files in the "/etc/sudoers.d" directory.'
   impact 0.5
@@ -25,7 +22,7 @@ file or files in the "/etc/sudoers.d" directory.'
   tag gtitle: 'SRG-OS-000373-GPOS-00156'
   tag satisfies: ['SRG-OS-000373-GPOS-00156', 'SRG-OS-000373-GPOS-00157', 'SRG-OS-000373-GPOS-00158']
   tag gid: 'V-230271'
-  tag rid: 'SV-230271r1050789_rule'
+  tag rid: 'SV-230271r1101896_rule'
   tag stig_id: 'RHEL-08-010380'
   tag fix_id: 'F-32915r854025_fix'
   tag cci: ['CCI-002038', 'CCI-004895']

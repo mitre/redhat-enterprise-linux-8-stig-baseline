@@ -7,22 +7,18 @@ RHEL 8 utilizes GRUB 2 as the default bootloader. Note that GRUB 2 command-line 
 The fips=1 kernel option needs to be added to the kernel command line during system installation so that key generation is done with FIPS-approved algorithms and continuous monitoring tests in place. Users must also ensure the system has plenty of entropy during the installation process by moving the mouse around, or if no mouse is available, ensuring that many keystrokes are typed. The recommended amount of keystrokes is 256 and more. Less than 256 keystrokes may generate a nonunique key.'
   desc 'check', 'Verify the operating system implements DOD-approved encryption to protect the confidentiality of remote access sessions.
 
-Check to see if FIPS mode is enabled with the following command:
+Show the configured systemwide cryptographic policy by running the following command:
 
-     $ fips-mode-setup --check
-     FIPS mode is enabled
+$ sudo update-crypto-policies --show
+FIPS
 
-If FIPS mode is "enabled", check to see if the kernel boot parameter is configured for FIPS mode with the following command:
+If the main policy name is not "FIPS", this is a finding.
 
-     $ sudo grub2-editenv list | grep fips
-     kernelopts=root=/dev/mapper/rhel-root ro crashkernel=auto resume=/dev/mapper/rhel-swap rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet fips=1 boot=UUID=8d171156-cd61-421c-ba41-1c021ac29e82
+If the AD-SUPPORT subpolicy module is included (e.g., "FIPS:AD-SUPPORT"), and Active Directory support is not documented as an operational requirement with the information system security officer (ISSO), this is a finding.
 
-If the kernel boot parameter is configured to use FIPS mode, check to see if the system is in FIPS mode with the following command:
+If the NO-ENFORCE-EMS subpolicy module is included (e.g., "FIPS:NO-ENFORCE-EMS"), and not enforcing EMS is not documented as an operational requirement with the ISSO, this is a finding.
 
-     $ sudo cat /proc/sys/crypto/fips_enabled
-     1
-
-If FIPS mode is not "on", the kernel boot parameter is not configured for FIPS mode, or the system does not have a value of "1" for "fips_enabled" in "/proc/sys/crypto", this is a finding.'
+If any other subpolicy module is included, this is a finding.'
   desc 'fix', 'Configure the operating system to implement DOD-approved encryption by following the steps below:
 
 To enable strict FIPS compliance, the fips=1 kernel option needs to be added to the kernel boot parameters during system installation so key generation is done with FIPS-approved algorithms and continuous monitoring tests in place.
@@ -37,7 +33,7 @@ Reboot the system for the changes to take effect.'
   tag gtitle: 'SRG-OS-000033-GPOS-00014'
   tag satisfies: ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000125-GPOS-00065', 'SRG-OS-000396-GPOS-00176', 'SRG-OS-000423-GPOS-00187', 'SRG-OS-000478-GPOS-00223']
   tag gid: 'V-230223'
-  tag rid: 'SV-230223r1017042_rule'
+  tag rid: 'SV-230223r1069327_rule'
   tag stig_id: 'RHEL-08-010020'
   tag fix_id: 'F-32867r928584_fix'
   tag cci: ['CCI-000068']

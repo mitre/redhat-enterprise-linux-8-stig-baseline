@@ -22,9 +22,9 @@ storage) that may be assessed on specific information system components.'
 
 Check to see that all world-writable directories have the sticky bit set by running the following command:
 
-$ sudo find / -type d \\( -perm -0002 -a ! -perm -1000 \\) -print 2>/dev/null
+$ sudo find / -type d \\( -perm -0002 -a ! -perm -1000 \\) 2>/dev/null -exec ls -ald {} \\;
 
-drwxrwxrwt 7 root root 4096 Jul 26 11:19 /tmp
+drwxrwxrwx. 14 root root 4096 Sep 13 15:13 /tmp
 
 If any of the returned directories are world-writable and do not have the sticky bit set, this is a finding.'
   desc 'fix', 'Configure all world-writable directories to have the sticky bit set to
@@ -40,7 +40,7 @@ sticky bit:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000138-GPOS-00069'
   tag gid: 'V-230243'
-  tag rid: 'SV-230243r1017061_rule'
+  tag rid: 'SV-230243r1117267_rule'
   tag stig_id: 'RHEL-08-010190'
   tag fix_id: 'F-32887r567476_fix'
   tag cci: ['CCI-001090']
