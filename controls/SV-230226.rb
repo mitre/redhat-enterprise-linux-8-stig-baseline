@@ -42,7 +42,7 @@ communications and work product are private and confidential. See User
 Agreement for details."'
   desc 'check', %q(Verify RHEL 8 displays the Standard Mandatory DoD Notice and Consent Banner before granting access to the operating system via a graphical user logon.
 
-Note: This requirement assumes the use of the RHEL 8 default graphical user interface, Gnome Shell. If the system does not have any graphical user interface installed, this requirement is Not Applicable. 
+Note: This requirement assumes the use of the RHEL 8 default graphical user interface, Gnome Shell. If the system does not have any graphical user interface installed, this requirement is Not Applicable.
 
 Check that the operating system displays the exact Standard Mandatory DoD Notice and Consent Banner text with the command:
 

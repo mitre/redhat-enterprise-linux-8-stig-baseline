@@ -42,7 +42,7 @@ $ sudo yum install usbguard.x86_64'
   tag 'host'
 
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {
-    (!virtualization.system.eql?('docker'))
+    !virtualization.system.eql?('docker')
   }
 
   peripherals_package = input('peripherals_package')

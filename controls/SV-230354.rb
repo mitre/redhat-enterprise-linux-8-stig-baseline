@@ -46,7 +46,7 @@ other than "local" is being used.
 finding.'
   desc 'fix', 'Configure the operating system to prevent a user from overriding settings for graphical user interfaces.
 
-Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following command: 
+Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following command:
 
 Note: The example below is using the database "local" for the system, so if the system is using another database in "/etc/dconf/profile/user", the file should be created under the appropriate subdirectory.
 

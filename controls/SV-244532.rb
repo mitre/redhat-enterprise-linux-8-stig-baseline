@@ -18,7 +18,7 @@ $ sudo ls -lLR /<home directory>/<users home directory>/
 If any files are found with a group owner different from the home directory user private group, check to see if the user is a member of that group with the following command:
 
 $ sudo grep smithj /etc/group
-sa:x:100:juan,shelley,bob,smithj 
+sa:x:100:juan,shelley,bob,smithj
 smithj:x:521:smithj
 
 If any files or directories are group owned by a group that the directory owner is not a member of verify that it is documented with the information system security officer (ISSO). If it is not, this is a finding.)

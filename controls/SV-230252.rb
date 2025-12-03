@@ -13,7 +13,7 @@ The system will attempt to use the first hash presented by the client that match
 
 To verify the ciphers in the systemwide SSH configuration file, use the following command:
 
-$ sudo grep -i ciphers /etc/crypto-policies/back-ends/opensshserver.config 
+$ sudo grep -i ciphers /etc/crypto-policies/back-ends/opensshserver.config
 -oCiphers=aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr
 
 If the ciphers entries in the "opensshserver.config" file have any hashes other than "aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr", the order differs from the example above, or they are missing or commented out, this is a finding.'

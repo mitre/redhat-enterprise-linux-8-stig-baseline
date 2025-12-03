@@ -7,7 +7,7 @@ copying, transferring, or overwriting system files.'
 
 Check to see if TFTP server is installed with the following command:
 
-$ sudo dnf list installed | grep tftp-server 
+$ sudo dnf list installed | grep tftp-server
 tftp-server.x86_64 x.x-x.el8
 
 Verify that the TFTP daemon, if tftp.server is installed, is configured to operate in secure mode with the following command:

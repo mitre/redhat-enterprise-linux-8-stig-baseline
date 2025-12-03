@@ -67,18 +67,16 @@ adding or modifying the following line in
     describe 'The system is a virtual machine with no virtual or physical USB peripherals attached' do
       skip 'The system is a virtual machine with no virtual or physical USB peripherals attached, this control is Not Applicable.'
     end
-  else
+  elsif !(package('usbguard').installed? && service('usbguard').enabled?)
     # Control is Not Applicable if usbguard is not installed and enabled
-    if (!(package('usbguard').installed? && service('usbguard').enabled?))
-      impact 0.0
-      describe 'The USBGuard service is not installed and enabled' do
-        skip 'The USBGuard service is not installed and enabled, this control is Not Applicable.'
-      end
-    else
-      # Check if usbguard is conducting audits
-      describe parse_config_file('/etc/usbguard/usbguard-daemon.conf') do
-        its('AuditBackend') { should cmp 'LinuxAudit' }
-      end
+    impact 0.0
+    describe 'The USBGuard service is not installed and enabled' do
+      skip 'The USBGuard service is not installed and enabled, this control is Not Applicable.'
+    end
+  else
+    # Check if usbguard is conducting audits
+    describe parse_config_file('/etc/usbguard/usbguard-daemon.conf') do
+      its('AuditBackend') { should cmp 'LinuxAudit' }
     end
   end
 end
