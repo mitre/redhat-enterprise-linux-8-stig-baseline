@@ -13,7 +13,7 @@ The system will attempt to use the first hash presented by the client that match
 
 To verify the ciphers in the systemwide SSH configuration file, use the following command:
 
-$ sudo grep -i ciphers /etc/crypto-policies/back-ends/opensshserver.config 
+$ sudo grep -i ciphers /etc/crypto-policies/back-ends/opensshserver.config
 -oCiphers=aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr
 
 If the ciphers entries in the "opensshserver.config" file have any hashes other than "aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr", the order differs from the example above, or they are missing or commented out, this is a finding.'
@@ -29,7 +29,7 @@ A reboot is required for the changes to take effect.)
   tag gtitle: 'SRG-OS-000250-GPOS-00093'
   tag satisfies: ['SRG-OS-000250-GPOS-00093', 'SRG-OS-000393-GPOS-00173', 'SRG-OS-000394-GPOS-00174', 'SRG-OS-000125-GPOS-00065']
   tag gid: 'V-230252'
-  tag rid: 'SV-230252r1044817_rule'
+  tag rid: 'SV-230252r1067104_rule'
   tag stig_id: 'RHEL-08-010291'
   tag fix_id: 'F-32896r1044816_fix'
   tag cci: ['CCI-001453']

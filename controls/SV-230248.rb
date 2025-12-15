@@ -11,15 +11,13 @@ representatives.
 the organization and development team. The extent to which the information
 system is able to identify and handle error conditions is guided by
 organizational policy and operational requirements."
-  desc 'check', 'Verify that the "/var/log" directory has a mode of "0755" or less with
-the following command:
+  desc 'check', 'Verify that the "/var/log" directory has a mode of "0755" or less with the following command:
 
-    $ sudo stat -c "%a %n" /var/log
+$ sudo stat -c "%a %n" /var/log
 
-    755
+755 /var/log
 
-    If a value of "0755" or less permissive is not returned, this is a
-finding.'
+If a value of "0755" or less permissive is not returned, this is a finding.'
   desc 'fix', 'Change the permissions of the directory "/var/log" to "0755" by running
 the following command:
 
@@ -28,7 +26,7 @@ the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000206-GPOS-00084'
   tag gid: 'V-230248'
-  tag rid: 'SV-230248r1017066_rule'
+  tag rid: 'SV-230248r1069291_rule'
   tag stig_id: 'RHEL-08-010240'
   tag fix_id: 'F-32892r567491_fix'
   tag cci: ['CCI-001314']

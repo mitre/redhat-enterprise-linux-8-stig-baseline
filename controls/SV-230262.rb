@@ -11,25 +11,21 @@ libraries also include privileged programs that execute with escalated
 privileges. Only qualified and authorized individuals will be allowed to obtain
 access to information system components for purposes of initiating changes,
 including upgrades and modifications.'
-  desc 'check', 'Verify the system-wide shared library files are group-owned by "root" with the following command:
+  desc 'check', %q(Verify the systemwide shared library files contained in the directories "/lib", "/lib64", "/usr/lib", and "/usr/lib64" are group owned by root with the following command:
 
-$ sudo find /lib /lib64 /usr/lib /usr/lib64 ! -group root -exec ls -l {} \\;
+$ sudo find /lib /lib64 /usr/lib /usr/lib64 -type f -name '*.so*' ! -group root -exec stat -c "%n %G" {} +
 
-If any system wide shared library file is returned and is not group-owned by a required system account, this is a finding.'
-  desc 'fix', 'Configure the system-wide shared library files (/lib, /lib64, /usr/lib and
-/usr/lib64) to be protected from unauthorized access.
+If any output is returned, this is a finding.)
+  desc 'fix', %q(Configure the systemwide shared library files contained in the directories "/lib", "/lib64", "/usr/lib", and "/usr/lib64" are group owned by root with the following command:
 
-    Run the following command, replacing "[FILE]" with any library file not
-group-owned by "root".
-
-    $ sudo chgrp root [FILE]'
+$ sudo find /lib /lib64 /usr/lib /usr/lib64 -type f -name '*.so*' ! -group root -exec chown :root {} +)
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000259-GPOS-00100'
   tag gid: 'V-230262'
-  tag rid: 'SV-230262r1017082_rule'
+  tag rid: 'SV-230262r1101894_rule'
   tag stig_id: 'RHEL-08-010350'
-  tag fix_id: 'F-32906r567533_fix'
+  tag fix_id: 'F-32906r1101893_fix'
   tag cci: ['CCI-001499']
   tag nist: ['CM-5 (6)']
   tag 'host'

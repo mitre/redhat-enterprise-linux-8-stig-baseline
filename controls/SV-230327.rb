@@ -3,18 +3,11 @@ control 'SV-230327' do
   desc 'Files without a valid group owner may be unintentionally inherited if
 a group is assigned the same Group Identifier (GID) as the GID of the files
 without a valid group owner.'
-  desc 'check', 'Verify all local files and directories on RHEL 8 have a valid group with
-the following command:
+  desc 'check', "Verify all local files and directories on RHEL 8 have a valid group with the following command:
 
-    Note: The value after -fstype must be replaced with the filesystem type.
-XFS is used as an example.
+$ df --local -P | awk {'if (NR!=1) print $6'} | sudo xargs -I '{}' find '{}' -xdev -nogroup
 
-    $ sudo find / -fstype xfs -nogroup
-
-    If any files on the system do not have an assigned group, this is a finding.
-
-    Note: Command may produce error messages from the /proc and /sys
-directories.'
+If any files on the system do not have an assigned group, this is a finding."
   desc 'fix', 'Either remove all files and directories from RHEL 8 that do not have a
 valid group, or assign a valid group to all files and directories on the system
 with the "chgrp" command:
@@ -24,7 +17,7 @@ with the "chgrp" command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230327'
-  tag rid: 'SV-230327r1017138_rule'
+  tag rid: 'SV-230327r1069285_rule'
   tag stig_id: 'RHEL-08-010790'
   tag fix_id: 'F-32971r567728_fix'
   tag cci: ['CCI-000366']

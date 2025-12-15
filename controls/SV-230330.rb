@@ -6,7 +6,7 @@ restriction in some configurations.'
 
 $ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '\n' ' ' | xargs sudo grep -iH '^\s*permituserenvironment'
 
-PermitUserEnvironment no
+/etc/ssh/sshd_config:PermitUserEnvironment no
 
 If "PermitUserEnvironment" is set to "yes", is missing completely, or is commented out, this is a finding.
 
@@ -26,7 +26,7 @@ the SSH daemon, run the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00229'
   tag gid: 'V-230330'
-  tag rid: 'SV-230330r1017141_rule'
+  tag rid: 'SV-230330r1069305_rule'
   tag stig_id: 'RHEL-08-010830'
   tag fix_id: 'F-32974r567737_fix'
   tag cci: ['CCI-000366']

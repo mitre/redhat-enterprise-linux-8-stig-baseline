@@ -13,7 +13,7 @@ $ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '
 
 PermitRootLogin no
 
-If the "PermitRootLogin" keyword is set to "yes", is missing, or is commented out, this is a finding.
+If the "PermitRootLogin" keyword is set to any value other than "no", is missing, or is commented out, this is a finding.
 
 If conflicting results are returned, this is a finding.)
   desc 'fix', 'Configure RHEL 8 to stop users from logging on remotely as the "root"
@@ -32,7 +32,7 @@ the SSH daemon, run the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000109-GPOS-00056'
   tag gid: 'V-230296'
-  tag rid: 'SV-230296r1017107_rule'
+  tag rid: 'SV-230296r1069322_rule'
   tag stig_id: 'RHEL-08-010550'
   tag fix_id: 'F-32940r567635_fix'
   tag cci: ['CCI-000770', 'CCI-004045']

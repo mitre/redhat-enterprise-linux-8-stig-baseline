@@ -8,38 +8,28 @@ RHEL 8 utilizes "pwquality" as a mechanism to enforce password complexity. This 
 By limiting the number of attempts to meet the pwquality module complexity requirements before returning with an error, the system will audit abnormal attempts at password changes.'
   desc 'check', 'Note: This requirement applies to RHEL versions 8.4 or newer. If the system is RHEL below version 8.4, this requirement is not applicable.
 
-Verify the operating system is configured to limit the "pwquality" retry option to 3.
+Verify RHEL 8 is configured to limit the "pwquality" retry option to "3".
 
-Check for the use of the "pwquality" retry option with the following command:
+Check for the use of the retry option in the security directory with the following command:
 
-$ sudo grep -r retry /etc/security/pwquality.conf*
-
-/etc/security/pwquality.conf:retry = 3
-
-If the value of "retry" is set to "0" or greater than "3", is commented out or missing, this is a finding.
-
-If conflicting results are returned, this is a finding.
-
-Check for the use of the "pwquality" retry option in the system-auth and password-auth files with the following command:
-
-$ sudo grep pwquality /etc/pam.d/system-auth /etc/pam.d/password-auth | grep retry
-
-If the command returns any results, this is a finding.'
-  desc 'fix', 'Configure the operating system to limit the "pwquality" retry option to 3.
-
-Add the following line to the "/etc/security/pwquality.conf" file(or modify the line to have the required value):
+$ grep -w retry /etc/security/pwquality.conf /etc/security/pwquality.conf.d/*.conf
 
 retry = 3
 
-Remove any configurations that conflict with the above value.'
+If the value of "retry" is set to "0" or greater than "3", or is missing, this is a finding.'
+  desc 'fix', 'Configure RHEL 8 to limit the "pwquality" retry option to "3".
+
+Add or update the following line in the "/etc/security/pwquality.conf" file or a file in the "/etc/security/pwquality.conf.d/" directory to contain the "retry" parameter:
+
+retry = 3'
   impact 0.5
-  tag check_id: 'C-55153r858735_chk'
+  tag check_id: 'C-55153r1069267_chk'
   tag severity: 'medium'
   tag gid: 'V-251716'
-  tag rid: 'SV-251716r1017369_rule'
+  tag rid: 'SV-251716r1069329_rule'
   tag stig_id: 'RHEL-08-020104'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
-  tag fix_id: 'F-55107r858736_fix'
+  tag fix_id: 'F-55107r1069268_fix'
   tag 'documentable'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']

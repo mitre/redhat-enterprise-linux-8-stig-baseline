@@ -11,7 +11,7 @@ Check that the "ClientAliveCountMax" is set to "1" by performing the following c
 
 $ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '\n' ' ' | xargs sudo grep -iH '^\s*clientalivecountmax'
 
-ClientAliveCountMax 1
+/etc/ssh/sshd_config:ClientAliveCountMax 1
 
 If "ClientAliveCountMax" do not exist, is not set to a value of "1" in "/etc/ssh/sshd_config", or is commented out, this is a finding.
 
@@ -32,7 +32,7 @@ If conflicting results are returned, this is a finding.)
   tag gtitle: 'SRG-OS-000163-GPOS-00072'
   tag satisfies: ['SRG-OS-000163-GPOS-00072', 'SRG-OS-000126-GPOS-00066', 'SRG-OS-000279-GPOS-00109']
   tag gid: 'V-230244'
-  tag rid: 'SV-230244r1017062_rule'
+  tag rid: 'SV-230244r1069300_rule'
   tag stig_id: 'RHEL-08-010200'
   tag fix_id: 'F-32888r917866_fix'
   tag cci: ['CCI-001133']
