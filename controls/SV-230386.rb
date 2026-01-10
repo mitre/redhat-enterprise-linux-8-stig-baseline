@@ -66,7 +66,20 @@ this is a finding.'
           expect(audit_rule.arch.uniq).to cmp 'b32'
         end
         expect(audit_rule.fields.flatten).to include('uid!=euid', 'gid!=egid', 'euid=0', 'egid=0')
-        expect(audit_rule.key.uniq).to include(input('audit_rule_keynames').merge(input('audit_rule_keynames_overrides'))[audit_syscall])
+
+        # Load the audit rule keynames and overrides from the input as hashes
+        audit_rule_keynames = input('audit_rule_keynames')
+        audit_rule_keynames_overrides = input('audit_rule_keynames_overrides')
+
+        # Merge the two hashes with overrides taking precedence
+        merged_keys = audit_rule_keynames.merge(audit_rule_keynames_overrides)
+
+        # Get expected keys, automatically convert to array
+        expected_keys = Array(merged_keys[audit_syscall])
+
+        # Check that all expected keys are present
+        # Splat operator (*) is used to expand the array into individual arguments
+        expect(audit_rule.key.uniq).to include(*expected_keys)
       end
     end
   end
