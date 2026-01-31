@@ -42,12 +42,6 @@ inputs:
     type: Boolean
     value: false
 
-  # SV-230548
-  - name: container_host
-    description: Specify whether the system is a container host
-    type: Boolean
-    value: false
-
   # SV-230271, SV-237643
   - name: sudoers_config_files
     description: 'The files and directories you keep your sudoers configs'
@@ -155,7 +149,7 @@ inputs:
 
   # SV-244549
   - name: allow_container_openssh_server
-    description: "If the OpenSSH Server has been approved outside standard container guidance to default transprots"
+    description: "If the OpenSSH Server has been approved outside standard container guidance to default transports"
     type: Boolean
     value: false
 
