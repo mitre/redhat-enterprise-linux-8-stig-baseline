@@ -24,12 +24,14 @@ Generate a new grub.cfg file with the following command:
 
 $ sudo grub2-mkconfig -o /boot/grub2/grub.cfg'
   impact 0.5
+  tag check_id: 'C-47797r792983_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag gid: 'V-244522'
-  tag rid: 'SV-244522r1017328_rule'
+  tag rid: 'SV-244522r1137691_rule'
   tag stig_id: 'RHEL-08-010149'
+  tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag fix_id: 'F-47754r743814_fix'
+  tag 'documentable'
   tag cci: ['CCI-000213']
   tag nist: ['AC-3']
   tag 'host'

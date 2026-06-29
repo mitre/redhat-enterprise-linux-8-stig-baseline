@@ -2,9 +2,8 @@ control 'SV-230221' do
   title 'RHEL 8 must be a vendor-supported release.'
   desc 'An operating system release is considered "supported" if the vendor continues to provide security patches for the product. With an unsupported release, it will not be possible to resolve security issues discovered in the system software.
 
-  Red Hat offers the Extended Update Support (EUS) add-on to a Red Hat Enterprise Linux subscription, for a fee, for those customers who wish to standardize on a specific minor release for an extended period. The RHEL 8 minor releases eligible for EUS are 8.1, 8.2, 8.4, 8.6, and 8.8. Each RHEL 8 EUS stream is available for 24 months from the availability of the minor release. RHEL 8.10 will be the final minor release overall. For more details on the Red Hat Enterprise Linux Life Cycle  visit https://access.redhat.com/support/policy/updates/errata/.
-
-  Note: The life-cycle time spans and dates are subject to adjustment.'
+Red Hat offers the Extended Update Support (EUS) add-on to a Red Hat Enterprise Linux subscription, for a fee, for those customers who wish to standardize on a specific minor release for an extended period. The RHEL 8 minor releases eligible for EUS are 8.1, 8.2, 8.4, 8.6, and 8.8. Each RHEL 8 EUS stream is available for 24 months from the availability of the minor release. RHEL 8.10 will be the final minor release overall. For more details on the Red Hat Enterprise Linux Life Cycle  visit https://access.redhat.com/support/policy/updates/errata/.
+Note: The life-cycle time spans and dates are subject to adjustment.'
   desc 'check', 'Verify the version of the operating system is vendor supported.
 
 Note: The lifecycle time spans and dates are subject to adjustment.
@@ -42,8 +41,8 @@ If the release is not supported by the vendor, this is a finding.'
   tag rid: 'SV-230221r1017040_rule'
   tag stig_id: 'RHEL-08-010000'
   tag fix_id: 'F-32865r567410_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag cci: ['CCI-000366', 'CCI-003376']
+  tag nist: ['CM-6 b', 'SA-22 a']
   tag 'host'
   tag 'container'
 

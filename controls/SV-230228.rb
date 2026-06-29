@@ -11,29 +11,29 @@ Check that remote access methods are being logged by running the following comma
 
 $ sudo grep -E '(auth\.\*|authpriv\.\*|daemon\.\*)' /etc/rsyslog.conf /etc/rsyslog.d/*.conf
 
-auth.*;authpriv.*;daemon.* /var/log/secure
+/etc/rsyslog.d/*.conf     auth.*;authpriv.*;daemon.* /var/log/secure
 
 If "auth.*", "authpriv.*" or "daemon.*" are not configured to be logged, this is a finding.)
-  desc 'fix', 'Configure RHEL 8 to monitor all remote access methods by installing rsyslog
-with the following command:
+  desc 'fix', 'Configure RHEL 8 to monitor all remote access methods by installing rsyslog with the following command:
 
-    $ sudo yum install rsyslog
+$ sudo yum install rsyslog
 
-    Then add or update the following lines to the "/etc/rsyslog.conf" file:
+Then add or update the following lines to the "/etc/rsyslog.conf" file:
 
-    auth.*;authpriv.*;daemon.* /var/log/secure
+auth.*;authpriv.*;daemon.* /var/log/secure
 
-    The "rsyslog" service must be restarted for the changes to take effect.
-To restart the "rsyslog" service, run the following command:
+The "rsyslog" service must be restarted for the changes to take effect. To restart the "rsyslog" service, run the following command:
 
-    $ sudo systemctl restart rsyslog.service'
+$ sudo systemctl restart rsyslog.service'
   impact 0.5
+  tag check_id: 'C-32897r1069207_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000032-GPOS-00013'
   tag gid: 'V-230228'
-  tag rid: 'SV-230228r1017047_rule'
+  tag rid: 'SV-230228r1069299_rule'
   tag stig_id: 'RHEL-08-010070'
+  tag gtitle: 'SRG-OS-000032-GPOS-00013'
   tag fix_id: 'F-32872r567431_fix'
+  tag 'documentable'
   tag cci: ['CCI-000067']
   tag nist: ['AC-17 (1)']
   tag 'host'

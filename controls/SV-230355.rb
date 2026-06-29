@@ -1,15 +1,8 @@
 control 'SV-230355' do
-  title 'RHEL 8 must map the authenticated identity to the user or group
-account for PKI-based authentication.'
-  desc 'Without mapping the certificate used to authenticate to the user
-account, the ability to determine the identity of the individual user or group
-will not be available for forensic analysis.
+  title 'RHEL 8 must map the authenticated identity to the user or group account for PKI-based authentication.'
+  desc 'Without mapping the certificate used to authenticate to the user account, the ability to determine the identity of the individual user or group will not be available for forensic analysis.
 
-    There are various methods of mapping certificates to user/group accounts
-for RHEL 8. For the purposes of this requirement, the check and fix will
-account for Active Directory mapping. Some of the other possible methods
-include joining the system to a domain and utilizing a Red Hat idM server, or a
-local system mapping, where the system is not part of a domain.'
+There are various methods of mapping certificates to user/group accounts for RHEL 8. For the purposes of this requirement, the check and fix will account for Active Directory mapping. Some of the other possible methods include joining the system to a domain and utilizing a Red Hat idM server, or a local system mapping, where the system is not part of a domain.'
   desc 'check', 'Verify the certificate of the user or group is mapped to the corresponding user or group in the "sssd.conf" file with the following command:
 
 Note: If the System Administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.
@@ -44,22 +37,31 @@ The "sssd" service must be restarted for the changes to take effect. To restart 
 
 $ sudo systemctl restart sssd.service'
   impact 0.5
+  tag check_id: 'C-33024r858742_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000068-GPOS-00036'
   tag gid: 'V-230355'
   tag rid: 'SV-230355r1017168_rule'
   tag stig_id: 'RHEL-08-020090'
+  tag gtitle: 'SRG-OS-000068-GPOS-00036'
   tag fix_id: 'F-32999r818835_fix'
+  tag 'documentable'
   tag cci: ['CCI-000187']
-  tag nist: ['IA-5 (2) (c)', 'IA-5 (2) (a) (2)']
+  tag nist: ['IA-5 (2) (a) (2)']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
   }
 
-  describe file('/etc/sssd/sssd.conf') do
-    it { should exist }
-    its('content') { should match(/^\s*\[certmap.*\]\s*$/) }
+  if input('alternate_mfa_method') == ''
+    describe file('/etc/sssd/sssd.conf') do
+      it { should exist }
+      its('content') { should match(/^\s*\[certmap.*\]\s*$/) }
+    end
+  else
+    impact 0.0
+    describe 'N/A' do
+      skip 'The system is using an approved alternative MFA method; this control is Not Applicable.'
+    end
   end
 end

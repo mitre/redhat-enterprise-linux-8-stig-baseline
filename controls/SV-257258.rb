@@ -3,6 +3,8 @@ control 'SV-257258' do
   desc 'Terminating an idle session within a short time period reduces the window of opportunity for unauthorized personnel to take control of a management session enabled on the console or console port that has been left unattended.'
   desc 'check', 'Note: This requirement applies to RHEL versions 8.7 and higher. If the system is not RHEL version 8.7 or newer, this requirement is not applicable.
 
+Note: For cloud hosted systems where "ClientAliveInterval" (V-244525) is configured, this setting is not applicable.
+
 Verify that RHEL 8 logs out sessions that are idle for 10 minutes with the following command:
 
 $ sudo grep -i ^StopIdleSessionSec /etc/systemd/logind.conf
@@ -18,11 +20,10 @@ The "logind" service must be restarted for the changes to take effect. To restar
 
 $ sudo systemctl restart systemd-logind'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
-  tag check_id: 'C-60942r1014791_chk'
+  tag check_id: 'C-60942r1069265_chk'
   tag severity: 'medium'
   tag gid: 'V-257258'
-  tag rid: 'SV-257258r1017375_rule'
+  tag rid: 'SV-257258r1069328_rule'
   tag stig_id: 'RHEL-08-020035'
   tag gtitle: 'SRG-OS-000163-GPOS-00072'
   tag fix_id: 'F-60884r1014792_fix'

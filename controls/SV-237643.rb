@@ -1,15 +1,10 @@
 control 'SV-237643' do
   title 'RHEL 8 must require re-authentication when using the "sudo" command.'
-  desc %q(Without re-authentication, users may access resources or perform tasks
-for which they do not have authorization.
+  desc %q(Without re-authentication, users may access resources or perform tasks for which they do not have authorization. 
 
-    When operating systems provide the capability to escalate a functional
-capability, it is critical the organization requires the user to
-re-authenticate when using the "sudo" command.
+When operating systems provide the capability to escalate a functional capability, it is critical the organization requires the user to re-authenticate when using the "sudo" command.
 
-    If the value is set to an integer less than 0, the user's time stamp will
-not expire and the user will not have to re-authenticate for privileged actions
-until the user's session is terminated.)
+If the value is set to an integer less than 0, the user's time stamp will not expire and the user will not have to re-authenticate for privileged actions until the user's session is terminated.)
   desc 'check', %q(Verify the operating system requires re-authentication when using the "sudo" command to elevate privileges.
 
 $ sudo grep -ir 'timestamp_timeout' /etc/sudoers /etc/sudoers.d
@@ -40,7 +35,7 @@ Remove any duplicate or conflicting lines from /etc/sudoers and /etc/sudoers.d/ 
   tag 'container-conditional'
 
   only_if('This requirement is Not Applicable in a container with no sudo installed', impact: 0.0) {
-    !(virtualization.system.eql?('docker') && !command('sudo').exist?)
+    !%w[docker podman kubepods lxc].include?(virtualization.system) || command('sudo').exist?
   }
 
   setting = 'timestamp_timeout'

@@ -1,12 +1,7 @@
 control 'SV-244530' do
-  title 'RHEL 8 must prevent files with the setuid and setgid bit set from
-being executed on the /boot/efi directory.'
-  desc 'The "nosuid" mount option causes the system not to execute
-"setuid" and "setgid" files with owner privileges. This option must be used
-for mounting any file system not containing approved "setuid" and "setguid"
-files. Executing files from untrusted file systems increases the opportunity
-for unprivileged users to attain unauthorized administrative access.'
-  desc 'check', %q(For systems that use BIOS, this is Not Applicable.
+  title 'RHEL 8 must prevent files with the setuid and setgid bit set from being executed on the /boot/efi directory.'
+  desc 'The "nosuid" mount option causes the system not to execute "setuid" and "setgid" files with owner privileges. This option must be used for mounting any file system not containing approved "setuid" and "setguid" files. Executing files from untrusted file systems increases the opportunity for unprivileged users to attain unauthorized administrative access.'
+  desc 'check', %q(Note: For systems that use BIOS, this is not applicable.
 
 Verify the /boot/efi directory is mounted with the "nosuid" option with the following command:
 
@@ -15,17 +10,16 @@ $ sudo mount | grep '\s/boot/efi\s'
 /dev/sda1 on /boot/efi type vfat (rw,nosuid,relatime,fmask=0077,dmask=0077,codepage=437,iocharset=ascii,shortname=winnt,errors=remount-ro)
 
 If the /boot/efi file system does not have the "nosuid" option set, this is a finding.)
-  desc 'fix', 'Configure the "/etc/fstab" to use the "nosuid" option on
-the /boot/efi directory.'
+  desc 'fix', 'Configure the "/etc/fstab" to use the "nosuid" option on the /boot/efi directory.'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244530'
-  tag rid: 'SV-244530r1017337_rule'
+  tag rid: 'SV-244530r1184260_rule'
   tag stig_id: 'RHEL-08-010572'
   tag fix_id: 'F-47762r743838_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag cci: ['CCI-000366', 'CCI-001764', 'CCI-000213']
+  tag nist: ['CM-6 b', 'CM-7 (2)', 'AC-3']
   tag 'host'
 
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {

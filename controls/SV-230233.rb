@@ -1,12 +1,8 @@
 control 'SV-230233' do
   title 'The RHEL 8 shadow password suite must be configured to use a sufficient number of hashing rounds.'
-  desc 'The system must use a strong hashing algorithm to store the password.
-The system must use a sufficient number of hashing rounds to ensure the
-required level of entropy.
+  desc 'The system must use a strong hashing algorithm to store the password. The system must use a sufficient number of hashing rounds to ensure the required level of entropy.
 
-    Passwords need to be protected at all times, and encryption is the standard
-method for protecting passwords. If passwords are not encrypted, they can be
-plainly read (i.e., clear text) and easily compromised.'
+Passwords need to be protected at all times, and encryption is the standard method for protecting passwords. If passwords are not encrypted, they can be plainly read (i.e., clear text) and easily compromised.'
   desc 'check', 'Check that a minimum number of hash rounds is configured by running the following command:
 
      $ sudo grep -E "^SHA_CRYPT_" /etc/login.defs
@@ -20,14 +16,17 @@ Edit/modify the following line in the "/etc/login.defs" file and set "SHA_CRYPT_
 
 SHA_CRYPT_MIN_ROUNDS 100000'
   impact 0.5
+  tag check_id: 'C-32902r1044788_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000073-GPOS-00041'
   tag gid: 'V-230233'
   tag rid: 'SV-230233r1044790_rule'
   tag stig_id: 'RHEL-08-010130'
+  tag gtitle: 'SRG-OS-000073-GPOS-00041'
   tag fix_id: 'F-32877r1044789_fix'
-  tag cci: ['CCI-000196', 'CCI-004062']
-  tag nist: ['IA-5 (1) (c)', 'IA-5 (1) (d)']
+  tag satisfies: ['SRG-OS-000073-GPOS-00041', 'SRG-OS-000120-GPOS-00061']
+  tag 'documentable'
+  tag cci: ['CCI-004062', 'CCI-000803', 'CCI-000196']
+  tag nist: ['IA-5 (1) (d)', 'IA-7', 'IA-5 (1) (c)']
   tag 'host'
   tag 'container'
 

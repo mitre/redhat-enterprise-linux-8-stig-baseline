@@ -36,7 +36,7 @@ Add or edit the following line in a system configuration file, in the "/etc/sysc
 
 net.ipv6.conf.all.forwarding=0
 
-Remove any configurations that conflict with the above from the following locations:
+Remove any configurations that conflict with the above from the following locations: 
 /run/sysctl.d/*.conf
 /usr/local/lib/sysctl.d/*.conf
 /usr/lib/sysctl.d/*.conf
@@ -48,14 +48,17 @@ Load settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.5
+  tag check_id: 'C-33209r833348_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230540'
   tag rid: 'SV-230540r1017302_rule'
   tag stig_id: 'RHEL-08-040260'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-33184r858809_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag satisfies: ['SRG-OS-000420-GPOS-00186', 'SRG-OS-000142-GPOS-00084']
+  tag 'documentable'
+  tag cci: ['CCI-002385', 'CCI-001108', 'CCI-000366']
+  tag nist: ['SC-5 a', 'SC-7 (4) (e)', 'CM-6 b']
   tag 'host'
 
   only_if('This system is acting as a router on the network, this control is Not Applicable', impact: 0.0) {

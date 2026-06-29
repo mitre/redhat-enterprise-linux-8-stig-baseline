@@ -5,7 +5,7 @@ control 'SV-251713' do
 RHEL 8 uses "pwquality" as a mechanism to enforce password complexity. This is set in both:
 /etc/pam.d/password-auth
 /etc/pam.d/system-auth'
-  desc 'check', 'Verify the operating system uses "pwquality" to enforce the password complexity rules.
+  desc 'check', 'Verify the operating system uses "pwquality" to enforce the password complexity rules. 
 
 Check for the use of "pwquality" in the system-auth file with the following command:
 
@@ -28,8 +28,8 @@ Add the following line to the "/etc/pam.d/system-auth" file (or modify the line 
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-55104r902739_fix'
   tag 'documentable'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag cci: ['CCI-000366', 'CCI-004066']
+  tag nist: ['CM-6 b', 'IA-5 (1) (h)']
   tag 'host'
   tag 'container'
 

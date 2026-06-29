@@ -1,6 +1,5 @@
 control 'SV-230536' do
-  title 'RHEL 8 must not send Internet Control Message Protocol (ICMP)
-redirects.'
+  title 'RHEL 8 must not send Internet Control Message Protocol (ICMP) redirects.'
   desc %q(ICMP redirect messages are used by routers to inform hosts that a more direct route exists for a particular destination. These messages contain information from the system's route table, possibly revealing portions of the network topology.
 
 There are notable differences between Internet Protocol version 4 (IPv4) and Internet Protocol version 6 (IPv6). There is only a directive to disable sending of IPv4 redirected packets. Refer to RFC4294 for an explanation of "IPv6 Node Requirements", which resulted in this difference between IPv4 and IPv6.
@@ -37,7 +36,7 @@ Add or edit the following line in a system configuration file, in the "/etc/sysc
 
 net.ipv4.conf.all.send_redirects=0
 
-Remove any configurations that conflict with the above from the following locations:
+Remove any configurations that conflict with the above from the following locations: 
 /run/sysctl.d/*.conf
 /usr/local/lib/sysctl.d/*.conf
 /usr/lib/sysctl.d/*.conf
@@ -55,8 +54,8 @@ $ sudo sysctl --system'
   tag rid: 'SV-230536r1017298_rule'
   tag stig_id: 'RHEL-08-040220'
   tag fix_id: 'F-33180r858794_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag cci: ['CCI-000366', 'CCI-002385', 'CCI-001106']
+  tag nist: ['CM-6 b', 'SC-5 a', 'SC-7 (4) (e)']
   tag 'host'
 
   only_if('This system is acting as a router on the network, this control is Not Applicable', impact: 0.0) {

@@ -11,70 +11,56 @@ The sysctl --system command will load settings from all system configuration fil
 /usr/lib/sysctl.d/*.conf
 /lib/sysctl.d/*.conf
 /etc/sysctl.conf'
-  desc 'check', 'Verify the operating system is configured to disable kernel image loading with the following commands:
+  desc 'check', 'Verify RHEL 8 is configured to disable kernel image loading.
 
-Check the status of the kernel.kexec_load_disabled kernel parameter.
+Check the status of the "kernel.kexec_load_disabled" kernel parameter with the following command:
 
 $ sudo sysctl kernel.kexec_load_disabled
-
 kernel.kexec_load_disabled = 1
 
-If "kernel.kexec_load_disabled" is not set to "1" or is missing, this is a finding.
+If "kernel.kexec_load_disabled" is not set to "1" or is missing, this is a finding.'
+  desc 'fix', 'Configure RHEL 8 to disable kernel image loading.
 
-Check that the configuration files are present to enable this kernel parameter.
+Create a drop-in if it does not already exist:
 
-$ sudo grep -r kernel.kexec_load_disabled /run/sysctl.d/*.conf /usr/local/lib/sysctl.d/*.conf /usr/lib/sysctl.d/*.conf /lib/sysctl.d/*.conf /etc/sysctl.conf /etc/sysctl.d/*.conf
+$ sudo vi /etc/sysctl.d/99-kernel_kexec_load_disabled.conf
 
-/etc/sysctl.d/99-sysctl.conf:kernel.kexec_load_disabled = 1
-
-If "kernel.kexec_load_disabled" is not set to "1", is missing or commented out, this is a finding.
-
-If conflicting results are returned, this is a finding.'
-  desc 'fix', 'Configure the operating system to disable kernel image loading.
-
-Add or edit the following line in a system configuration file, in the "/etc/sysctl.d/" directory:
-
+Add the following to the file:
 kernel.kexec_load_disabled = 1
 
-Remove any configurations that conflict with the above from the following locations:
-/run/sysctl.d/*.conf
-/usr/local/lib/sysctl.d/*.conf
-/usr/lib/sysctl.d/*.conf
-/lib/sysctl.d/*.conf
-/etc/sysctl.conf
-/etc/sysctl.d/*.conf
-
-Load settings from all system configuration files with the following command:
+Reload settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000366-GPOS-00153'
   tag gid: 'V-230266'
-  tag rid: 'SV-230266r1017084_rule'
+  tag rid: 'SV-230266r1184246_rule'
   tag stig_id: 'RHEL-08-010372'
-  tag fix_id: 'F-32910r858747_fix'
-  tag cci: ['CCI-001749', 'CCI-003992']
-  tag nist: ['CM-5 (3)', 'CM-14']
+  tag fix_id: 'F-32910r1184245_fix'
+  tag cci: ['CCI-001749', 'CCI-000366', 'CCI-003992']
+  tag nist: ['CM-5 (3)', 'CM-6 b', 'CM-14']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
   }
 
-  action = 'kernel.kexec_load_disabled'
+  parameter = 'kernel.kexec_load_disabled'
+  value = 1
+  regexp = /^\s*#{parameter}\s*=\s*#{value}\s*$/
 
-  describe kernel_parameter(action) do
-    its('value') { should eq 1 }
+  describe kernel_parameter(parameter) do
+    its('value') { should eq value }
   end
 
-  search_result = command("grep -r ^#{action} #{input('sysctl_conf_files').join(' ')}").stdout.strip
+  search_results = command("/usr/lib/systemd/systemd-sysctl --cat-config | egrep -v '^(#|;)' | grep -F #{parameter}").stdout.strip.split("\n")
 
-  correct_result = search_result.lines.any? { |line| line.match(/#{action}\s*=\s*1$/) }
-  incorrect_results = search_result.lines.map(&:strip).select { |line| line.match(/#{action}\s*=\s*[^1]$/) }
+  correct_result = search_results.any? { |line| line.match(regexp) }
+  incorrect_results = search_results.map(&:strip).reject { |line| line.match(regexp) }
 
   describe 'Kernel config files' do
-    it "should configure '#{action}'" do
+    it "should configure '#{parameter}'" do
       expect(correct_result).to eq(true), 'No config file was found that correctly sets this action'
     end
     unless incorrect_results.nil?

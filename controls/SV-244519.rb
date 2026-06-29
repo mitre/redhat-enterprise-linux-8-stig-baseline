@@ -1,58 +1,48 @@
 control 'SV-244519' do
-  title 'RHEL 8 must display a banner before granting local or remote access to
-the system via a graphical user logon.'
-  desc 'Display of a standardized and approved use notification before
-granting access to the operating system ensures privacy and security
-notification verbiage used is consistent with applicable federal laws,
-Executive Orders, directives, policies, regulations, standards, and guidance.
+  title 'RHEL 8 must display a banner before granting local or remote access to the system via a graphical user logon.'
+  desc 'Display of a standardized and approved use notification before granting access to the operating system ensures privacy and security notification verbiage used is consistent with applicable federal laws, Executive Orders, directives, policies, regulations, standards, and guidance.
 
-    System use notifications are required only for access via logon interfaces
-with human users and are not required when such human interfaces do not exist.'
-  desc 'check', 'Verify RHEL 8 displays a banner before granting access to the operating
-system via a graphical user logon.
+System use notifications are required only for access via logon interfaces with human users and are not required when such human interfaces do not exist.
 
-    Note: This requirement assumes the use of the RHEL 8 default graphical user
-interface, Gnome Shell. If the system does not have any graphical user
-interface installed, this requirement is Not Applicable.
+'
+  desc 'check', 'Verify RHEL 8 displays a banner before granting access to the operating system via a graphical user logon.
 
-    Check to see if the operating system displays a banner at the logon screen
-with the following command:
+Note: This requirement assumes the use of the RHEL 8 default graphical user interface, Gnome Shell. If the system does not have any graphical user interface installed, this requirement is Not Applicable. 
 
-    $ sudo grep banner-message-enable /etc/dconf/db/local.d/*
+Check to see if the operating system displays a banner at the logon screen with the following command:
 
-    banner-message-enable=true
+$ sudo grep banner-message-enable /etc/dconf/db/local.d/*
 
-    If "banner-message-enable" is set to "false" or is missing, this is a
-finding.'
-  desc 'fix', 'Configure the operating system to display a banner before granting access
-to the system.
+banner-message-enable=true
 
-    Note: If the system does not have a graphical user interface installed,
-this requirement is Not Applicable.
+If "banner-message-enable" is set to "false" or is missing, this is a finding.'
+  desc 'fix', 'Configure the operating system to display a banner before granting access to the system.
 
-    Create a database to contain the system-wide graphical user logon settings
-(if it does not already exist) with the following command:
+Note: If the system does not have a graphical user interface installed, this requirement is Not Applicable.
 
-    $ sudo touch /etc/dconf/db/local.d/01-banner-message
+Create a database to contain the system-wide graphical user logon settings (if it does not already exist) with the following command:
 
-    Add the following lines to the [org/gnome/login-screen] section of the
-"/etc/dconf/db/local.d/01-banner-message":
+$ sudo touch /etc/dconf/db/local.d/01-banner-message
 
-    [org/gnome/login-screen]
+Add the following lines to the [org/gnome/login-screen] section of the "/etc/dconf/db/local.d/01-banner-message":
 
-    banner-message-enable=true
+[org/gnome/login-screen]
 
-    Run the following command to update the database:
+banner-message-enable=true
 
-    $ sudo dconf update'
+Run the following command to update the database:
+
+$ sudo dconf update'
   impact 0.5
+  tag check_id: 'C-47794r743804_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000023-GPOS-00006'
-  tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000228-GPOS-00088']
   tag gid: 'V-244519'
   tag rid: 'SV-244519r1017326_rule'
   tag stig_id: 'RHEL-08-010049'
+  tag gtitle: 'SRG-OS-000023-GPOS-00006'
   tag fix_id: 'F-47751r743805_fix'
+  tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000228-GPOS-00088']
+  tag 'documentable'
   tag cci: ['CCI-000048']
   tag nist: ['AC-8 a']
   tag 'host'

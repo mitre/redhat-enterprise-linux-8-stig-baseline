@@ -44,13 +44,14 @@ The system configuration files need to be reloaded for the changes to take effec
 
 $ sudo sysctl --system'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
+  tag check_id: 'C-33217r1014816_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230548'
   tag rid: 'SV-230548r1017310_rule'
   tag stig_id: 'RHEL-08-040284'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-33192r1014817_fix'
+  tag 'documentable'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'
@@ -107,4 +108,3 @@ $ sudo sysctl --system'
     end
   end
 end
-

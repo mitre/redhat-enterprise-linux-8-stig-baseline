@@ -1,6 +1,5 @@
 control 'SV-244550' do
-  title 'RHEL 8 must prevent IPv4 Internet Control Message Protocol (ICMP)
-redirect messages from being accepted.'
+  title 'RHEL 8 must prevent IPv4 Internet Control Message Protocol (ICMP) redirect messages from being accepted.'
   desc "ICMP redirect messages are used by routers to inform hosts that a more direct route exists for a particular destination. These messages modify the host's route table and are unauthenticated. An illicit ICMP redirect message could result in a man-in-the-middle attack.
 
 The sysctl --system command will load settings from all system configuration files. All configuration files are sorted by their filename in lexicographic order, regardless of which of the directories they reside in. If multiple files specify the same option, the entry in the file with the lexicographically latest name will take precedence. Files are read from directories in the following list from top to bottom. Once a file of a given filename is loaded, any file of the same name in subsequent directories is ignored.
@@ -35,7 +34,7 @@ Add or edit the following line in a system configuration file, in the "/etc/sysc
 
 net.ipv4.conf.default.accept_redirects = 0
 
-Remove any configurations that conflict with the above from the following locations:
+Remove any configurations that conflict with the above from the following locations: 
 /run/sysctl.d/*.conf
 /usr/local/lib/sysctl.d/*.conf
 /usr/lib/sysctl.d/*.conf
@@ -47,12 +46,14 @@ Load settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.5
+  tag check_id: 'C-47825r833372_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244550'
   tag rid: 'SV-244550r1017350_rule'
   tag stig_id: 'RHEL-08-040209'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-47782r858790_fix'
+  tag 'documentable'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'

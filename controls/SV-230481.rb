@@ -1,18 +1,10 @@
 control 'SV-230481' do
-  title 'RHEL 8 must encrypt the transfer of audit records off-loaded onto a
-different system or media from the system being audited.'
-  desc 'Information stored in one location is vulnerable to accidental or
-incidental deletion or alteration.
+  title 'RHEL 8 must encrypt the transfer of audit records off-loaded onto a different system or media from the system being audited.'
+  desc 'Information stored in one location is vulnerable to accidental or incidental deletion or alteration.
 
-    Off-loading is a common process in information systems with limited audit
-storage capacity.
+Off-loading is a common process in information systems with limited audit storage capacity.
 
-    RHEL 8 installation media provides "rsyslogd".  "rsyslogd" is a system
-utility providing support for message logging.  Support for both internet and
-UNIX domain sockets enables this utility to support both local and remote
-logging.  Couple this utility with "gnutls" (which is a secure communications
-library implementing the SSL, TLS and DTLS protocols), and you have a method to
-securely encrypt and off-load auditing.'
+RHEL 8 installation media provides "rsyslogd".  "rsyslogd" is a system utility providing support for message logging.  Support for both internet and UNIX domain sockets enables this utility to support both local and remote logging.  Couple this utility with "gnutls" (which is a secure communications library implementing the SSL, TLS and DTLS protocols), and you have a method to securely encrypt and off-load auditing.'
   desc 'check', %q(Verify the operating system encrypts audit records off-loaded onto a different system or media from the system being audited with the following commands:
 
 $ sudo grep -i '$DefaultNetstreamDriver' /etc/rsyslog.conf /etc/rsyslog.d/*.conf
@@ -27,15 +19,13 @@ $ sudo grep -i '$ActionSendStreamDriverMode' /etc/rsyslog.conf /etc/rsyslog.d/*.
 
 If the value of the "$ActionSendStreamDriverMode" option is not set to "1" or the line is commented out, this is a finding.
 
-If neither of the definitions above are set, ask the System Administrator to indicate how the audit logs are off-loaded to a different system or media.
+If neither of the definitions above are set, ask the System Administrator to indicate how the audit logs are off-loaded to a different system or media. 
 
 If there is no evidence that the transfer of the audit logs being off-loaded to another system or media is encrypted, this is a finding.)
-  desc 'fix', 'Configure the operating system to encrypt off-loaded audit records by
-setting the following options in "/etc/rsyslog.conf" or
-"/etc/rsyslog.d/[customfile].conf":
+  desc 'fix', 'Configure the operating system to encrypt off-loaded audit records by setting the following options in "/etc/rsyslog.conf" or "/etc/rsyslog.d/[customfile].conf":
 
-    $DefaultNetstreamDriver gtls
-    $ActionSendStreamDriverMode 1'
+$DefaultNetstreamDriver gtls
+$ActionSendStreamDriverMode 1'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000342-GPOS-00133'
@@ -49,26 +39,20 @@ setting the following options in "/etc/rsyslog.conf" or
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
   }
 
-  if input('alternative_logging_method') != ''
-    describe 'manual check' do
-      skip 'Manual check required. Ask the administrator to indicate how logging is done for this system.'
+  if input('alternative_logging_method') == ''
+    tls_config = command("grep -iEh 'tls=\"on\"|StreamDriver\\.Mode[[:space:]]*=[[:space:]]*\"1\"' #{input('logging_conf_files').join(' ')} | grep -vE '^[[:space:]]*#'").stdout.strip
+
+    describe 'rsyslog omfwd TLS configuration' do
+      it 'enables TLS for encrypted forwarding' do
+        expect(tls_config).to_not be_empty, 'No active rsyslog TLS forwarding configuration found'
+      end
     end
   else
-    describe 'rsyslog configuration' do
-      subject {
-        command("grep -i '^\$DefaultNetstreamDriver' #{input('logging_conf_files').join(' ')} | awk -F ':' '{ print $2 }'").stdout
-      }
-      it { should match(/\$DefaultNetstreamDriver\s+gtls/) }
-    end
-
-    describe 'rsyslog configuration' do
-      subject {
-        command("grep -i '^\$ActionSendStreamDriverMode' #{input('logging_conf_files').join(' ')} | awk -F ':' '{ print $2 }'").stdout
-      }
-      it { should match(/\$ActionSendStreamDriverMode\s+1/) }
+    describe 'manual check' do
+      skip 'Manual check required. Ask the administrator to indicate how logging is done for this system.'
     end
   end
 end

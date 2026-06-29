@@ -11,13 +11,13 @@ Note that USNO offers authenticated NTP service to DOD and U.S. Government agenc
 
 Verify RHEL 8 disables network management of the chrony daemon with the following command:
 
-     $ sudo grep -w 'cmdport' /etc/chrony.conf
-     cmdport 0
+$ sudo grep -w 'cmdport' /etc/chrony.conf
+cmdport 0
 
 If the "cmdport" option is not set to "0", is commented out or missing, this is a finding.)
   desc 'fix', 'Configure the operating system disable network management of the chrony daemon by adding or modifying the following line in the "/etc/chrony.conf" file.
 
-     cmdport 0'
+cmdport 0'
   impact 0.3
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000095-GPOS-00049'
@@ -25,12 +25,12 @@ If the "cmdport" option is not set to "0", is commented out or missing, this is 
   tag rid: 'SV-230486r1017270_rule'
   tag stig_id: 'RHEL-08-030742'
   tag fix_id: 'F-33130r1014808_fix'
-  tag cci: ['CCI-000381']
-  tag nist: ['CM-7 a']
+  tag cci: ['CCI-000381', 'CCI-000382']
+  tag nist: ['CM-7 a', 'CM-7 b']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !(virtualization.system.eql?('docker') && !file('/etc/chrony.conf').exist?)
+    !%w[docker podman kubepods lxc].include?(virtualization.system) && file('/etc/chrony.conf').exist?
   }
 
   chrony_conf = ntp_conf('/etc/chrony.conf')

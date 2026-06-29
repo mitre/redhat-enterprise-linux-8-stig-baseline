@@ -1,29 +1,12 @@
 control 'SV-230229' do
-  title 'RHEL 8, for PKI-based authentication, must validate certificates by
-constructing a certification path (which includes status information) to an
-accepted trust anchor.'
-  desc 'Without path validation, an informed trust decision by the relying
-party cannot be made when presented with any certificate not already explicitly
-trusted.
+  title 'RHEL 8, for PKI-based authentication, must validate certificates by constructing a certification path (which includes status information) to an accepted trust anchor.'
+  desc 'Without path validation, an informed trust decision by the relying party cannot be made when presented with any certificate not already explicitly trusted.
 
-  A trust anchor is an authoritative entity represented via a public key and
-associated data. It is used in the context of public key infrastructures, X.509
-digital certificates, and DNSSEC.
+A trust anchor is an authoritative entity represented via a public key and associated data. It is used in the context of public key infrastructures, X.509 digital certificates, and DNSSEC.
 
-  When there is a chain of trust, usually the top entity to be trusted
-becomes the trust anchor; it can be, for example, a Certification Authority
-(CA). A certification path starts with the subject certificate and proceeds
-through a number of intermediate certificates up to a trusted root certificate,
-typically issued by a trusted CA.
+When there is a chain of trust, usually the top entity to be trusted becomes the trust anchor; it can be, for example, a Certification Authority (CA). A certification path starts with the subject certificate and proceeds through a number of intermediate certificates up to a trusted root certificate, typically issued by a trusted CA.
 
-    This requirement verifies that a certification path to an accepted trust
-anchor is used for certificate validation and that the path includes status
-information. Path validation is necessary for a relying party to make an
-informed trust decision when presented with any certificate not already
-explicitly trusted. Status information for certification paths includes
-certificate revocation lists or online certificate status protocol responses.
-Validation of the certificate status information is out of scope for this
-requirement.'
+This requirement verifies that a certification path to an accepted trust anchor is used for certificate validation and that the path includes status information. Path validation is necessary for a relying party to make an informed trust decision when presented with any certificate not already explicitly trusted. Status information for certification paths includes certificate revocation lists or online certificate status protocol responses. Validation of the certificate status information is out of scope for this requirement.'
   desc 'check', 'Verify RHEL 8 for PKI-based authentication has valid certificates by constructing a certification path (which includes status information) to an accepted trust anchor.
 
 Note: If the System Administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.
@@ -54,18 +37,22 @@ Obtain a valid copy of the DoD root CA file from the PKI CA certificate bundle a
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000066-GPOS-00034'
-  tag satisfies: ['SRG-OS-000066-GPOS-00034', 'SRG-OS-000384-GPOS-00167']
+  tag satisfies: ['SRG-OS-000066-GPOS-00034', 'SRG-OS-000384-GPOS-00167', 'SRG-OS-000775-GPOS-00230', 'SRG-OS-000780-GPOS-00240']
   tag gid: 'V-230229'
   tag rid: 'SV-230229r1017048_rule'
   tag stig_id: 'RHEL-08-010090'
   tag fix_id: 'F-32873r809269_fix'
-  tag cci: ['CCI-000185']
-  tag nist: ['IA-5 (2) (a)', 'IA-5 (2) (b) (1)']
+  tag cci: ['CCI-000185', 'CCI-001991', 'CCI-004068', 'CCI-004909', 'CCI-004910']
+  tag nist: ['IA-5 (2) (a)', 'IA-5 (2) (b) (1)', 'IA-5 (2) (d)', 'IA-5 (2) (b) (2)', 'SC-17 b', 'SC-28 (3)']
   tag 'host'
   tag 'container'
 
+  only_if('This control is Not Applicable to containers', impact: 0.0) {
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
+  }
+
   only_if('If the System Administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.', impact: 0.0) {
-    !input('smart_card_enabled')
+    !input('smart_card_enabled') && input('alternate_mfa_method') == ''
   }
 
   root_ca_file = input('root_ca_file') # This gets the entire hash from input
@@ -73,13 +60,7 @@ Obtain a valid copy of the DoD root CA file from the PKI CA certificate bundle a
   issuer_dn_expected = root_ca_file['issuer_dn'] # Extract the expected issuer DN
   subject_dn_expected = root_ca_file['subject_dn'] # Extract the expected subject DN
   # quick check to see if the designated Root CA is present; fail if it is not
-  if !file(root_ca_file_path).exist?
-
-    describe file(root_ca_file_path) do
-      it { should exist }
-    end
-
-  else
+  if file(root_ca_file_path).exist?
     # Check the Root CA's validity and details
 
     describe 'The Root CA' do
@@ -100,5 +81,11 @@ Obtain a valid copy of the DoD root CA file from the PKI CA certificate bundle a
         expect(subject.validity_in_days).to be > 0
       end
     end
+  else
+
+    describe file(root_ca_file_path) do
+      it { should exist }
+    end
+
   end
 end
