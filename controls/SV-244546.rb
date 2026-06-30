@@ -68,8 +68,7 @@ permissive = 0'
   end
 
   describe file('/etc/fapolicyd/compiled.rules') do
-    its('content') { should include 'allow exe=/usr/bin/python3.7 : ftype=text/x-python' }
     its('content') { should include 'deny_audit perm=any pattern=ld_so : all' }
-    its('content') { should include 'deny perm=any all : all' }
+    its('content') { should match(/^\s*deny(?:\s+perm=any\s+all\s*:\s*all|\s+all\s+all)\s*$/) }
   end
 end

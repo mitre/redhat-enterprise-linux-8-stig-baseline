@@ -31,24 +31,28 @@ Note: The example will be for the smithj user, who has a home directory of "/hom
   tag 'host'
   tag 'container'
 
-  expected_tmpfiles_entries = [
-    { target: '/root/.bash_logout', source: '/usr/share/rootfiles/.bash_logout' },
-    { target: '/root/.bash_profile', source: '/usr/share/rootfiles/.bash_profile' },
-    { target: '/root/.bashrc', source: '/usr/share/rootfiles/.bashrc' },
-    { target: '/root/.cshrc', source: '/usr/share/rootfiles/.cshrc' },
-    { target: '/root/.tcshrc', source: '/usr/share/rootfiles/.tcshrc' },
+  expected_mode = input('initialization_file_mode')
+  init_file_names = %w[
+    .bash_logout
+    .bash_profile
+    .bashrc
+    .cshrc
+    .kshrc
+    .login
+    .profile
+    .tcshrc
   ]
+  ignore_shells = input('non_interactive_shells').join('|')
+  home_dirs = users.where { (uid == 0 || uid >= 1000) && !shell.match(ignore_shells) }.homes.uniq
 
-  tmpfiles_lines = command('grep -h /usr/share/rootfiles/ /etc/tmpfiles.d/*.conf').stdout.lines.map(&:strip)
-  missing_entries = expected_tmpfiles_entries.reject do |entry|
-    expected_line = /\AC\s+#{Regexp.escape(entry[:target])}\s+600\s+root\s+root\s+-\s+#{Regexp.escape(entry[:source])}(?:\s|$)/
-    tmpfiles_lines.any? { |line| line.match?(expected_line) }
-  end
+  home_dirs.each do |home_dir|
+    init_file_names.each do |init_file_name|
+      init_file = file("#{home_dir}/#{init_file_name}")
+      next unless init_file.exist?
 
-  describe 'systemd-tmpfiles root initialization file overrides' do
-    it 'should configure all rootfiles entries with mode 600' do
-      formatted_missing_entries = missing_entries.map { |entry| "C #{entry[:target]} 600 root root - #{entry[:source]}" }
-      expect(missing_entries).to be_empty, "Missing or incorrectly configured entries:\n\t- #{formatted_missing_entries.join("\n\t- ")}"
+      describe init_file do
+        its('mode') { should cmp <= expected_mode }
+      end
     end
   end
 end

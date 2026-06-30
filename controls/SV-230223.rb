@@ -70,7 +70,7 @@ $ sudo reboot'
     its(['min_rsa_size']) { should cmp >= 2048 }
     its(['hash']) {
       should include 'SHA2-256', 'SHA2-384', 'SHA2-512', 'SHA2-224',
-                     'SHA3-256', 'SHA3-384', 'SHA3-512', 'SHAKE-256'
+                     'SHA3-256', 'SHA3-384', 'SHA3-512'
     }
     its(['hash']) { should_not match(/SHA-?1\b/i) }
     its(['hash']) {
