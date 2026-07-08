@@ -19,3 +19,7 @@ gem 'rubocop'
 gem 'rubocop-rake'
 gem 'test-kitchen'
 gem 'train-awsssm'
+
+source 'https://rubygems.cinc.sh/' do
+  gem 'cinc-auditor-bin'
+end
