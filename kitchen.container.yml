@@ -6,8 +6,6 @@ provisioner:
 
 driver:
   name: dokken
-  pull_chef_image: false
-  chef_image: artifacts.mitre.org/docker-remote/chef/chef
   pull_platform_image: false
 
 transport:
