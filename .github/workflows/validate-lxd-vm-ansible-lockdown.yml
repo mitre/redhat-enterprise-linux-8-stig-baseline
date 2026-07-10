@@ -53,15 +53,15 @@ jobs:
           bundle install
           bundle exec cinc-auditor vendor . --overwrite
 
-      - name: Prepare SSH private key for Kitchen
-        env:
-          KITCHEN_SSH_PRIVATE_KEY: ${{ secrets.KITCHEN_SSH_PRIVATE_KEY }}
+      - name: Generate SSH key for Kitchen
         run: |
           set -euo pipefail
           KEY="$RUNNER_TEMP/kitchen_key"
-          printf '%s\n' "$KITCHEN_SSH_PRIVATE_KEY" > "$KEY"
+          rm -f "$KEY" "$KEY.pub"
+          ssh-keygen -t ecdsa -b 256 -N "" -f "$KEY" -C "kitchen-${GITHUB_RUN_ID}-${{ matrix.suite }}"
           chmod 600 "$KEY"
           echo "KITCHEN_SSH_KEY=$KEY" >> "$GITHUB_ENV"
+          echo "KITCHEN_SSH_PUBLIC_KEY=$(cat "$KEY.pub")" >> "$GITHUB_ENV"
 
       - name: Download RHEL QCOW2 via Image Builder
         env:
@@ -97,7 +97,23 @@ jobs:
         run: |
           set -euo pipefail
           NAME="${{ matrix.suite }}-${{ env.PLATFORM }}"
-          lxc launch rhel8-imagebuilder "$NAME" --vm -c limits.memory=4GiB
+          USER_DATA="$RUNNER_TEMP/${NAME}-cloud-init.yml"
+          cat > "$USER_DATA" <<EOF
+          #cloud-config
+          write_files:
+            - path: /tmp/kitchen_authorized_key.pub
+              owner: root:root
+              permissions: '0644'
+              content: |
+                ${KITCHEN_SSH_PUBLIC_KEY}
+          runcmd:
+            - install -d -m 0700 -o ${LXD_VM_USERNAME} -g ${LXD_VM_USERNAME} /home/${LXD_VM_USERNAME}/.ssh
+            - sh -c 'grep -qxF "$(cat /tmp/kitchen_authorized_key.pub)" /home/${LXD_VM_USERNAME}/.ssh/authorized_keys 2>/dev/null || cat /tmp/kitchen_authorized_key.pub >> /home/${LXD_VM_USERNAME}/.ssh/authorized_keys'
+            - chown ${LXD_VM_USERNAME}:${LXD_VM_USERNAME} /home/${LXD_VM_USERNAME}/.ssh/authorized_keys
+            - chmod 0600 /home/${LXD_VM_USERNAME}/.ssh/authorized_keys
+            - restorecon -RF /home/${LXD_VM_USERNAME}/.ssh || true
+          EOF
+          lxc launch rhel8-imagebuilder "$NAME" --vm -c limits.memory=4GiB -c user.user-data="$(cat "$USER_DATA")"
           for i in $(seq 1 30); do
             lxc list --format=csv | grep -q "$NAME.*RUNNING" && break
             sleep 10
@@ -115,6 +131,24 @@ jobs:
           done
           [ -n "$ipv4" ] || { echo "No VM IPv4 found"; lxc info "$NAME"; exit 1; }
           echo "KITCHEN_HOST=$ipv4" >> "$GITHUB_ENV"
+
+      - name: Wait for Kitchen SSH
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 60); do
+            if ssh -i "$KITCHEN_SSH_KEY" \
+              -o BatchMode=yes \
+              -o IdentitiesOnly=yes \
+              -o StrictHostKeyChecking=no \
+              -o UserKnownHostsFile=/dev/null \
+              -o ConnectTimeout=5 \
+              "$LXD_VM_USERNAME@$KITCHEN_HOST" true; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Unable to connect to $LXD_VM_USERNAME@$KITCHEN_HOST with generated Kitchen key"
+          exit 1
 
       - name: Run kitchen test
         run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}-${{ env.PLATFORM }} || true
