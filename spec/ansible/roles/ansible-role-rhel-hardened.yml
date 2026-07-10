@@ -9,7 +9,87 @@
   become: yes
   vars:
     rhel8stig_bootloader_password_hash: "changethispassword"
+    kitchen_login_user: "{{ lookup('env', 'LXD_VM_USERNAME') | default('rhel', true) }}"
+    kitchen_login_home: "/home/{{ kitchen_login_user }}"
     rhel_08_040123: false # RHEL 8 must mount /tmp with the nodev option.
     rhel_08_040124: false # RHEL 8 must mount /tmp with the nosuid option.
     rhel_08_040125: false # RHEL 8 must mount /tmp with the noexec option.
     rhel_08_010380: false # RHEL 8 must require users to provide a password for privilege escalation.
+  post_tasks:
+    - name: Keep Kitchen SSH user available after STIG hardening
+      block:
+        - name: Ensure Kitchen login user exists and has a valid password hash
+          ansible.builtin.user:
+            name: "{{ kitchen_login_user }}"
+            home: "{{ kitchen_login_home }}"
+            shell: /bin/bash
+            create_home: true
+            password: "{{ lookup('ansible.builtin.password', '/dev/null length=32 chars=ascii_letters,digits') | password_hash('sha512') }}"
+            update_password: always
+          no_log: true
+
+        - name: Ensure Kitchen login user password is not expired
+          ansible.builtin.command:
+            argv:
+              - chage
+              - -d
+              - "{{ ansible_date_time.date }}"
+              - -E
+              - "-1"
+              - "{{ kitchen_login_user }}"
+          changed_when: false
+
+        - name: Ensure Kitchen login home directory supports sshd StrictModes
+          ansible.builtin.file:
+            path: "{{ kitchen_login_home }}"
+            state: directory
+            owner: "{{ kitchen_login_user }}"
+            group: "{{ kitchen_login_user }}"
+            mode: "0750"
+
+        - name: Ensure Kitchen login .ssh directory supports sshd StrictModes
+          ansible.builtin.file:
+            path: "{{ kitchen_login_home }}/.ssh"
+            state: directory
+            owner: "{{ kitchen_login_user }}"
+            group: "{{ kitchen_login_user }}"
+            mode: "0700"
+
+        - name: Check Kitchen authorized_keys survived hardening
+          ansible.builtin.stat:
+            path: "{{ kitchen_login_home }}/.ssh/authorized_keys"
+          register: kitchen_authorized_keys
+
+        - name: Fail clearly if Kitchen authorized_keys is missing
+          ansible.builtin.assert:
+            that:
+              - kitchen_authorized_keys.stat.exists
+              - kitchen_authorized_keys.stat.size | int > 0
+            fail_msg: "Kitchen login user {{ kitchen_login_user }} has no authorized_keys after hardening."
+
+        - name: Ensure Kitchen authorized_keys supports sshd StrictModes
+          ansible.builtin.file:
+            path: "{{ kitchen_login_home }}/.ssh/authorized_keys"
+            state: file
+            owner: "{{ kitchen_login_user }}"
+            group: "{{ kitchen_login_user }}"
+            mode: "0600"
+
+        - name: Restore SELinux context for Kitchen SSH files
+          ansible.builtin.command:
+            argv:
+              - restorecon
+              - -RF
+              - "{{ kitchen_login_home }}/.ssh"
+          changed_when: false
+          failed_when: false
+
+        - name: Reset Kitchen login faillock counter
+          ansible.builtin.command:
+            argv:
+              - faillock
+              - --user
+              - "{{ kitchen_login_user }}"
+              - --reset
+          changed_when: false
+          failed_when: false
