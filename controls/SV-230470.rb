@@ -14,7 +14,7 @@ DoD has defined the list of events for which RHEL 8 will provide an audit record
 
 2) Access actions, such as successful and unsuccessful logon attempts, privileged activities or other system-level access, starting and ending time for user access to the system, concurrent logons from different workstations, successful and unsuccessful accesses to objects, all program initiations, and all direct access to the information system;
 
-3) All account creations, modifications, disabling, and terminations; and 
+3) All account creations, modifications, disabling, and terminations; and
 
 4) All kernel module load, unload, and restart actions.'
   desc 'check', 'Verify RHEL 8 enables Linux audit logging of the USBGuard daemon with the following commands:

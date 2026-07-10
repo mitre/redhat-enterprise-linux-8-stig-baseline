@@ -5,7 +5,7 @@ control 'SV-230295' do
 
 $ sudo grep /tmp /etc/fstab
 
-/dev/mapper/rhel-tmp  /tmp  xfs   defaults,nodev,nosuid,noexec 0 0 
+/dev/mapper/rhel-tmp  /tmp  xfs   defaults,nodev,nosuid,noexec 0 0
 
 If a separate entry for the file system/partition "/tmp" does not exist, this is a finding.'
   desc 'fix', 'Migrate the "/tmp" directory onto a separate file system/partition.'

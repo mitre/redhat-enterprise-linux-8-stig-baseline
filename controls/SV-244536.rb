@@ -10,7 +10,7 @@ true
 If the setting is "false", this is a finding.'
   desc 'fix', 'Configure the operating system to disable the user list at logon for graphical user interfaces.
 
-Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following command: 
+Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following command:
 Note: The example below is using the database "local" for the system, so if the system is using another database in "/etc/dconf/profile/user", the file should be created under the appropriate subdirectory.
 
 $ sudo touch /etc/dconf/db/local.d/02-login-screen

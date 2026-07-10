@@ -6,7 +6,7 @@ control 'SV-230534' do
 $ sudo awk -F: '$3 == 0 {print $1}' /etc/passwd
 
 If any accounts other than root have a UID of "0", this is a finding.)
-  desc 'fix', 'Change the UID of any account on the system, other than root, that has a UID of "0". 
+  desc 'fix', 'Change the UID of any account on the system, other than root, that has a UID of "0".
 
 If the account is associated with system commands or applications, the UID should be changed to one greater than "0" but less than "1000". Otherwise, assign a UID of greater than "1000" that has not already been assigned.'
   impact 0.7

@@ -39,7 +39,7 @@ If conflicting results are returned, this is a finding.
 
 View the file specified by the banner keyword to check that it matches the text of the Standard Mandatory DOD Notice and Consent Banner:
 
-"You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. 
+"You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
 
 By using this IS (which includes any device attached to this IS), you consent to the following conditions:
 
@@ -64,7 +64,7 @@ banner /etc/issue
 
 Either create the file containing the banner or replace the text in the file with the Standard Mandatory DOD Notice and Consent Banner. The DOD-required text is:
 
-"You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. 
+"You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
 
 By using this IS (which includes any device attached to this IS), you consent to the following conditions:
 

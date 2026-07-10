@@ -11,7 +11,7 @@ $ sudo grep -i overflow_action /etc/audit/auditd.conf
 
 overflow_action = syslog
 
-If the value of the "overflow_action" option is not set to "syslog", "single", "halt", or the line is commented out, ask the System Administrator to indicate how the audit logs are off-loaded to a different system or media. 
+If the value of the "overflow_action" option is not set to "syslog", "single", "halt", or the line is commented out, ask the System Administrator to indicate how the audit logs are off-loaded to a different system or media.
 
 If there is no evidence that the transfer of the audit logs being off-loaded to another system or media takes appropriate action if the internal event queue becomes full, this is a finding.'
   desc 'fix', 'Edit the /etc/audit/auditd.conf file and add or update the "overflow_action" option:

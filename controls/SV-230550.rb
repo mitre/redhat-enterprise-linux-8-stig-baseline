@@ -7,7 +7,7 @@ Determine if "postfix" is installed with the following commands:
 
 $ sudo yum list installed postfix
 
-postfix.x86_64  2:3.3.1-9.el8 
+postfix.x86_64  2:3.3.1-9.el8
 
 If postfix is not installed, this is Not Applicable.
 

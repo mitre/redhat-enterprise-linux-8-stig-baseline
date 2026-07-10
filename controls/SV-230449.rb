@@ -2,7 +2,7 @@ control 'SV-230449' do
   title 'Successful/unsuccessful uses of the truncate, ftruncate, creat, open, openat, and open_by_handle_at system calls in RHEL 8 must generate an audit record.'
   desc 'Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one.
 
-Audit records can be generated from various components within the information system (e.g., module or policy filter). The "truncate" and "ftruncate" functions are used to truncate a file to a specified length. 
+Audit records can be generated from various components within the information system (e.g., module or policy filter). The "truncate" and "ftruncate" functions are used to truncate a file to a specified length.
 
 The "creat" system call is used to open and possibly create a file or device.
 The "open" system call opens a file specified by a pathname. If the specified file does not exist, it may optionally be created by "open".

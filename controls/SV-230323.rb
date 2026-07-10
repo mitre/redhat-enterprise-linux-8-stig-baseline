@@ -20,7 +20,7 @@ If any home directories referenced in "/etc/passwd" are returned as not defined,
 
 Note: The example will be for the user smithj, who has a home directory of "/home/smithj", a UID of "smithj", and a Group Identifier (GID) of "users assigned" in "/etc/passwd".
 
-$ sudo mkdir /home/smithj 
+$ sudo mkdir /home/smithj
 $ sudo chown smithj /home/smithj
 $ sudo chgrp users /home/smithj
 $ sudo chmod 0750 /home/smithj'

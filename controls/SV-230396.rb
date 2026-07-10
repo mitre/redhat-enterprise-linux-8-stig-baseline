@@ -20,8 +20,8 @@ $ sudo stat -c "%a %n" /var/log/audit/audit.log
 600 /var/log/audit/audit.log
 
 If the audit log has a mode more permissive than "0600", this is a finding.'
-  desc 'fix', 'Configure the audit log to be protected from unauthorized read access by setting the correct permissive mode with the following command: 
- 
+  desc 'fix', 'Configure the audit log to be protected from unauthorized read access by setting the correct permissive mode with the following command:
+
 $ sudo chmod 0600 /var/log/audit/audit.log'
   impact 0.5
   tag check_id: 'C-33065r567934_chk'

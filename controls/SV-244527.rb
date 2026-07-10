@@ -1,6 +1,6 @@
 control 'SV-244527' do
   title 'RHEL 8 must have the packages required to use the hardware random number generator entropy gatherer service.'
-  desc 'The most important characteristic of a random number generator is its randomness, namely its ability to deliver random numbers that are impossible to predict.  Entropy in computer security is associated with the unpredictability of a source of randomness.  The random source with high entropy tends to achieve a uniform distribution of random values.  Random number generators are one of the most important building blocks of cryptosystems.  
+  desc 'The most important characteristic of a random number generator is its randomness, namely its ability to deliver random numbers that are impossible to predict.  Entropy in computer security is associated with the unpredictability of a source of randomness.  The random source with high entropy tends to achieve a uniform distribution of random values.  Random number generators are one of the most important building blocks of cryptosystems.
 
 The rngd service feeds random data from hardware device to kernel random device. Quality (non-predictable) random number generation is important for several security functions (i.e., ciphers).'
   desc 'check', 'Note: For RHEL versions 8.4 and above running with kernel FIPS mode enabled as specified by RHEL-08-010020, this requirement is Not Applicable.
@@ -31,7 +31,7 @@ $ sudo yum install rng-tools'
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {
     !virtualization.system.eql?('docker')
   }
- 
+
   if os.version.minor >= 4
     impact 0.0
     describe 'This check does not apply to RHEL versions 8.4 or newer' do

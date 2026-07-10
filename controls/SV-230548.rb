@@ -32,7 +32,7 @@ If the use of namespaces is operationally required and documented with the ISSM,
 
 user.max_user_namespaces = 0
 
-Remove any configurations that conflict with the above from the following locations: 
+Remove any configurations that conflict with the above from the following locations:
 /run/sysctl.d/*.conf
 /usr/local/lib/sysctl.d/*.conf
 /usr/lib/sysctl.d/*.conf

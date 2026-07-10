@@ -2,7 +2,7 @@ control 'SV-230413' do
   title 'The RHEL 8 audit system must be configured to audit any usage of the setxattr, fsetxattr, lsetxattr, removexattr, fremovexattr, and lremovexattr system calls.'
   desc 'Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one.
 
-Audit records can be generated from various components within the information system (e.g., module or policy filter). 
+Audit records can be generated from various components within the information system (e.g., module or policy filter).
 
 "Setxattr" is a system call used to set an extended attribute value.
 "Fsetxattr" is a system call used to set an extended attribute value. This is used to set extended attributes on a file.

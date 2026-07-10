@@ -38,15 +38,13 @@ $ sudo yum remove gssproxy'
     describe 'NFS mounts are being used' do
       skip 'NFS mounts are being used, this control is Not Applicable.'
     end
+  elsif input('gssproxy_required')
+    describe package('gssproxy') do
+      it { should be_installed }
+    end
   else
-    if input('gssproxy_required')
-      describe package('gssproxy') do
-        it { should be_installed }
-      end
-    else
-      describe package('gssproxy') do
-        it { should_not be_installed }
-      end
+    describe package('gssproxy') do
+      it { should_not be_installed }
     end
   end
 end

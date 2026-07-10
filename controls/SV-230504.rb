@@ -17,7 +17,7 @@ RHEL 8 incorporates the "firewalld" daemon, which allows for many different conf
 
 If no zones are active on the RHEL 8 interfaces or if the target is set to a different option other than "DROP", this is a finding.
 
-If the "firewalld" package is not installed, ask the System Administrator if an alternate firewall (such as iptables) is installed and in use, and how is it configured to employ a deny-all, allow-by-exception policy. 
+If the "firewalld" package is not installed, ask the System Administrator if an alternate firewall (such as iptables) is installed and in use, and how is it configured to employ a deny-all, allow-by-exception policy.
 
 If the alternate firewall is not configured to employ a deny-all, allow-by-exception policy, this is a finding.
 
@@ -28,12 +28,12 @@ If no firewall is installed, this is a finding.'
 
      $ sudo cp /usr/lib/firewalld/zones/drop.xml /etc/firewalld/zones/[custom].xml
 
-This will provide a clean configuration file to work with that employs a deny-all approach. 
+This will provide a clean configuration file to work with that employs a deny-all approach.
 
 Note: Add the exceptions that are required for mission functionality and update the short title in the xml file to match the [custom] zone name.
 
 Reload the firewall rules to make the new [custom] zone available to load:
-     $ sudo firewall-cmd --reload 
+     $ sudo firewall-cmd --reload
 
 Set the default zone to the new [custom] zone:
      $ sudo firewall-cmd --set-default-zone=[custom]

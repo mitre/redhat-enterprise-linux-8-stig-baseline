@@ -7,7 +7,7 @@ System use notifications are required only for access via logon interfaces with 
 '
   desc 'check', 'Verify RHEL 8 displays a banner before granting access to the operating system via a graphical user logon.
 
-Note: This requirement assumes the use of the RHEL 8 default graphical user interface, Gnome Shell. If the system does not have any graphical user interface installed, this requirement is Not Applicable. 
+Note: This requirement assumes the use of the RHEL 8 default graphical user interface, Gnome Shell. If the system does not have any graphical user interface installed, this requirement is Not Applicable.
 
 Check to see if the operating system displays a banner at the logon screen with the following command:
 

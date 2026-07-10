@@ -9,12 +9,12 @@ FIPS 140-2 is the current standard for validating that mechanisms used to access
 
 Check the hashing algorithm that is being used to hash passwords with the following command:
 
-$ sudo grep -i crypt /etc/login.defs 
+$ sudo grep -i crypt /etc/login.defs
 
 ENCRYPT_METHOD SHA512
 
 If "ENCRYPT_METHOD" does not equal SHA512 or greater, this is a finding.'
-  desc 'fix', 'Configure RHEL 8 to encrypt all stored passwords. 
+  desc 'fix', 'Configure RHEL 8 to encrypt all stored passwords.
 
 Edit/Modify the following line in the "/etc/login.defs" file and set "[ENCRYPT_METHOD]" to SHA512.
 

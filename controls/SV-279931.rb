@@ -9,9 +9,9 @@ RHEL 8 incorporates systemwide crypto policies by default. The employed algorith
 
 Verify BIND uses the system crypto policy with the following command:
 
-$ sudo grep include /etc/named.conf 
+$ sudo grep include /etc/named.conf
 
-include "/etc/crypto-policies/back-ends/bind.config";' 
+include "/etc/crypto-policies/back-ends/bind.config";'
 
 If BIND is installed and the BIND config file does not contain the include "/etc/crypto-policies/back-ends/bind.config" directive, or the line is commented out, this is a finding.)
   desc 'fix', 'Configure BIND to use the system crypto policy.

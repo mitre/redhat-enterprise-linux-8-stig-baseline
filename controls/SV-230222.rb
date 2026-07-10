@@ -14,9 +14,9 @@ $ sudo yum history list | more
 Loaded plugins: langpacks, product-id, subscription-manager
 ID | Command line | Date and time | Action(s) | Altered
 -------------------------------------------------------------------------------
-70 | install aide | 2020-03-05 10:58 | Install | 1 
+70 | install aide | 2020-03-05 10:58 | Install | 1
 69 | update -y | 2020-03-04 14:34 | Update | 18 EE
-68 | install vlc | 2020-02-21 17:12 | Install | 21 
+68 | install vlc | 2020-02-21 17:12 | Install | 21
 67 | update -y | 2020-02-21 17:04 | Update | 7 EE
 
 If package updates have not been performed on the system within the timeframe the site/program documentation requires, this is a finding.

@@ -14,7 +14,7 @@ $ sudo grep action_mail_acct /etc/audit/auditd.conf
 action_mail_acct = root
 
 If the value of the "action_mail_acct" keyword is not set to "root" and/or other accounts for security personnel, the "action_mail_acct" keyword is missing, or the retuned line is commented out, ask the system administrator to indicate how they and the ISSO are notified of an audit process failure.  If there is no evidence of the proper personnel being notified of an audit processing failure, this is a finding.'
-  desc 'fix', 'Configure "auditd" service to notify the SA and ISSO in the event of an audit processing failure. 
+  desc 'fix', 'Configure "auditd" service to notify the SA and ISSO in the event of an audit processing failure.
 
 Edit the following line in "/etc/audit/auditd.conf" to ensure that administrators are notified via email for those situations:
 

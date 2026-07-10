@@ -3,7 +3,7 @@ control 'SV-230365' do
   desc "Enforcing a minimum password lifetime helps to prevent repeated password changes to defeat the password reuse or history enforcement requirement. If users are allowed to immediately and continually change their password, the password could be repeatedly changed in a short period of time to defeat the organization's policy regarding password reuse."
   desc 'check', 'Verify the operating system enforces 24 hours/1 day as the minimum password lifetime for new user accounts.
 
-Check for the value of "PASS_MIN_DAYS" in "/etc/login.defs" with the following command: 
+Check for the value of "PASS_MIN_DAYS" in "/etc/login.defs" with the following command:
 
 $ sudo grep -i pass_min_days /etc/login.defs
 PASS_MIN_DAYS 1

@@ -18,7 +18,7 @@ Use the following command to review the "aide.conf" file to determine if the "ac
 $ sudo cat /etc/aide.conf | more
 
 If the "acl" rule is not being used on all selection lines in the "/etc/aide.conf" file, is commented out, or ACLs are not being checked by another file integrity tool, this is a finding.'
-  desc 'fix', 'Configure the file integrity tool to check file and directory ACLs. 
+  desc 'fix', 'Configure the file integrity tool to check file and directory ACLs.
 
 If AIDE is installed, ensure the "acl" rule is present on all file and directory selection lists.'
   impact 0.3

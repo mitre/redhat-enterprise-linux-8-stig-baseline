@@ -11,7 +11,7 @@ RHEL 8 incorporates systemwide crypto policies by default. The SSH configuration
 
 To verify the ciphers in the systemwide SSH configuration file, use the following command:
 
-$ sudo grep -i Ciphers /etc/crypto-policies/back-ends/opensshserver.config 
+$ sudo grep -i Ciphers /etc/crypto-policies/back-ends/opensshserver.config
 CRYPTO_POLICY='-oCiphers=aes256-gcm@openssh.com,aes256-ctr,aes128-gcm@openssh.com,aes128-ctr
 
 If the cipher entries in the "opensshserver.config" file have any ciphers other than "aes256-gcm@openssh.com,aes256-ctr,aes128-gcm@openssh.com,aes128-ctr", or they are missing or commented out, this is a finding.)
