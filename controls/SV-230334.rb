@@ -13,13 +13,8 @@ program.
 "pam_faillock" uses is usually cleared on system boot so the access will be
 reenabled after system reboot. If that is undesirable a different tally
 directory must be set with the "dir" option.'
-  desc 'check', 'Check that the system locks an account after three unsuccessful logon
+  desc 'check', 'Verify the system locks an account after three unsuccessful logon
 attempts within a period of 15 minutes with the following commands:
-
-    Note: If the System Administrator demonstrates the use of an approved
-centralized account management method that locks an account after three
-unsuccessful logon attempts within a period of 15 minutes, this requirement is
-not applicable.
 
     Note: This check applies to RHEL versions 8.0 and 8.1, if the system is
 RHEL version 8.2 or newer, this check is not applicable.
@@ -65,7 +60,7 @@ restart the "sssd" service, run the following command:
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
   tag gid: 'V-230334'
-  tag rid: 'SV-230334r1017146_rule'
+  tag rid: 'SV-230334r1184266_rule'
   tag stig_id: 'RHEL-08-020012'
   tag fix_id: 'F-32978r567749_fix'
   tag cci: ['CCI-000044']

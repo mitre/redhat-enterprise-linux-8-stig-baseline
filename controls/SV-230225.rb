@@ -29,7 +29,7 @@ Check for the location of the banner file being used with the following command:
 
 $ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '\n' ' ' | xargs sudo grep -iH '^\s*banner'
 
-banner /etc/issue
+/etc/ssh/sshd_config:banner /etc/issue
 
 This command will return the banner keyword and the name of the file that contains the ssh banner (in this case "/etc/issue").
 
@@ -39,7 +39,9 @@ If conflicting results are returned, this is a finding.
 
 View the file specified by the banner keyword to check that it matches the text of the Standard Mandatory DOD Notice and Consent Banner:
 
-"You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only. By using this IS (which includes any device attached to this IS), you consent to the following conditions:
+"You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only.
+
+By using this IS (which includes any device attached to this IS), you consent to the following conditions:
 
 -The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations.
 
@@ -80,9 +82,9 @@ The SSH service must be restarted for changes to take effect.'
   tag gtitle: 'SRG-OS-000023-GPOS-00006'
   tag satisfies: ['SRG-OS-000023-GPOS-00006', 'SRG-OS-000228-GPOS-00088']
   tag gid: 'V-230225'
-  tag rid: 'SV-230225r1017044_rule'
+  tag rid: 'SV-230225r1184236_rule'
   tag stig_id: 'RHEL-08-010040'
-  tag fix_id: 'F-32869r951589_fix'
+  tag fix_id: 'F-32869r1184235_fix'
   tag cci: ['CCI-000048']
   tag nist: ['AC-8 a']
   tag 'host'

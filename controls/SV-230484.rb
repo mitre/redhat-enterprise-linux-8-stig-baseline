@@ -77,8 +77,11 @@ the following line in the /etc/chrony.conf file.
   match_all_authoritative_timeservers_enabled = input('match_all_authoritative_timeservers_enabled')
 
   # Get the system server values
-  # Converts to array if only one value present
-  time_sources = [chrony_conf.server].flatten
+  # Converts to array if only one value present; .compact drops the nil that chrony_conf.server
+  # returns when /etc/chrony.conf has no "server" line, so the mapping below never calls .match? on
+  # nil (a Control Source Code Error). The missing-server case is then reported as a normal finding
+  # by the `its('server') { should_not be_nil }` check.
+  time_sources = [chrony_conf.server].flatten.compact
 
   # Get and map maxpoll values to an array
   unless time_sources.nil?

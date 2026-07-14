@@ -40,15 +40,16 @@ the SSH daemon, run the following command:
   value = gssapi_authentication[setting]
 
   if virtualization.system.eql?('docker')
-    describe 'In a container Environment' do
-      if package('openssh-server').installed?
+    if package('openssh-server').installed?
+      describe 'In a container Environment' do
         it 'the OpenSSH Server should be installed when allowed in Docker environment' do
           expect(input('allow_container_openssh_server')).to eq(true), 'OpenSSH Server is installed but not approved for the Docker environment'
         end
-      else
-        it 'the OpenSSH Server is not installed' do
-          skip 'This requirement is not applicable as the OpenSSH Server is not installed in the Docker environment.'
-        end
+      end
+    else
+      impact 0.0
+      describe 'In a container Environment (OpenSSH Server not installed)' do
+        skip 'This requirement is not applicable as the OpenSSH Server is not installed in the Docker environment.'
       end
     end
   else

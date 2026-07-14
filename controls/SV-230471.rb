@@ -8,21 +8,17 @@ the auditing of critical events. Misconfigured audits may degrade the system's
 performance by overwhelming the audit log. Misconfigured audits may also make
 it more difficult to establish, correlate, and investigate the events relating
 to an incident or identify those responsible for one."
-  desc 'check', 'Verify that the files in directory "/etc/audit/rules.d/" and
-"/etc/audit/auditd.conf" file have a mode of "0640" or less permissive by
-using the following commands:
+  desc 'check', 'Verify that the files in directory "/etc/audit/rules.d/" and "/etc/audit/auditd.conf" file have a mode of "0640" or less permissive by using the following commands:
 
-    $ sudo ls -al /etc/audit/rules.d/*.rules
+$ sudo find /etc/audit/rules.d/ -type f -name *.rules -exec ls -al {} \\;
 
-    -rw-r----- 1 root root 1280 Feb 16 17:09 audit.rules
+-rw-r-----. 1 root root 284 May 1 20:30 /etc/audit/rules.d/audit.rules
 
-    $ sudo ls -l /etc/audit/auditd.conf
+$ sudo ls -l /etc/audit/auditd.conf
 
-    -rw-r----- 1 root root 621 Sep 22 17:19 auditd.conf
+-rw-r----- 1 root root 621 Sep 22 17:19 auditd.conf
 
-    If the files in the "/etc/audit/rules.d/" directory or the
-"/etc/audit/auditd.conf" file have a mode more permissive than "0640", this
-is a finding.'
+If the files in the "/etc/audit/rules.d/" directory or the "/etc/audit/auditd.conf" file have a mode more permissive than "0640", this is a finding.'
   desc 'fix', 'Configure the files in directory "/etc/audit/rules.d/" and the
 "/etc/audit/auditd.conf" file to have a mode of "0640" with the following
 commands:
@@ -34,7 +30,7 @@ commands:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000063-GPOS-00032'
   tag gid: 'V-230471'
-  tag rid: 'SV-230471r1017262_rule'
+  tag rid: 'SV-230471r1069296_rule'
   tag stig_id: 'RHEL-08-030610'
   tag fix_id: 'F-33115r568160_fix'
   tag cci: ['CCI-000171']

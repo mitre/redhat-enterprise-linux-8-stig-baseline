@@ -14,50 +14,34 @@ control 'SV-230268' do
     /usr/lib/sysctl.d/*.conf
     /lib/sysctl.d/*.conf
     /etc/sysctl.conf'
-  desc 'check', 'Verify the operating system is configured to enable DAC on hardlinks with the following commands:
+  desc 'check', 'Verify RHEL 8 is configured to enable DAC on hardlinks.
 
-  Check the status of the fs.protected_hardlinks kernel parameter.
+Check the status of the "fs.protected_hardlinks" kernel parameter with the following command:
 
-  $ sudo sysctl fs.protected_hardlinks
+$ sudo sysctl fs.protected_hardlinks
+fs.protected_hardlinks = 1
 
-  fs.protected_hardlinks = 1
+If "fs.protected_hardlinks" is not set to "1" or is missing, this is a finding.'
+  desc 'fix', 'Configure RHEL 8 to enable DAC on hardlinks.
 
-  If "fs.protected_hardlinks" is not set to "1" or is missing, this is a finding.
+Create a drop-in if it does not already exist:
 
-  Check that the configuration files are present to enable this kernel parameter.
+$ sudo vi /etc/sysctl.d/99-fs_protected_hardlinks.conf
 
-  $ sudo grep -r fs.protected_hardlinks /run/sysctl.d/*.conf /usr/local/lib/sysctl.d/*.conf /usr/lib/sysctl.d/*.conf /lib/sysctl.d/*.conf /etc/sysctl.conf /etc/sysctl.d/*.conf
+Add the following to the file:
+fs.protected_hardlinks = 1
 
-  /etc/sysctl.d/99-sysctl.conf:fs.protected_hardlinks = 1
+Reload settings from all system configuration files with the following command:
 
-  If "fs.protected_hardlinks" is not set to "1", is missing or commented out, this is a finding.
-
-  If conflicting results are returned, this is a finding.'
-  desc 'fix', 'Configure the operating system to enable DAC on hardlinks.
-
-  Add or edit the following line in a system configuration file, in the "/etc/sysctl.d/" directory:
-
-  fs.protected_hardlinks = 1
-
-  Remove any configurations that conflict with the above from the following locations:
-  /run/sysctl.d/*.conf
-  /usr/local/lib/sysctl.d/*.conf
-  /usr/lib/sysctl.d/*.conf
-  /lib/sysctl.d/*.conf
-  /etc/sysctl.conf
-  /etc/sysctl.d/*.conf
-
-  Load settings from all system configuration files with the following command:
-
-  $ sudo sysctl --system'
+$ sudo sysctl --system'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000312-GPOS-00122'
   tag satisfies: ['SRG-OS-000312-GPOS-00122', 'SRG-OS-000312-GPOS-00123', 'SRG-OS-000312-GPOS-00124', 'SRG-OS-000324-GPOS-00125']
   tag gid: 'V-230268'
-  tag rid: 'SV-230268r1017086_rule'
+  tag rid: 'SV-230268r1184252_rule'
   tag stig_id: 'RHEL-08-010374'
-  tag fix_id: 'F-32912r858753_fix'
+  tag fix_id: 'F-32912r1184251_fix'
   tag cci: ['CCI-002165']
   tag nist: ['AC-3 (4)']
   tag 'host'
@@ -70,21 +54,5 @@ control 'SV-230268' do
 
   describe kernel_parameter(action) do
     its('value') { should eq 1 }
-  end
-
-  search_result = command("grep -r ^#{action} #{input('sysctl_conf_files').join(' ')}").stdout.strip
-
-  correct_result = search_result.lines.any? { |line| line.match(/#{action}\s*=\s*1$/) }
-  incorrect_results = search_result.lines.map(&:strip).select { |line| line.match(/#{action}\s*=\s*[^1]$/) }
-
-  describe 'Kernel config files' do
-    it "should configure '#{action}'" do
-      expect(correct_result).to eq(true), 'No config file was found that correctly sets this action'
-    end
-    unless incorrect_results.nil?
-      it 'should not have incorrect or conflicting setting(s) in the config files' do
-        expect(incorrect_results).to be_empty, "Incorrect or conflicting setting(s) found:\n\t- #{incorrect_results.join("\n\t- ")}"
-      end
-    end
   end
 end

@@ -10,45 +10,38 @@ determined. Rather than be forced to wait for a period of time to expire before
 the user session can be locked, RHEL 8 needs to provide users with the ability
 to manually invoke a session lock so users can secure their session if it is
 necessary to temporarily vacate the immediate physical vicinity.'
-  desc 'check', 'Verify the operating system initiates a session lock after a 15-minute
-period of inactivity for graphical user interfaces with the following commands:
+  desc 'check', 'Verify RHEL 8 initiates a session lock after a 15-minute period of inactivity for graphical user interfaces with the following command:
 
-    This requirement assumes the use of the RHEL 8 default graphical user
-interface, Gnome Shell. If the system does not have any graphical user
-interface installed, this requirement is Not Applicable.
+Note: This requirement assumes the use of the RHEL 8 default graphical user interface, the GNOME desktop environment. If the system does not have any graphical user interface installed, this requirement is Not Applicable.
 
-    $ sudo gsettings get org.gnome.desktop.session idle-delay
+$ sudo gsettings get org.gnome.desktop.session idle-delay
 
-    uint32 900
+uint32 900
 
-    If "idle-delay" is set to "0" or a value greater than "900", this is
-a finding.'
-  desc 'fix', 'Configure the operating system to initiate a screensaver after a 15-minute
-period of inactivity for graphical user interfaces.
+If "idle-delay" is set to "0" or a value greater than "900", this is a finding.'
+  desc 'fix', 'Configure RHEL 8 to initiate a screensaver after a 15-minute period of inactivity for graphical user interfaces.
 
-    Create a database to contain the system-wide screensaver settings (if it
-does not already exist) with the following command:
+Create a database to contain the systemwide screensaver settings (if it does not already exist) with the following command:
 
-    $ sudo touch /etc/dconf/db/local.d/00-screensaver
+$ sudo touch /etc/dconf/db/local.d/00-screensaver
 
-    Edit /etc/dconf/db/local.d/00-screensaver and add or update the following
-lines:
+Edit /etc/dconf/db/local.d/00-screensaver and add or update the following lines:
 
-    [org/gnome/desktop/session]
-    # Set the lock time out to 900 seconds before the session is considered idle
-    idle-delay=uint32 900
+[org/gnome/desktop/session]
+# Set the lock time out to 900 seconds before the session is considered idle
+idle-delay=uint32 900
 
-    Update the system databases:
+Update the system databases:
 
-    $ sudo dconf update'
+$ sudo dconf update'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000029-GPOS-00010'
   tag satisfies: ['SRG-OS-000029-GPOS-00010', 'SRG-OS-000031-GPOS-00012']
   tag gid: 'V-230352'
-  tag rid: 'SV-230352r1017165_rule'
+  tag rid: 'SV-230352r1155401_rule'
   tag stig_id: 'RHEL-08-020060'
-  tag fix_id: 'F-32996r567803_fix'
+  tag fix_id: 'F-32996r1155400_fix'
   tag cci: ['CCI-000057']
   tag nist: ['AC-11 a']
   tag 'host'
@@ -58,8 +51,16 @@ lines:
   }
 
   if package('gnome-desktop3').installed?
-    describe command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2") do
-      its('stdout.strip') { should cmp <= input('system_inactivity_timeout') }
+    idle_delay = command("gsettings get org.gnome.desktop.session idle-delay | cut -d ' ' -f2").stdout.strip.to_i
+    # V2R7: a finding if idle-delay is "0" (auto-lock disabled) OR greater than the max (default 900).
+    # A pass therefore requires 1 <= idle-delay <= max.
+    describe "The GNOME session idle-delay (#{idle_delay} seconds)" do
+      it 'must not be 0 (a value of 0 disables automatic session lock)' do
+        expect(idle_delay).to be > 0
+      end
+      it "must not exceed #{input('system_inactivity_timeout')} seconds" do
+        expect(idle_delay).to be <= input('system_inactivity_timeout').to_i
+      end
     end
   else
     impact 0.0

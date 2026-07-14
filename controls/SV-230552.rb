@@ -10,17 +10,15 @@ Intrusion Detection Environment (AIDE).'
 
 Note: AIDE is highly configurable at install time. This requirement assumes the "aide.conf" file is under the "/etc" directory.
 
-If AIDE is not installed, ask the System Administrator how file integrity checks are performed on the system.
+If AIDE is not installed, ask the system administrator (SA) how file integrity checks are performed on the system.
 
 Use the following command to determine if the file is in a location other than "/etc/aide/aide.conf":
 
-     $ sudo find / -name aide.conf
+$ sudo find / -name aide.conf
 
-Check the "aide.conf" file to determine if the "acl" rule has been added to the rule list being applied to the files and directories selection lists with the following command:
+Use the following command to review the "aide.conf" file to determine if the "acl" rule has been added to the rule list being applied to the files and directories selection lists:
 
-     $ sudo grep -E "[+]?acl" /etc/aide.conf
-
-     VarFile = OwnerMode+n+l+X+acl
+$ sudo cat /etc/aide.conf | more
 
 If the "acl" rule is not being used on all selection lines in the "/etc/aide.conf" file, is commented out, or ACLs are not being checked by another file integrity tool, this is a finding.'
   desc 'fix', 'Configure the file integrity tool to check file and directory ACLs.
@@ -31,7 +29,7 @@ directory selection lists.'
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230552'
-  tag rid: 'SV-230552r1017314_rule'
+  tag rid: 'SV-230552r1101902_rule'
   tag stig_id: 'RHEL-08-040310'
   tag fix_id: 'F-33196r568403_fix'
   tag cci: ['CCI-000366']

@@ -16,7 +16,7 @@ the following command:
 
     $ sudo stat -c "%a %n" /var/log
 
-    755
+    755 /var/log
 
     If a value of "0755" or less permissive is not returned, this is a
 finding.'
@@ -28,7 +28,7 @@ the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000206-GPOS-00084'
   tag gid: 'V-230248'
-  tag rid: 'SV-230248r1017066_rule'
+  tag rid: 'SV-230248r1069291_rule'
   tag stig_id: 'RHEL-08-010240'
   tag fix_id: 'F-32892r567491_fix'
   tag cci: ['CCI-001314']
