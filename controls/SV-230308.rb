@@ -6,7 +6,9 @@ being executed on file systems that are imported via Network File System (NFS).'
 for mounting any file system not containing approved "setuid" and "setguid"
 files. Executing files from untrusted file systems increases the opportunity
 for unprivileged users to attain unauthorized administrative access.'
-  desc 'check', 'Verify that file systems being imported via NFS are mounted with the
+  desc 'check', 'Note: If no NFS mounts are configured, this requirement is Not Applicable.
+
+Verify file systems being imported via NFS are mounted with the
 "nosuid" option with the following command:
 
     $ sudo grep nfs /etc/fstab | grep nosuid
@@ -22,7 +24,7 @@ file systems that are being imported via NFS.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230308'
-  tag rid: 'SV-230308r1017118_rule'
+  tag rid: 'SV-230308r1155390_rule'
   tag stig_id: 'RHEL-08-010650'
   tag fix_id: 'F-32952r567671_fix'
   tag cci: ['CCI-000366']

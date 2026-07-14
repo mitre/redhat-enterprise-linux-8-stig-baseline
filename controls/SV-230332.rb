@@ -13,44 +13,29 @@ program.
 "pam_faillock" uses is usually cleared on system boot so the access will be
 reenabled after system reboot. If that is undesirable a different tally
 directory must be set with the "dir" option.'
-  desc 'check', 'Check that the system locks an account after three unsuccessful logon
-attempts with the following commands:
+  desc 'check', 'Verify the system locks an account after three unsuccessful logon attempts with the following commands:
 
-    Note: If the System Administrator demonstrates the use of an approved
-centralized account management method that locks an account after three
-unsuccessful logon attempts within a period of 15 minutes, this requirement is
-not applicable.
+Note: This check applies to RHEL versions 8.0 and 8.1, if the system is RHEL version 8.2 or newer, this check is not applicable.
 
-    Note: This check applies to RHEL versions 8.0 and 8.1, if the system is
-RHEL version 8.2 or newer, this check is not applicable.
+$ sudo grep pam_faillock.so /etc/pam.d/password-auth
 
-    $ sudo grep pam_faillock.so /etc/pam.d/password-auth
+auth required pam_faillock.so preauth dir=/var/log/faillock silent audit deny=3 even_deny_root fail_interval=900 unlock_time=0
+auth required pam_faillock.so authfail dir=/var/log/faillock unlock_time=0
+account required pam_faillock.so
 
-    auth required pam_faillock.so preauth dir=/var/log/faillock silent audit
-deny=3 even_deny_root fail_interval=900 unlock_time=0
-    auth required pam_faillock.so authfail dir=/var/log/faillock unlock_time=0
-    account required pam_faillock.so
+If the "deny" option is not set to "3" or less (but not "0") on the "preauth" line with the "pam_faillock.so" module, or is missing from this line, this is a finding.
 
-    If the "deny" option is not set to "3" or less (but not "0") on the
-"preauth" line with the "pam_faillock.so" module, or is missing from this
-line, this is a finding.
+If any line referencing the "pam_faillock.so" module is commented out, this is a finding.
 
-    If any line referencing the "pam_faillock.so" module is commented out,
-this is a finding.
+$ sudo grep pam_faillock.so /etc/pam.d/system-auth
 
-    $ sudo grep pam_faillock.so /etc/pam.d/system-auth
+auth required pam_faillock.so preauth dir=/var/log/faillock silent audit deny=3 even_deny_root fail_interval=900 unlock_time=0
+auth required pam_faillock.so authfail dir=/var/log/faillock unlock_time=0
+account required pam_faillock.so
 
-    auth required pam_faillock.so preauth dir=/var/log/faillock silent audit
-deny=3 even_deny_root fail_interval=900 unlock_time=0
-    auth required pam_faillock.so authfail dir=/var/log/faillock unlock_time=0
-    account required pam_faillock.so
+If the "deny" option is not set to "3" or less (but not "0") on the "preauth" line with the "pam_faillock.so" module, or is missing from this line, this is a finding.
 
-    If the "deny" option is not set to "3" or less (but not "0") on the
-"preauth" line with the "pam_faillock.so" module, or is missing from this
-line, this is a finding.
-
-    If any line referencing the "pam_faillock.so" module is commented out,
-this is a finding.'
+If any line referencing the "pam_faillock.so" module is commented out, this is a finding.'
   desc 'fix', 'Configure the operating system to lock an account when three unsuccessful
 logon attempts occur.
 
@@ -71,7 +56,7 @@ restart the "sssd" service, run the following command:
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
   tag gid: 'V-230332'
-  tag rid: 'SV-230332r1017144_rule'
+  tag rid: 'SV-230332r1184264_rule'
   tag stig_id: 'RHEL-08-020010'
   tag fix_id: 'F-32976r567743_fix'
   tag cci: ['CCI-000044']

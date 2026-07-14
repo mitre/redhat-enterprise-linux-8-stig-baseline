@@ -8,7 +8,7 @@ use.'
 
 $ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '\n' ' ' | xargs sudo grep -iH '^\s*printlastlog'
 
-PrintLastLog yes
+/etc/ssh/sshd_config:PrintLastLog yes
 
 If the "PrintLastLog" keyword is set to "no", is missing, or is commented out, this is a finding.
 
@@ -31,7 +31,7 @@ effect.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230382'
-  tag rid: 'SV-230382r991589_rule'
+  tag rid: 'SV-230382r1069309_rule'
   tag stig_id: 'RHEL-08-020350'
   tag fix_id: 'F-33026r567893_fix'
   tag cci: ['CCI-000366', 'CCI-000052']

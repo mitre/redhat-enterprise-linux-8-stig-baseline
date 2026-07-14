@@ -8,7 +8,7 @@ of misconfiguration elsewhere.'
 
 $ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '\n' ' ' | xargs sudo grep -iH '^\s*ignoreuserknownhosts'
 
-IgnoreUserKnownHosts yes
+/etc/ssh/sshd_config:IgnoreUserKnownHosts yes
 
 If the value is returned as "no", the returned line is commented out, or no output is returned, this is a finding.
 
@@ -29,7 +29,7 @@ the SSH daemon, run the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230290'
-  tag rid: 'SV-230290r1017100_rule'
+  tag rid: 'SV-230290r1069302_rule'
   tag stig_id: 'RHEL-08-010520'
   tag fix_id: 'F-32934r567617_fix'
   tag cci: ['CCI-000366']

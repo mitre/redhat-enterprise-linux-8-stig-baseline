@@ -4,7 +4,7 @@ maintainer: MITRE SAF Team
 copyright: MITRE
 license: Apache-2.0
 summary: "This Security Technical Implementation Guide is published as a tool to improve the security of Department of Defense (DoD) information systems. The requirements are derived from the National Institute of Standards and Technology (NIST) 800-53 and related documents. Comments or proposed revisions to this document should be sent via email to the following address: disa.stig_spt@mail.mil."
-version: 2.2.0
+version: 2.7.0
 
 inspec_version: ">= 5.0"
 
@@ -478,9 +478,19 @@ inputs:
     type: Array
     value:
       - "aes256-gcm@openssh.com"
-      - "aes128-gcm@openssh.com"
       - "aes256-ctr"
+      - "aes128-gcm@openssh.com"
       - "aes128-ctr"
+
+  # SV-272482
+  - name: openssh_client_required_macs
+    description: List of SSH client MACs employing FIPS 140-3-approved algorithms
+    type: Array
+    value:
+      - "hmac-sha2-512-etm@openssh.com"
+      - "hmac-sha2-256-etm@openssh.com"
+      - "hmac-sha2-512"
+      - "hmac-sha2-256"
 
   # SV-230229
   - name: root_ca_file
@@ -496,6 +506,12 @@ inputs:
     description: Maximum system inactivity timeout (time in seconds).
     type: Numeric
     value: 900
+
+  # SV-279929
+  - name: shell_session_timeout
+    description: Maximum interactive command shell inactivity timeout (TMOUT, time in seconds).
+    type: Numeric
+    value: 600
 
   # SV-230373
   - name: days_of_inactivity

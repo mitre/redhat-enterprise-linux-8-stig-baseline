@@ -8,7 +8,7 @@ should never be used in operational environments.'
 
 $ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '\n' ' ' | xargs sudo grep -iH '^\s*permitemptypasswords'
 
-PermitEmptyPasswords no
+/etc/ssh/sshd_config:PermitEmptyPasswords no
 
 If "PermitEmptyPasswords" is set to "yes", this is a finding.
 
@@ -26,7 +26,7 @@ the SSH daemon, run the following command:
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230380'
-  tag rid: 'SV-230380r1017191_rule'
+  tag rid: 'SV-230380r1069308_rule'
   tag stig_id: 'RHEL-08-020330'
   tag fix_id: 'F-33024r743992_fix'
   tag cci: ['CCI-000366']

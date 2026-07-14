@@ -26,7 +26,7 @@ and/or services that are unnecessary or prohibited.
 
     Check which services are currently active with the following command:
 
-    $ sudo firewall-cmd --list-all-zones
+    $ firewall-cmd --list-all-zones | grep -e "active" -e "services"
 
     custom (active)
     target: DROP
@@ -40,9 +40,9 @@ and/or services that are unnecessary or prohibited.
     icmp-blocks:
     rich rules:
 
-    Ask the System Administrator for the site or program Ports, Protocols, and
-Services Management Component Local Service Assessment (PPSM CLSA). Verify the
-services allowed by the firewall match the PPSM CLSA.
+    Ask the system administrator (SA) for the site or program Ports, Protocols,
+and Services Management Component Local Service Assessment (PPSM CLSA). Verify
+the services allowed by the firewall match the PPSM CLSA.
 
     If there are additional ports, protocols, or services that are not in the
 PPSM CLSA, or there are ports, protocols, or services that are prohibited by
@@ -54,7 +54,7 @@ program and the PPSM CAL."
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000096-GPOS-00050'
   tag gid: 'V-230500'
-  tag rid: 'SV-230500r1017283_rule'
+  tag rid: 'SV-230500r1101900_rule'
   tag stig_id: 'RHEL-08-040030'
   tag fix_id: 'F-33144r568247_fix'
   tag cci: ['CCI-000382']

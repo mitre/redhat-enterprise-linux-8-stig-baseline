@@ -6,7 +6,7 @@ being executed on the /boot/efi directory.'
 for mounting any file system not containing approved "setuid" and "setguid"
 files. Executing files from untrusted file systems increases the opportunity
 for unprivileged users to attain unauthorized administrative access.'
-  desc 'check', %q(For systems that use BIOS, this is Not Applicable.
+  desc 'check', %q(Note: For systems that use BIOS, this is not applicable.
 
 Verify the /boot/efi directory is mounted with the "nosuid" option with the following command:
 
@@ -21,7 +21,7 @@ the /boot/efi directory.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244530'
-  tag rid: 'SV-244530r1017337_rule'
+  tag rid: 'SV-244530r1184260_rule'
   tag stig_id: 'RHEL-08-010572'
   tag fix_id: 'F-47762r743838_fix'
   tag cci: ['CCI-000366']

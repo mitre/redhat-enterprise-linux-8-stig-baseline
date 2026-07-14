@@ -6,7 +6,9 @@ files. This option must be used for mounting any file system not containing
 approved binary as they may be incompatible. Executing files from untrusted
 file systems increases the opportunity for unprivileged users to attain
 unauthorized administrative access.'
-  desc 'check', 'Verify that  file systems being imported via NFS are mounted with the
+  desc 'check', 'Note: If no NFS mounts are configured, this requirement is Not Applicable.
+
+Verify file systems being imported via NFS are mounted with the
 "noexec" option with the following command:
 
     $ sudo grep nfs /etc/fstab | grep noexec
@@ -22,7 +24,7 @@ file systems that are being imported via NFS.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230306'
-  tag rid: 'SV-230306r1017116_rule'
+  tag rid: 'SV-230306r1155386_rule'
   tag stig_id: 'RHEL-08-010630'
   tag fix_id: 'F-32950r567665_fix'
   tag cci: ['CCI-000366']

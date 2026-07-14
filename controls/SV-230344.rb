@@ -20,36 +20,25 @@ centralize the configuration of the pam_faillock.so module. Also introduced is
 a "local_users_only" option that will only track failed user authentication
 attempts for local users in /etc/passwd and ignore centralized (AD, IdM, LDAP,
 etc.) users to allow the centralized platform to solely manage user lockout.'
-  desc 'check', 'Check that the system includes the root account when locking an account
-after three unsuccessful logon attempts within a period of 15 minutes with the
-following commands:
+  desc 'check', 'Verify the system includes the root account when locking an account after three unsuccessful logon attempts within a period of 15 minutes with the following commands:
 
-    If the system is RHEL version 8.2 or newer, this check is not applicable.
+If the system is RHEL version 8.2 or newer, this check is not applicable.
 
-    Note: If the System Administrator demonstrates the use of an approved
-centralized account management method that locks an account after three
-unsuccessful logon attempts within a period of 15 minutes, this requirement is
-not applicable.
+$ sudo grep pam_faillock.so /etc/pam.d/password-auth
 
-    $ sudo grep pam_faillock.so /etc/pam.d/password-auth
+auth required pam_faillock.so preauth dir=/var/log/faillock silent audit deny=3 even_deny_root fail_interval=900 unlock_time=0
+auth required pam_faillock.so authfail dir=/var/log/faillock unlock_time=0
+account required pam_faillock.so
 
-    auth required pam_faillock.so preauth dir=/var/log/faillock silent audit
-deny=3 even_deny_root fail_interval=900 unlock_time=0
-    auth required pam_faillock.so authfail dir=/var/log/faillock unlock_time=0
-    account required pam_faillock.so
+If the "even_deny_root" option is missing from the "preauth" line with the "pam_faillock.so" module, this is a finding.
 
-    If the "even_deny_root" option is missing from the "preauth" line with
-the "pam_faillock.so" module, this is a finding.
+$ sudo grep pam_faillock.so /etc/pam.d/system-auth
 
-    $ sudo grep pam_faillock.so /etc/pam.d/system-auth
+auth required pam_faillock.so preauth dir=/var/log/faillock silent audit deny=3 even_deny_root fail_interval=900 unlock_time=0
+auth required pam_faillock.so authfail dir=/var/log/faillock unlock_time=0
+account required pam_faillock.so
 
-    auth required pam_faillock.so preauth dir=/var/log/faillock silent audit
-deny=3 even_deny_root fail_interval=900 unlock_time=0
-    auth required pam_faillock.so authfail dir=/var/log/faillock unlock_time=0
-    account required pam_faillock.so
-
-    If the "even_deny_root" option is missing from the "preauth" line with
-the "pam_faillock.so" module, this is a finding.'
+If the "even_deny_root" option is missing from the "preauth" line with the "pam_faillock.so" module, this is a finding.'
   desc 'fix', 'Configure the operating system to include root when locking an account
 after three unsuccessful logon attempts occur in 15 minutes.
 
@@ -70,7 +59,7 @@ restart the "sssd" service, run the following command:
   tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
   tag gid: 'V-230344'
-  tag rid: 'SV-230344r1017156_rule'
+  tag rid: 'SV-230344r1184276_rule'
   tag stig_id: 'RHEL-08-020022'
   tag fix_id: 'F-32988r567779_fix'
   tag cci: ['CCI-000044']

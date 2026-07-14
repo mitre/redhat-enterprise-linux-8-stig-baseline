@@ -1,45 +1,57 @@
 control 'SV-230223' do
-  title 'RHEL 8 must implement NIST FIPS-validated cryptography for the following: To provision digital signatures, to generate cryptographic hashes, and to protect data requiring data-at-rest protections in accordance with applicable federal laws, Executive Orders, directives, policies, regulations, and standards.'
-  desc 'Use of weak or untested encryption algorithms undermines the purposes of using encryption to protect data. The operating system must implement cryptographic modules adhering to the higher standards approved by the federal government since this provides assurance they have been tested and validated.
+  title 'RHEL 8 must implement a FIPS 140-3-compliant systemwide cryptographic policy.'
+  desc 'Centralized cryptographic policies simplify applying secure ciphers across an operating system and the applications that run on that operating system. Use of weak or untested encryption algorithms undermines the purposes of using encryption to protect data.'
+  desc 'check', %q(Verify RHEL 8 is set to use a FIPS 140-3-compliant systemwide cryptographic policy with the following command:
 
-RHEL 8 utilizes GRUB 2 as the default bootloader. Note that GRUB 2 command-line parameters are defined in the "kernelopts" variable of the /boot/grub2/grubenv file for all kernel boot entries. The command "fips-mode-setup" modifies the "kernelopts" variable, which in turn updates all kernel boot entries.
+$ sudo update-crypto-policies --show
 
-The fips=1 kernel option needs to be added to the kernel command line during system installation so that key generation is done with FIPS-approved algorithms and continuous monitoring tests in place. Users must also ensure the system has plenty of entropy during the installation process by moving the mouse around, or if no mouse is available, ensuring that many keystrokes are typed. The recommended amount of keystrokes is 256 and more. Less than 256 keystrokes may generate a nonunique key.'
-  desc 'check', 'Verify the operating system implements DOD-approved encryption to protect the confidentiality of remote access sessions.
+FIPS:STIG
 
-Check to see if FIPS mode is enabled with the following command:
+If the systemwide crypto policy is not set to "FIPS", this is a finding.
 
-     $ fips-mode-setup --check
-     FIPS mode is enabled
+Note: If subpolicies have been configured, they could be listed in a colon-separated list starting with "FIPS" as follows FIPS:<SUBPOLICY-NAME>. This is not a finding.
 
-If FIPS mode is "enabled", check to see if the kernel boot parameter is configured for FIPS mode with the following command:
+Note: Subpolicies like AD-SUPPORT must be configured according to the latest guidance from the operating system vendor.
 
-     $ sudo grub2-editenv list | grep fips
-     kernelopts=root=/dev/mapper/rhel-root ro crashkernel=auto resume=/dev/mapper/rhel-swap rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet fips=1 boot=UUID=8d171156-cd61-421c-ba41-1c021ac29e82
+Verify the current minimum crypto-policy configuration with the following commands:
 
-If the kernel boot parameter is configured to use FIPS mode, check to see if the system is in FIPS mode with the following command:
+$ sudo grep -E 'rsa_size|hash' /etc/crypto-policies/state/CURRENT.pol
 
-     $ sudo cat /proc/sys/crypto/fips_enabled
-     1
+hash = SHA2-256 SHA2-384 SHA2-512 SHA2-224 SHA3-256 SHA3-384 SHA3-512
+min_rsa_size = 2048
 
-If FIPS mode is not "on", the kernel boot parameter is not configured for FIPS mode, or the system does not have a value of "1" for "fips_enabled" in "/proc/sys/crypto", this is a finding.'
-  desc 'fix', 'Configure the operating system to implement DOD-approved encryption by following the steps below:
+If the "hash" values do not include at least the following FIPS 140-3-compliant algorithms "SHA2-256 SHA2-384 SHA2-512 SHA2-224 SHA3-256 SHA3-384 SHA3-512", this is a finding.
 
-To enable strict FIPS compliance, the fips=1 kernel option needs to be added to the kernel boot parameters during system installation so key generation is done with FIPS-approved algorithms and continuous monitoring tests in place.
+If there are algorithms that include "SHA1" or a hash value less than "224" this is a finding.
 
-Enable FIPS mode after installation (not strict FIPS-compliant) with the following command:
+If the "min_rsa_size" is not set to a value of at least "2048", this is a finding.
 
-     $ sudo fips-mode-setup --enable
+If these commands do not return any output, this is a finding.)
+  desc 'fix', 'Configure RHEL 8 to use a FIPS 140-3-compliant systemwide cryptographic policy.
 
-Reboot the system for the changes to take effect.'
+Create a subpolicy for enhancements to the base systemwide crypto-policy by creating the file /etc/crypto-policies/policies/modules/STIG.pmod with the following content:
+
+# Define ciphers and MACs for OpenSSH and libssh
+cipher@SSH=AES-256-GCM AES-256-CTR AES-128-GCM AES-128-CTR
+mac@SSH=HMAC-SHA2-512 HMAC-SHA2-256
+
+Apply the policy enhancements to the FIPS systemwide cryptographic policy level with the following command:
+
+$ sudo update-crypto-policies --set FIPS:STIG
+
+Note: If additional subpolicies are being employed, they must be added to the update-crypto-policies command.
+
+To make the cryptographic settings effective for already running services and applications, restart the system:
+
+$ sudo reboot'
   impact 0.7
   tag severity: 'high'
   tag gtitle: 'SRG-OS-000033-GPOS-00014'
-  tag satisfies: ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000125-GPOS-00065', 'SRG-OS-000396-GPOS-00176', 'SRG-OS-000423-GPOS-00187', 'SRG-OS-000478-GPOS-00223']
+  tag satisfies: ['SRG-OS-000033-GPOS-00014', 'SRG-OS-000125-GPOS-00065', 'SRG-OS-000396-GPOS-00176', 'SRG-OS-000423-GPOS-00187', 'SRG-OS-000478-GPOS-00223', 'SRG-OS-000393-GPOS-00173', 'SRG-OS-000394-GPOS-00174']
   tag gid: 'V-230223'
-  tag rid: 'SV-230223r1017042_rule'
+  tag rid: 'SV-230223r1155356_rule'
   tag stig_id: 'RHEL-08-010020'
-  tag fix_id: 'F-32867r928584_fix'
+  tag fix_id: 'F-32867r1155355_fix'
   tag cci: ['CCI-000068']
   tag nist: ['AC-17 (2)']
   tag 'host'
@@ -55,18 +67,54 @@ Reboot the system for the changes to take effect.'
       skip 'This control is Not Applicable as FIPS is not required for this system'
     end
   else
-    describe command('fips-mode-setup --check') do
-      its('stdout.strip') { should match(/FIPS mode is enabled/) }
+    # The systemwide crypto policy must be set to FIPS (optionally with a
+    # colon-separated subpolicy list, e.g. "FIPS:STIG").
+    describe command('update-crypto-policies --show') do
+      its('stdout.strip') { should match(/^FIPS(:\S+)?$/) }
     end
 
-    grub_config = command('grub2-editenv - list').stdout
+    # The required FIPS 140-3-compliant hash algorithms that must be present in
+    # the "hash" value of the current crypto policy.
+    required_hashes = %w[SHA2-256 SHA2-384 SHA2-512 SHA2-224 SHA3-256 SHA3-384 SHA3-512]
+    min_rsa_size = 2048
 
-    describe parse_config(grub_config) do
-      its('kernelopts') { should match(/fips=1/) }
+    current_pol = file('/etc/crypto-policies/state/CURRENT.pol')
+
+    describe current_pol do
+      it { should exist }
     end
 
-    describe file('/proc/sys/crypto/fips_enabled') do
-      its('content.strip') { should cmp '1' }
+    if current_pol.exist?
+      pol = parse_config(current_pol.content.to_s)
+
+      hash_value = pol.params['hash'].to_s
+      configured_hashes = hash_value.split(/\s+/).reject(&:empty?)
+
+      describe 'The systemwide crypto-policy "hash" configuration' do
+        it 'must include all required FIPS 140-3-compliant hash algorithms' do
+          missing = required_hashes - configured_hashes
+          expect(missing).to be_empty, "Missing required hash algorithm(s): #{missing.join(', ')}\n\tgot: #{hash_value}"
+        end
+
+        it 'must not include any SHA1 algorithm' do
+          sha1 = configured_hashes.select { |h| h =~ /SHA1/i }
+          expect(sha1).to be_empty, "Disallowed SHA1 algorithm(s) present: #{sha1.join(', ')}"
+        end
+
+        it 'must not include any hash value with a length less than 224' do
+          weak = configured_hashes.select { |h| (m = h[/(\d+)\s*$/, 1]) && m.to_i < 224 }
+          expect(weak).to be_empty, "Disallowed hash value(s) less than 224: #{weak.join(', ')}"
+        end
+      end
+
+      rsa_value = pol.params['min_rsa_size'].to_s.strip
+
+      describe 'The systemwide crypto-policy "min_rsa_size" configuration' do
+        it 'must be set to a value of at least 2048' do
+          expect(rsa_value).not_to be_empty, 'min_rsa_size is not configured in /etc/crypto-policies/state/CURRENT.pol'
+          expect(rsa_value.to_i).to be >= min_rsa_size, "Expected min_rsa_size >= #{min_rsa_size}, got: #{rsa_value}"
+        end
+      end
     end
   end
 end

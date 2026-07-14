@@ -22,7 +22,9 @@ control 'SV-230374' do
     the circumstances but it must not be extended indefinitely. A documented
     permanent account should be established for privileged users who need long-term
     maintenance accounts.'
-  desc 'check', 'Verify temporary accounts have been provisioned with an
+  desc 'check', 'Note: If temporary accounts do not exist or are not used this is not applicable.
+
+    Verify temporary accounts have been provisioned with an
     expiration date of 72 hours.
 
     For every existing temporary account, run the following command to obtain its
@@ -42,7 +44,7 @@ control 'SV-230374' do
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000123-GPOS-00064'
   tag gid: 'V-230374'
-  tag rid: 'SV-230374r1017186_rule'
+  tag rid: 'SV-230374r1069293_rule'
   tag stig_id: 'RHEL-08-020270'
   tag fix_id: 'F-33018r902730_fix'
   tag cci: ['CCI-001682']

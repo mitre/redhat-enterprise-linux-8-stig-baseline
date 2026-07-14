@@ -5,7 +5,9 @@ via Network File System (NFS).'
 character or block special devices. Executing character or block special
 devices from untrusted file systems increases the opportunity for unprivileged
 users to attain unauthorized administrative access.'
-  desc 'check', 'Verify file systems that are being NFS-imported are mounted with the
+  desc 'check', 'Note: If no NFS mounts are configured, this requirement is Not Applicable.
+
+Verify file systems that are being NFS-imported are mounted with the
 "nodev" option with the following command:
 
     $ sudo grep nfs /etc/fstab | grep nodev
@@ -21,7 +23,7 @@ file systems that are being imported via NFS.'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230307'
-  tag rid: 'SV-230307r1017117_rule'
+  tag rid: 'SV-230307r1155388_rule'
   tag stig_id: 'RHEL-08-010640'
   tag fix_id: 'F-32951r567668_fix'
   tag cci: ['CCI-000366']

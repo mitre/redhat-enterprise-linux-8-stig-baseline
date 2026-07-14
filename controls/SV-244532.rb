@@ -27,7 +27,8 @@ following command:
     smithj:x:521:smithj
 
     If any files or directories are group owned by a group that the directory
-owner is not a member of, this is a finding.)
+owner is not a member of verify that it is documented with the information
+system security officer (ISSO). If it is not, this is a finding.)
   desc 'fix', %q(Change the group of a local interactive user's files and directories to a
 group that the interactive user is a member. To change the group owner of a
 local interactive user's files and directories, use the following command:
@@ -40,7 +41,7 @@ local interactive user's files and directories, use the following command:
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244532'
-  tag rid: 'SV-244532r1017339_rule'
+  tag rid: 'SV-244532r1101906_rule'
   tag stig_id: 'RHEL-08-010741'
   tag fix_id: 'F-47764r743844_fix'
   tag cci: ['CCI-000366']
