@@ -20,7 +20,7 @@ provisioner:
   galaxy_ignore_certs: true
   requirements_path: spec/ansible/roles/requirements.yml
   requirements_collection_path: spec/ansible/roles/requirements.yml
-  ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>
+  ansible_extra_flags: <%= [ENV['ANSIBLE_EXTRA_FLAGS'], '--skip-tags RHEL-08-010020,RHEL-08-010290,RHEL-08-010291,RHEL-08-010293,RHEL-08-040342'].compact.join(' ') %>
 
 suites:
   - name: vanilla

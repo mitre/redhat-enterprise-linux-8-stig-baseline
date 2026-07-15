@@ -9,7 +9,6 @@
   become: yes
   vars:
     rhel8stig_bootloader_password_hash: "changethispassword"
-    rhel_08_010020: false # FIPS mode can cause Test Kitchen SSH authentication to fail.
     rhel_08_010290: false # SSH MAC crypto policy can cause Test Kitchen SSH authentication to fail.
     rhel_08_010291: false # SSH cipher crypto policy can cause Test Kitchen SSH authentication to fail.
     rhel_08_010293: false # FIPS mode can cause Test Kitchen SSH authentication to fail.
