@@ -51,6 +51,10 @@ $ sudo echo -n > /etc/resolv.conf'
   tag 'host'
   tag 'container'
 
+  only_if('Cloud platform provides a single, highly available DNS resolver IP; this control is Not Applicable', impact: 0.0) {
+    !input('ha_cloud_dns')
+  }
+
   dns_in_host_line = parse_config_file('/etc/nsswitch.conf',
                                        comment_char: '#',
                                        assignment_regex: /^\s*([^:]*?)\s*:\s*(.*?)\s*$/).params['hosts'].include?('dns')

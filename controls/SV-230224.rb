@@ -32,6 +32,9 @@ Encrypting a partition in an already installed system is more difficult, because
   tag 'host'
 
   all_args = command('blkid').stdout.strip.split("\n").map { |s| s.sub(/^"(.*)"$/, '\1') }
+  boot_devices = ['/boot', '/boot/efi'].flat_map { |mountpoint|
+    command("findmnt -nro SOURCE #{mountpoint} 2>/dev/null").stdout.lines.map(&:strip)
+  }.reject(&:empty?)
 
   def describe_and_skip(message)
     describe message do
@@ -51,9 +54,17 @@ Encrypting a partition in an already installed system is more difficult, because
     # TODO: Determine if this is an NA vs and NR or even a pass
     describe_and_skip('Command blkid did not return and non-psuedo block devices.')
   else
-    all_args.each do |args|
-      describe args do
-        it { should match(/\bcrypto_LUKS\b/) }
+    permitted_unencrypted_devices = (input('luks_exceptions') + boot_devices).uniq
+    unencrypted_drives = all_args.reject { |args|
+      device = args.split(':').first
+      args.match?(/\bcrypto_LUKS\b/) ||
+        device.match?(%r{^/dev/mapper/}) ||
+        permitted_unencrypted_devices.include?(device)
+    }
+
+    describe 'All local disk partitions that require at-rest protection' do
+      it 'should be encrypted with crypto_LUKS' do
+        expect(unencrypted_drives).to be_empty, "The following partitions are not encrypted with crypto_LUKS:\n\t- #{unencrypted_drives.join("\n\t- ")}"
       end
     end
   end

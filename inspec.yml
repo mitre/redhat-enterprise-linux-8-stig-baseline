@@ -225,11 +225,29 @@ inputs:
     type: Boolean
     value: false
 
+  # SV-230224
+  - name: luks_exceptions
+    description: List of additional block devices/partitions that are permitted to be unencrypted
+    type: Array
+    value: []
+
   # SV-230254
   - name: system_wide_crypto_policy
     description: The system wide crypto policy
     type: String
     value: 'FIPS'
+
+  # SV-279930
+  - name: approved_crypto_backend
+    description: FIPS 140-3 approved cryptographic module configuration file for Libreswan
+    type: String
+    value: /etc/crypto-policies/back-ends/libreswan.config
+
+  # SV-279932
+  - name: crypto_policy_waived
+    description: Set to true if the systemwide cryptographic policy waiver has been documented and approved
+    type: Boolean
+    value: false
 
   # SV-230368
   - name: min_reuse_generations
@@ -258,6 +276,18 @@ inputs:
   # SV-250317, SV-230548
   - name: network_router
     description: This indicates if the system is acting as a rounter on the network
+    type: Boolean
+    value: false
+
+  # SV-230316
+  - name: ha_cloud_dns
+    description: Set to true if the system runs in a cloud platform that provides a single, highly available IP address for DNS configuration
+    type: Boolean
+    value: false
+
+  # SV-230495
+  - name: can_required
+    description: Set to true if there is a requirement for this system to enable the Controller Area Network kernel module that is documented with the ISSO
     type: Boolean
     value: false
 
@@ -345,6 +375,17 @@ inputs:
     description: Main grub boot config file
     type: String
     value: "/boot/grub2/grub.cfg"
+
+  # SV-244521, SV-244522
+  - name: disallowed_grub_superusers
+    description: List of default users that cannot be the GRUB superuser
+    type: Array
+    value:
+      - root
+      - admin
+      - administrator
+      - superuser
+      - unlock
 
   # SV-230256
   - name: unapproved_ssl_tls_versions
@@ -481,6 +522,22 @@ inputs:
       - "aes128-gcm@openssh.com"
       - "aes256-ctr"
       - "aes128-ctr"
+
+  # SV-272482, SV-272483
+  - name: approved_openssh_client_conf
+    description: Config values expected for openssh client (order matters, so these values are arrays)
+    type: Hash
+    value:
+      ciphers:
+        - "aes256-gcm@openssh.com"
+        - "aes256-ctr"
+        - "aes128-gcm@openssh.com"
+        - "aes128-ctr"
+      macs:
+        - "hmac-sha2-512-etm@openssh.com"
+        - "hmac-sha2-256-etm@openssh.com"
+        - "hmac-sha2-512"
+        - "hmac-sha2-256"
 
   # SV-230229
   - name: root_ca_file

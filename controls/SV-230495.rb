@@ -36,8 +36,15 @@ Reboot the system for the settings to take effect.'
     !virtualization.system.eql?('docker')
   }
 
-  describe kernel_module('can') do
-    it { should be_disabled }
-    it { should be_blacklisted }
+  if input('can_required')
+    impact 0.0
+    describe 'N/A' do
+      skip "input('can_required') is set to true because CAN use is documented with the ISSO as an operational requirement."
+    end
+  else
+    describe kernel_module('can') do
+      it { should be_disabled }
+      it { should be_blacklisted }
+    end
   end
 end

@@ -41,8 +41,26 @@ $ sudo grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg'
   }
 
   if file('/sys/firmware/efi').exist?
-    describe parse_config_file(input('grub_uefi_main_cfg')) do
-      its('set superusers') { should cmp '"root"' }
+    grubfile_path = input('grub_uefi_main_cfg')
+    grubfile = file(grubfile_path)
+    superusers_match = grubfile.content.to_s.match(/^\s*set\s+superusers=(?:"([^"]+)"|(\S+))/)
+    superusers_account = superusers_match && (superusers_match[1] || superusers_match[2])
+    disallowed_superusers = (input('disallowed_grub_superusers') + passwd.users).uniq
+
+    describe grubfile do
+      it { should exist }
+    end
+
+    describe 'The GRUB superuser' do
+      it "should be set in the GRUB config file ('#{grubfile_path}')" do
+        expect(superusers_account).not_to be_nil, "No superuser account set in '#{grubfile_path}'"
+      end
+
+      unless superusers_account.nil?
+        it 'should not match an OS account name or default GRUB superuser name' do
+          expect(disallowed_superusers).not_to include(superusers_account), "Superuser account is set to non-unique or easily guessed username '#{superusers_account}'"
+        end
+      end
     end
   else
     impact 0.0
