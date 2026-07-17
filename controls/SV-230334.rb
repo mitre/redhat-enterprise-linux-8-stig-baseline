@@ -59,16 +59,26 @@ $ sudo systemctl restart sssd.service'
   pam_auth_files = input('pam_auth_files')
 
   describe pam(pam_auth_files['password-auth']) do
+    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so preauth') }
     its('lines') {
       should match_pam_rule('auth [default=die]|required pam_faillock.so preauth').all_with_integer_arg('fail_interval',
                                                                                                         '<=', input('fail_interval'))
     }
+    its('lines') {
+      should match_pam_rule('auth [default=die]|required pam_faillock.so preauth').all_with_integer_arg('fail_interval',
+                                                                                                        '>', 0)
+    }
   end
 
   describe pam(pam_auth_files['system-auth']) do
+    its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so preauth') }
     its('lines') {
       should match_pam_rule('auth [default=die]|required pam_faillock.so preauth').all_with_integer_arg('fail_interval',
                                                                                                         '<=', input('fail_interval'))
+    }
+    its('lines') {
+      should match_pam_rule('auth [default=die]|required pam_faillock.so preauth').all_with_integer_arg('fail_interval',
+                                                                                                        '>', 0)
     }
   end
 end

@@ -41,8 +41,7 @@ Replace "[audit_log_directory]" to the correct audit log directory path, by defa
 
   auditd_config = auditd_conf('/etc/audit/auditd.conf')
   log_dir = File.dirname(auditd_config.log_file)
-  log_group = auditd_config.log_group
-  expected_mode = log_group.empty? || log_group == 'root' ? '0700' : '0750'
+  expected_mode = '0700'
 
   describe directory(log_dir) do
     it { should_not be_more_permissive_than(expected_mode) }

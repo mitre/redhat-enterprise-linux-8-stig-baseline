@@ -54,7 +54,28 @@ $ sudo systemctl restart sssd.service'
     !%w[docker podman kubepods lxc].include?(virtualization.system)
   }
 
-  describe command('grep even_deny_root /etc/security/faillock.conf').stdout.strip do
-    it { should match(/^even_deny_root$/) }
+  message = <<~MESSAGE
+    \n\nThis check only applies to RHEL versions 8.0 or 8.1.\n
+    The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
+  MESSAGE
+  only_if(message, impact: 0.0) do
+    os.version.minor.between?(0, 1)
+  end
+
+  pam_auth_files = input('pam_auth_files')
+
+  [pam_auth_files['password-auth'], pam_auth_files['system-auth']].each do |path|
+    describe pam(path) do
+      its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so preauth') }
+      its('lines') {
+        should match_pam_rule('auth [default=die]|required pam_faillock.so preauth').all_with_integer_arg('unlock_time',
+                                                                                                          '==', input('lockout_time'))
+      }
+      its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so authfail') }
+      its('lines') {
+        should match_pam_rule('auth [default=die]|required pam_faillock.so authfail').all_with_integer_arg('unlock_time',
+                                                                                                           '==', input('lockout_time'))
+      }
+    end
   end
 end

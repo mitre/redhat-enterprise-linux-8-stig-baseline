@@ -117,6 +117,8 @@ jobs:
           echo "KITCHEN_HOST=$ipv4" >> "$GITHUB_ENV"
 
       - name: Run kitchen test
+        env:
+          RUBYOPT: -rtime
         run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}-${{ env.PLATFORM }} || true
 
       - name: Save results summary JSON

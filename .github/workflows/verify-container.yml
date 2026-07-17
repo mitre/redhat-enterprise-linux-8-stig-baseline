@@ -68,6 +68,8 @@ jobs:
 
       - name: Run kitchen test against ${{ matrix.suite }}
         continue-on-error: true
+        env:
+          RUBYOPT: -rtime
         run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}
 
       - name: Save ${{ matrix.suite }} results summary

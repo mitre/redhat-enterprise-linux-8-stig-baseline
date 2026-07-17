@@ -48,6 +48,14 @@ $ sudo restorecon -R -v /var/log/faillock'
   tag nist: ['AC-7 a', 'AC-7 b']
   tag 'host'
 
+  message = <<~MESSAGE
+    \n\nThis check only applies to RHEL versions 8.2 or newer.\n
+    The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
+  MESSAGE
+  only_if(message, impact: 0.0) do
+    os.version.minor >= 2
+  end
+
   if %w[docker podman kubepods lxc].include?(virtualization.system)
     impact 0.0
     describe 'Control not applicable in a container' do

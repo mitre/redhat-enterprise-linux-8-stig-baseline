@@ -43,6 +43,14 @@ account required pam_faillock.so'
   tag 'host'
   tag 'container'
 
+  message = <<~MESSAGE
+    \n\nThis check only applies to RHEL versions 8.2 or newer.\n
+    The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
+  MESSAGE
+  only_if(message, impact: 0.0) do
+    os.version.minor >= 2
+  end
+
   describe pam('/etc/pam.d/password-auth') do
     its('lines') { should match_pam_rule('auth required pam_faillock.so preauth') }
     its('lines') { should match_pam_rule('auth required pam_faillock.so authfail') }

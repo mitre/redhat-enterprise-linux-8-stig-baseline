@@ -52,8 +52,27 @@ $ sudo systemctl restart sssd.service'
   tag 'host'
   tag 'container'
 
-  describe parse_config_file('/etc/security/faillock.conf') do
-    its('deny') { should cmp <= input('unsuccessful_attempts') }
-    its('deny') { should_not cmp 0 }
+  message = <<~MESSAGE
+    \n\nThis check only applies to RHEL versions 8.0 or 8.1.\n
+    The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
+  MESSAGE
+  only_if(message, impact: 0.0) do
+    os.version.minor.between?(0, 1)
+  end
+
+  pam_auth_files = input('pam_auth_files')
+
+  [pam_auth_files['password-auth'], pam_auth_files['system-auth']].each do |path|
+    describe pam(path) do
+      its('lines') { should match_pam_rule('auth [default=die]|required pam_faillock.so preauth') }
+      its('lines') {
+        should match_pam_rule('auth [default=die]|required pam_faillock.so preauth').all_with_integer_arg('deny',
+                                                                                                          '<=', input('unsuccessful_attempts'))
+      }
+      its('lines') {
+        should match_pam_rule('auth [default=die]|required pam_faillock.so preauth').all_with_integer_arg('deny',
+                                                                                                          '>', 0)
+      }
+    end
   end
 end

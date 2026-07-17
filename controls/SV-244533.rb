@@ -41,6 +41,14 @@ account required pam_faillock.so'
   tag 'host'
   tag 'container'
 
+  message = <<~MESSAGE
+    \n\nThis check only applies to RHEL versions 8.2 or newer.\n
+    The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
+  MESSAGE
+  only_if(message, impact: 0.0) do
+    os.version.minor >= 2
+  end
+
   pam_auth_files = input('pam_auth_files')
 
   describe pam(pam_auth_files['system-auth']) do
