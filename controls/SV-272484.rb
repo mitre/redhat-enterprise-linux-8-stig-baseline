@@ -45,11 +45,14 @@ Remove any configurations that conflict with the above from the following locati
     !%w[docker podman kubepods lxc].include?(virtualization.system)
   end
 
-  output = command('grep -r sysadm_r /etc/sudoers /etc/sudoers.d').stdout.strip
+  configured_admins = input('admin_user').map(&:to_s).reject(&:empty?) +
+                      input('admin_group').map { |group| "%#{group}" }.reject(&:empty?)
+  admin_pattern = Regexp.union(configured_admins).source
+  output = command('grep -r sysadm_r /etc/sudoers /etc/sudoers.d').stdout
 
   describe 'The sudoers SELinux context rule' do
-    it 'should match the expected SELinux role and type for privileged access' do
-      expect(output).to match(/^\s*%[\w-]+\s+ALL=\(ALL\)\s+TYPE=sysadm_t\s+ROLE=sysadm_r\s+ALL/), 'No matching sudoers rule found that elevates to sysadm_t/sysadm_r'
+    it 'should grant a designated administrator account or group the expected SELinux role and type' do
+      expect(output).to match(%r{(?:\A|\n)[^:\n]+:\s*(?:#{admin_pattern})\s+ALL\s*=\s*\(ALL\)\s+TYPE\s*=\s*sysadm_t\s+ROLE\s*=\s*sysadm_r\s+ALL\s*(?:#.*)?$}), "No sudoers rule found for designated administrator(s): #{configured_admins.join(', ')} that elevates to TYPE=sysadm_t ROLE=sysadm_r"
     end
   end
 end

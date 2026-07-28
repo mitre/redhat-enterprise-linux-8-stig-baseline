@@ -62,6 +62,18 @@ inputs:
     type: Array
     value: []
 
+  # SV-272484
+  - name: admin_user
+    description: List of designated sudoers administrator accounts that must elevate to the sysadm_t type and sysadm_r role
+    type: Array
+    value: []
+
+  # SV-272484
+  - name: admin_group
+    description: List of designated sudoers administrator groups that must elevate to the sysadm_t type and sysadm_r role
+    type: Array
+    value: []
+
   # SV-244528, SV-244525
   - name: sshd_config_values
     description: 'The agreed sshd server config values for the organization'
@@ -1105,7 +1117,9 @@ inputs:
       '/usr/bin/chacl'                : 'perm_mod',
       '/usr/bin/kmod'                 : 'modules',
       '/var/log/faillock'             : 'logins',
-      '/var/log/lastlog'              : 'logins'
+      '/var/log/lastlog'              : 'logins',
+      '/etc/cron.d'                   : 'cronjobs',
+      '/var/spool/cron'               : 'cronjobs'
     }
 
   # Override values for expected keynames for all audit rules

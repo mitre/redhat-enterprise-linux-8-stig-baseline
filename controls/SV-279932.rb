@@ -65,7 +65,7 @@ Note: Systemwide crypto policies are applied on application startup. It is recom
     end
   end
 
-  output = command('update-crypto-policies --check 2>&1 && echo PASS').stdout.strip
+  output = command('update-crypto-policies --check').stdout.strip
   last_line = output.lines.map(&:strip).reject(&:empty?).last.to_s
 
   describe 'System cryptographic policy must match the generated policy' do
