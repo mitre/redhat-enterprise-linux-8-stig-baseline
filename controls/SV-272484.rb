@@ -52,7 +52,7 @@ Remove any configurations that conflict with the above from the following locati
 
   describe 'The sudoers SELinux context rule' do
     it 'should grant a designated administrator account or group the expected SELinux role and type' do
-      expect(output).to match(%r{(?:\A|\n)[^:\n]+:\s*(?:#{admin_pattern})\s+ALL\s*=\s*\(ALL\)\s+TYPE\s*=\s*sysadm_t\s+ROLE\s*=\s*sysadm_r\s+ALL\s*(?:#.*)?$}), "No sudoers rule found for designated administrator(s): #{configured_admins.join(', ')} that elevates to TYPE=sysadm_t ROLE=sysadm_r"
+      expect(output).to match(/(?:\A|\n)[^:\n]+:\s*(?:#{admin_pattern})\s+ALL\s*=\s*\(ALL\)\s+TYPE\s*=\s*sysadm_t\s+ROLE\s*=\s*sysadm_r\s+ALL\s*(?:#.*)?$/), "No sudoers rule found for designated administrator(s): #{configured_admins.join(', ')} that elevates to TYPE=sysadm_t ROLE=sysadm_r"
     end
   end
 end

@@ -56,7 +56,7 @@ server [ntp.server.name] iburst maxpoll 16'
 
   # Get the system server values
   # Converts to array if only one value present
-  time_sources = [chrony_conf.server].flatten
+  time_sources = [chrony_conf.server].flatten.compact
 
   # Get and map maxpoll values to an array
   unless time_sources.nil?
