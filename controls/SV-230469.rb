@@ -1,21 +1,12 @@
 control 'SV-230469' do
-  title 'RHEL 8 must allocate an audit_backlog_limit of sufficient size to
-capture processes that start prior to the audit daemon.'
-  desc 'Without the capability to generate audit records, it would be
-difficult to establish, correlate, and investigate the events relating to an
-incident or identify those responsible for one.
+  title 'RHEL 8 must allocate an audit_backlog_limit of sufficient size to capture processes that start prior to the audit daemon.'
+  desc 'Without the capability to generate audit records, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one.
 
-    If auditing is enabled late in the startup process, the actions of some
-startup processes may not be audited. Some audit systems also maintain state
-information only available if auditing is enabled before a given process is
-created.
+If auditing is enabled late in the startup process, the actions of some startup processes may not be audited. Some audit systems also maintain state information only available if auditing is enabled before a given process is created.
 
-    Audit records can be generated from various components within the
-information system (e.g., module or policy filter).
+Audit records can be generated from various components within the information system (e.g., module or policy filter).
 
-    Allocating an audit_backlog_limit of sufficient size is critical in
-maintaining a stable boot process.  With an insufficient limit allocated, the
-system is susceptible to boot failures and crashes.'
+Allocating an audit_backlog_limit of sufficient size is critical in maintaining a stable boot process.  With an insufficient limit allocated, the system is susceptible to boot failures and crashes.'
   desc 'check', 'Verify RHEL 8 allocates a sufficient audit_backlog_limit to capture processes that start prior to the audit daemon with the following commands:
 
 $ sudo grub2-editenv list | grep audit
@@ -31,15 +22,13 @@ $ sudo grep audit /etc/default/grub
 GRUB_CMDLINE_LINUX="audit_backlog_limit=8192"
 
 If "audit_backlog_limit" is not set to "8192" or greater, is missing or commented out, this is a finding.'
-  desc 'fix', 'Configure RHEL 8 to allocate sufficient audit_backlog_limit to capture
-processes that start prior to the audit daemon with the following command:
+  desc 'fix', 'Configure RHEL 8 to allocate sufficient audit_backlog_limit to capture processes that start prior to the audit daemon with the following command:
 
-    $ sudo grubby --update-kernel=ALL --args="audit_backlog_limit=8192"
+$ sudo grubby --update-kernel=ALL --args="audit_backlog_limit=8192"
 
-    Add or modify the following line in "/etc/default/grub" to ensure the
-configuration survives kernel updates:
+Add or modify the following line in "/etc/default/grub" to ensure the configuration survives kernel updates:
 
-    GRUB_CMDLINE_LINUX="audit_backlog_limit=8192"'
+GRUB_CMDLINE_LINUX="audit_backlog_limit=8192"'
   impact 0.3
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000341-GPOS-00132'
@@ -47,8 +36,8 @@ configuration survives kernel updates:
   tag rid: 'SV-230469r958752_rule'
   tag stig_id: 'RHEL-08-030602'
   tag fix_id: 'F-33113r568154_fix'
-  tag cci: ['CCI-001849']
-  tag nist: ['AU-4']
+  tag cci: ['CCI-001849', 'CCI-001464', 'CCI-000130', 'CCI-000135', 'CCI-000169', 'CCI-002884', 'CCI-000172']
+  tag nist: ['AU-4', 'AU-14 (1)', 'AU-3 a', 'AU-3 (1)', 'AU-12 a', 'MA-4 (1) (a)', 'AU-12 c']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {

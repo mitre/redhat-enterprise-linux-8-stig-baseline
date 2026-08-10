@@ -1,7 +1,5 @@
 control 'SV-244521' do
-  title 'RHEL 8 operating systems booted with United Extensible Firmware
-Interface (UEFI) must require a unique superusers name upon booting into
-single-user mode and maintenance.'
+  title 'RHEL 8 operating systems booted with United Extensible Firmware Interface (UEFI) must require a unique superusers name upon booting into single-user mode and maintenance.'
   desc 'If the system does not require valid authentication before it boots into single-user or maintenance mode, anyone who invokes single-user or maintenance mode is granted privileged access to all files on the system. GRUB 2 is the default boot loader for RHEL 8 and is designed to require a password to boot into single-user mode or make modifications to the boot menu.
 
 The GRUB 2 superuser account is an account of last resort. Establishing a unique username for this account hardens the boot loader against brute force attacks. Due to the nature of the superuser account database being distinct from the OS account database, this allows the use of a username that is not among those within the OS account database. Examples of non-unique superusers names are root, superuser, unlock, etc.'
@@ -26,12 +24,14 @@ Generate a new grub.cfg file with the following command:
 
 $ sudo grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg'
   impact 0.5
+  tag check_id: 'C-47796r792981_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag gid: 'V-244521'
-  tag rid: 'SV-244521r1017327_rule'
+  tag rid: 'SV-244521r1137691_rule'
   tag stig_id: 'RHEL-08-010141'
+  tag gtitle: 'SRG-OS-000080-GPOS-00048'
   tag fix_id: 'F-47753r743811_fix'
+  tag 'documentable'
   tag cci: ['CCI-000213']
   tag nist: ['AC-3']
   tag 'host'
@@ -41,8 +41,26 @@ $ sudo grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg'
   }
 
   if file('/sys/firmware/efi').exist?
-    describe parse_config_file(input('grub_uefi_main_cfg')) do
-      its('set superusers') { should cmp '"root"' }
+    grubfile_path = input('grub_uefi_main_cfg')
+    grubfile = file(grubfile_path)
+    superusers_match = grubfile.content.to_s.match(/^\s*set\s+superusers=(?:"([^"]+)"|(\S+))/)
+    superusers_account = superusers_match && (superusers_match[1] || superusers_match[2])
+    disallowed_superusers = (input('disallowed_grub_superusers') + passwd.users).uniq
+
+    describe grubfile do
+      it { should exist }
+    end
+
+    describe 'The GRUB superuser' do
+      it "should be set in the GRUB config file ('#{grubfile_path}')" do
+        expect(superusers_account).not_to be_nil, "No superuser account set in '#{grubfile_path}'"
+      end
+
+      unless superusers_account.nil?
+        it 'should not match an OS account name or default GRUB superuser name' do
+          expect(disallowed_superusers).not_to include(superusers_account), "Superuser account is set to non-unique or easily guessed username '#{superusers_account}'"
+        end
+      end
     end
   else
     impact 0.0

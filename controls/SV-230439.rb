@@ -11,7 +11,9 @@ The "unlinkat" system call operates in exactly the same way as either "unlink" o
 
 When a user logs on, the AUID is set to the UID of the account that is being authenticated. Daemons are not user sessions and have the loginuid set to "-1". The AUID representation is an unsigned 32-bit integer, which equals "4294967295". The audit system interprets "-1", "4294967295", and "unset" in the same way.
 
-The system call rules are loaded into a matching engine that intercepts each syscall made by all programs on the system. Therefore, it is very important to use syscall rules only when absolutely necessary since these affect performance. The more rules, the bigger the performance hit. Performance can be helped, however, by combining syscalls into one rule whenever possible.'
+The system call rules are loaded into a matching engine that intercepts each syscall made by all programs on the system. Therefore, it is very important to use syscall rules only when absolutely necessary since these affect performance. The more rules, the bigger the performance hit. Performance can be helped, however, by combining syscalls into one rule whenever possible.
+
+'
   desc 'check', %q(Verify RHEL 8 generates an audit record upon successful/unsuccessful attempts to use the "rename", "unlink", "rmdir", "renameat", and "unlinkat" system calls by using the following command to check the file system rules in "/etc/audit/audit.rules":
 
 $ sudo grep 'rename\|unlink\|rmdir' /etc/audit/audit.rules
@@ -27,13 +29,15 @@ If the command does not return an audit rule for "rename", "unlink", "rmdir", "r
 
 The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
+  tag check_id: 'C-33108r1017242_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000062-GPOS-00031'
-  tag satisfies: ['SRG-OS-000062-GPOS-00031', 'SRG-OS-000037-GPOS-00015', 'SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172', 'SRG-OS-000462-GPOS-00206', 'SRG-OS-000471-GPOS-00215']
   tag gid: 'V-230439'
   tag rid: 'SV-230439r1017243_rule'
   tag stig_id: 'RHEL-08-030361'
+  tag gtitle: 'SRG-OS-000062-GPOS-00031'
   tag fix_id: 'F-33083r809301_fix'
+  tag satisfies: ['SRG-OS-000062-GPOS-00031', 'SRG-OS-000037-GPOS-00015', 'SRG-OS-000042-GPOS-00020', 'SRG-OS-000392-GPOS-00172', 'SRG-OS-000462-GPOS-00206', 'SRG-OS-000471-GPOS-00215']
+  tag 'documentable'
   tag cci: ['CCI-000169']
   tag nist: ['AU-12 a']
   tag 'host'

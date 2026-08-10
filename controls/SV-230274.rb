@@ -1,19 +1,10 @@
 control 'SV-230274' do
   title 'RHEL 8 must implement certificate status checking for multifactor authentication.'
-  desc 'Using an authentication device, such as a DoD Common Access Card (CAC)
-    or token that is separate from the information system, ensures that even if the
-    information system is compromised, credentials stored on the authentication
-    device will not be affected.
+  desc 'Using an authentication device, such as a DoD Common Access Card (CAC) or token that is separate from the information system, ensures that even if the information system is compromised, credentials stored on the authentication device will not be affected.
 
-    Multifactor solutions that require devices separate from information
-    systems gaining access include, for example, hardware tokens providing
-    time-based or challenge-response authenticators and smart cards such as the
-    U.S. Government Personal Identity Verification (PIV) card and the DoD CAC.
+Multifactor solutions that require devices separate from information systems gaining access include, for example, hardware tokens providing time-based or challenge-response authenticators and smart cards such as the U.S. Government Personal Identity Verification (PIV) card and the DoD CAC.
 
-    RHEL 8 includes multiple options for configuring certificate status
-checking, but for this requirement focuses on the System Security Services
-Daemon (SSSD). By default, sssd performs Online Certificate Status Protocol
-(OCSP) checking and certificate verification using a sha256 digest function.'
+RHEL 8 includes multiple options for configuring certificate status checking, but for this requirement focuses on the System Security Services Daemon (SSSD). By default, sssd performs Online Certificate Status Protocol (OCSP) checking and certificate verification using a sha256 digest function.'
   desc 'check', 'Verify the operating system implements certificate status checking for multifactor authentication.
 
 Note: If the System Administrator demonstrates the use of an approved alternate multifactor authentication method, this requirement is not applicable.
@@ -39,24 +30,20 @@ $ sudo systemctl restart sssd.service'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000375-GPOS-00160'
-  tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000377-GPOS-00162']
+  tag satisfies: ['SRG-OS-000375-GPOS-00160', 'SRG-OS-000377-GPOS-00162', 'SRG-OS-000705-GPOS-00150']
   tag gid: 'V-230274'
   tag rid: 'SV-230274r1017089_rule'
   tag stig_id: 'RHEL-08-010400'
   tag fix_id: 'F-32918r809280_fix'
-  tag cci: ['CCI-001948', 'CCI-004046']
-  tag nist: ['IA-2 (11)', 'IA-2 (6) (a)']
+  tag cci: ['CCI-001948', 'CCI-001954', 'CCI-004046', 'CCI-004047']
+  tag nist: ['IA-2 (11)', 'IA-2 (12)', 'IA-2 (6) (a)', 'IA-2 (6) (b)']
   tag 'host'
 
   only_if('This requirement is Not Applicable inside the container', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
   }
 
-  if input('alternate_mfa_method').nil?
-    describe 'Manual Review' do
-      skip "Alternate MFA method selected:\t\nConsult with ISSO to determine that alternate MFA method is approved; manually review system to ensure alternate MFA method is functioning"
-    end
-  else
+  if input('alternate_mfa_method').to_s.empty?
     sssd_conf_files = input('sssd_conf_files')
     sssd_conf_contents = ini({ command: "cat #{input('sssd_conf_files').join(' ')}" })
     sssd_certificate_verification = input('sssd_certificate_verification')
@@ -71,6 +58,11 @@ $ sudo systemctl restart sssd.service'
           expect(sssd_conf_contents.sssd.certificate_verification).to eq(sssd_certificate_verification)
         end
       end
+    end
+  else
+    impact 0.0
+    describe 'N/A' do
+      skip 'The system is using an approved alternative MFA method; this control is Not Applicable.'
     end
   end
 end

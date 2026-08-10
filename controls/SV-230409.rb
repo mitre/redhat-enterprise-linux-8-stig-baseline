@@ -1,34 +1,24 @@
 control 'SV-230409' do
-  title 'RHEL 8 must generate audit records for all account creations,
-modifications, disabling, and termination events that affect /etc/sudoers.'
-  desc 'Without generating audit records that are specific to the security and
-mission needs of the organization, it would be difficult to establish,
-correlate, and investigate the events relating to an incident or identify those
-responsible for one.
+  title 'RHEL 8 must generate audit records for all account creations, modifications, disabling, and termination events that affect /etc/sudoers.'
+  desc 'Without generating audit records that are specific to the security and mission needs of the organization, it would be difficult to establish, correlate, and investigate the events relating to an incident or identify those responsible for one.
 
-    Audit records can be generated from various components within the
-information system (e.g., module or policy filter).'
-  desc 'check', 'Verify RHEL 8 generates audit records for all account creations,
-modifications, disabling, and termination events that affect "/etc/sudoers".
+Audit records can be generated from various components within the information system (e.g., module or policy filter).'
+  desc 'check', 'Verify RHEL 8 generates audit records for all account creations, modifications, disabling, and termination events that affect "/etc/sudoers".
 
-    Check the auditing rules in "/etc/audit/audit.rules" with the following
-command:
+Check the auditing rules in "/etc/audit/audit.rules" with the following command:
 
-    $ sudo grep /etc/sudoers /etc/audit/audit.rules
+$ sudo grep /etc/sudoers /etc/audit/audit.rules
 
-    -w /etc/sudoers -p wa -k identity
+-w /etc/sudoers -p wa -k identity
 
-    If the command does not return a line, or the line is commented out, this
-is a finding.'
-  desc 'fix', 'Configure RHEL 8 to generate audit records for all account creations,
-modifications, disabling, and termination events that affect "/etc/sudoers".
+If the command does not return a line, or the line is commented out, this is a finding.'
+  desc 'fix', 'Configure RHEL 8 to generate audit records for all account creations, modifications, disabling, and termination events that affect "/etc/sudoers".
 
-    Add or update the following file system rule to
-"/etc/audit/rules.d/audit.rules":
+Add or update the following file system rule to "/etc/audit/rules.d/audit.rules":
 
-    -w /etc/sudoers -p wa -k identity
+-w /etc/sudoers -p wa -k identity
 
-    The audit daemon must be restarted for the changes to take effect.'
+The audit daemon must be restarted for the changes to take effect.'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000062-GPOS-00031'
@@ -37,12 +27,12 @@ modifications, disabling, and termination events that affect "/etc/sudoers".
   tag rid: 'SV-230409r1017215_rule'
   tag stig_id: 'RHEL-08-030171'
   tag fix_id: 'F-33053r567974_fix'
-  tag cci: ['CCI-000169']
-  tag nist: ['AU-12 a']
+  tag cci: ['CCI-000169', 'CCI-000018', 'CCI-000130', 'CCI-000135', 'CCI-000172', 'CCI-001403', 'CCI-001404', 'CCI-001405', 'CCI-002130', 'CCI-002132', 'CCI-002884', 'CCI-000015']
+  tag nist: ['AU-12 a', 'AC-2 (4)', 'AU-3 a', 'AU-3 (1)', 'AU-12 c', 'MA-4 (1) (a)', 'AC-2 (1)']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
   }
 
   audit_command = '/etc/sudoers'

@@ -15,70 +15,56 @@ The sysctl --system command will load settings from all system configuration fil
 /usr/lib/sysctl.d/*.conf
 /lib/sysctl.d/*.conf
 /etc/sysctl.conf'
-  desc 'check', 'Verify the operating system is configured to restrict access to the kernel message buffer with the following commands:
+  desc 'check', 'Verify RHEL 8 is configured to restrict access to the kernel message buffer.
 
-Check the status of the kernel.dmesg_restrict kernel parameter.
+Check the status of the "kernel.dmesg_restrict" kernel parameter with the following command:
 
 $ sudo sysctl kernel.dmesg_restrict
-
 kernel.dmesg_restrict = 1
 
-If "kernel.dmesg_restrict" is not set to "1" or is missing, this is a finding.
+If "kernel.dmesg_restrict" is not set to "1" or is missing, this is a finding.'
+  desc 'fix', 'Configure RHEL 8 to restrict access to the kernel message buffer.
 
-Check that the configuration files are present to enable this kernel parameter.
+Create a drop-in if it does not already exist:
 
-$ sudo grep -r kernel.dmesg_restrict /run/sysctl.d/*.conf /usr/local/lib/sysctl.d/*.conf /usr/lib/sysctl.d/*.conf /lib/sysctl.d/*.conf /etc/sysctl.conf /etc/sysctl.d/*.conf
+$ sudo vi /etc/sysctl.d/99-dmesg_restrict.conf
 
-/etc/sysctl.d/99-sysctl.conf:kernel.dmesg_restrict = 1
-
-If "kernel.dmesg_restrict" is not set to "1", is missing or commented out, this is a finding.
-
-If conflicting results are returned, this is a finding.'
-  desc 'fix', 'Configure the operating system to restrict access to the kernel message buffer.
-
-Add or edit the following line in a system configuration file, in the "/etc/sysctl.d/" directory:
-
+Add the following to the file:
 kernel.dmesg_restrict = 1
 
-Remove any configurations that conflict with the above from the following locations:
-/run/sysctl.d/*.conf
-/usr/local/lib/sysctl.d/*.conf
-/usr/lib/sysctl.d/*.conf
-/lib/sysctl.d/*.conf
-/etc/sysctl.conf
-/etc/sysctl.d/*.conf
-
-Load settings from all system configuration files with the following command:
+Reload settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.3
   tag severity: 'low'
   tag gtitle: 'SRG-OS-000138-GPOS-00069'
   tag gid: 'V-230269'
-  tag rid: 'SV-230269r1017087_rule'
+  tag rid: 'SV-230269r1184255_rule'
   tag stig_id: 'RHEL-08-010375'
-  tag fix_id: 'F-32913r858755_fix'
-  tag cci: ['CCI-001090']
-  tag nist: ['SC-4']
+  tag fix_id: 'F-32913r1184254_fix'
+  tag cci: ['CCI-001090', 'CCI-001082']
+  tag nist: ['SC-4', 'SC-2']
   tag 'host'
 
   only_if('Control not applicable within a container', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
   }
 
-  action = 'kernel.dmesg_restrict'
+  parameter = 'kernel.dmesg_restrict'
+  value = 1
+  regexp = /^\s*#{parameter}\s*=\s*#{value}\s*$/
 
-  describe kernel_parameter(action) do
-    its('value') { should eq 1 }
+  describe kernel_parameter(parameter) do
+    its('value') { should eq value }
   end
 
-  search_result = command("grep -r ^#{action} #{input('sysctl_conf_files').join(' ')}").stdout.strip
+  search_results = command("/usr/lib/systemd/systemd-sysctl --cat-config | egrep -v '^(#|;)' | grep -F #{parameter}").stdout.strip.split("\n")
 
-  correct_result = search_result.lines.any? { |line| line.match(/#{action}\s*=\s*1$/) }
-  incorrect_results = search_result.lines.map(&:strip).select { |line| line.match(/#{action}\s*=\s*[^1]$/) }
+  correct_result = search_results.any? { |line| line.match(regexp) }
+  incorrect_results = search_results.map(&:strip).reject { |line| line.match(regexp) }
 
   describe 'Kernel config files' do
-    it "should configure '#{action}'" do
+    it "should configure '#{parameter}'" do
       expect(correct_result).to eq(true), 'No config file was found that correctly sets this action'
     end
     unless incorrect_results.nil?

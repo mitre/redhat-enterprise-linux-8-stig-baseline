@@ -1,10 +1,6 @@
 control 'SV-230553' do
-  title 'The graphical display manager must not be installed on RHEL 8 unless
-approved.'
-  desc 'Internet services that are not required for system or application
-processes must not be active to decrease the attack surface of the system.
-Graphical display managers have a long history of security vulnerabilities and
-must not be used, unless approved and documented.'
+  title 'The graphical display manager must not be installed on RHEL 8 unless approved.'
+  desc 'Internet services that are not required for system or application processes must not be active to decrease the attack surface of the system. Graphical display managers have a long history of security vulnerabilities and must not be used, unless approved and documented.'
   desc 'check', 'Verify that a graphical user interface is not installed:
 
 $ rpm -qa | grep xorg | grep server
@@ -20,12 +16,14 @@ $ sudo yum remove xorg-x11-server-Xorg xorg-x11-server-common xorg-x11-server-ut
 
 A reboot is required for the changes to take effect.'
   impact 0.5
+  tag check_id: 'C-33222r809322_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230553'
   tag rid: 'SV-230553r1017315_rule'
   tag stig_id: 'RHEL-08-040320'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-33197r809323_fix'
+  tag 'documentable'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'

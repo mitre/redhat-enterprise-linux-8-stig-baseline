@@ -1,9 +1,6 @@
 control 'SV-230379' do
   title 'RHEL 8 must not have unnecessary accounts.'
-  desc 'Accounts providing no operational purpose provide additional
-opportunities for system compromise. Unnecessary accounts include user accounts
-for individuals not requiring access to the system and application accounts for
-applications not installed on the system.'
+  desc 'Accounts providing no operational purpose provide additional opportunities for system compromise. Unnecessary accounts include user accounts for individuals not requiring access to the system and application accounts for applications not installed on the system.'
   desc 'check', 'Verify that there are no unauthorized interactive user accounts with the following command:
 
 $ less /etc/passwd
@@ -23,12 +20,14 @@ If there are unauthorized local user accounts on the system, this is a finding.'
 
 $ sudo userdel <unauthorized_user>'
   impact 0.5
+  tag check_id: 'C-33048r1014799_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230379'
   tag rid: 'SV-230379r1017190_rule'
   tag stig_id: 'RHEL-08-020320'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-33023r1014800_fix'
+  tag 'documentable'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'

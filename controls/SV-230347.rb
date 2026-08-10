@@ -1,56 +1,45 @@
 control 'SV-230347' do
-  title 'RHEL 8 must enable a user session lock until that user re-establishes
-access using established identification and authentication procedures for
-graphical user sessions.'
-  desc 'A session lock is a temporary action taken when a user stops work and
-moves away from the immediate physical vicinity of the information system but
-does not want to log out because of the temporary nature of the absence.
+  title 'RHEL 8 must enable a user session lock until that user re-establishes access using established identification and authentication procedures for graphical user sessions.'
+  desc 'A session lock is a temporary action taken when a user stops work and moves away from the immediate physical vicinity of the information system but does not want to log out because of the temporary nature of the absence.
 
-    The session lock is implemented at the point where session activity can be
-determined.
+The session lock is implemented at the point where session activity can be determined.
 
-    Regardless of where the session lock is determined and implemented, once
-invoked, the session lock must remain in place until the user reauthenticates.
-No other activity aside from reauthentication must unlock the system.'
-  desc 'check', %q(Verify the operating system enables a user's session lock until that user
-re-establishes access using established identification and authentication
-procedures with the following command:
+Regardless of where the session lock is determined and implemented, once invoked, the session lock must remain in place until the user reauthenticates. No other activity aside from reauthentication must unlock the system.
 
-    $ sudo gsettings get org.gnome.desktop.screensaver lock-enabled
+'
+  desc 'check', %q(Verify the operating system enables a user's session lock until that user re-establishes access using established identification and authentication procedures with the following command:
 
-    true
+$ sudo gsettings get org.gnome.desktop.screensaver lock-enabled
 
-    If the setting is "false", this is a finding.
+true
 
-    Note: This requirement assumes the use of the RHEL 8 default graphical user
-interface, Gnome Shell. If the system does not have any graphical user
-interface installed, this requirement is Not Applicable.)
-  desc 'fix', %q(Configure the operating system to enable a user's session lock until that
-user re-establishes access using established identification and authentication
-procedures.
+If the setting is "false", this is a finding.
 
-    Create a database to contain the system-wide screensaver settings (if it
-does not already exist) with the following example:
+Note: This requirement assumes the use of the RHEL 8 default graphical user interface, Gnome Shell. If the system does not have any graphical user interface installed, this requirement is Not Applicable.)
+  desc 'fix', %q(Configure the operating system to enable a user's session lock until that user re-establishes access using established identification and authentication procedures.
 
-    $ sudo vi /etc/dconf/db/local.d/00-screensaver
+Create a database to contain the system-wide screensaver settings (if it does not already exist) with the following example:
 
-    Edit the "[org/gnome/desktop/screensaver]" section of the database file
-and add or update the following lines:
+$ sudo vi /etc/dconf/db/local.d/00-screensaver
 
-    # Set this to true to lock the screen when the screensaver activates
-    lock-enabled=true
+Edit the "[org/gnome/desktop/screensaver]" section of the database file and add or update the following lines:
 
-    Update the system databases:
+# Set this to true to lock the screen when the screensaver activates
+lock-enabled=true
 
-    $ sudo dconf update)
+Update the system databases:
+
+$ sudo dconf update)
   impact 0.5
+  tag check_id: 'C-33016r567787_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000028-GPOS-00009'
-  tag satisfies: ['SRG-OS-000028-GPOS-00009', 'SRG-OS-000030-GPOS-00011']
   tag gid: 'V-230347'
   tag rid: 'SV-230347r1017160_rule'
   tag stig_id: 'RHEL-08-020030'
+  tag gtitle: 'SRG-OS-000028-GPOS-00009'
   tag fix_id: 'F-32991r567788_fix'
+  tag satisfies: ['SRG-OS-000028-GPOS-00009', 'SRG-OS-000030-GPOS-00011']
+  tag 'documentable'
   tag cci: ['CCI-000056']
   tag nist: ['AC-11 b']
   tag 'host'

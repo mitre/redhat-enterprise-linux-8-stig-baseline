@@ -1,0 +1,55 @@
+control 'SV-279931' do
+  title 'RHEL 8 must implement DOD-approved encryption in the bind package.'
+  desc 'Without cryptographic integrity protections, information can be altered by unauthorized users without detection.
+
+Cryptographic mechanisms used for protecting the integrity of information include, for example, signed hash functions using asymmetric cryptography enabling distribution of the public key to verify the hash information while maintaining the confidentiality of the secret key used to generate the hash.
+
+RHEL 8 incorporates systemwide crypto policies by default. The employed algorithms can be viewed in the /etc/crypto-policies/back-ends/ directory.'
+  desc 'check', %q(Note: If the "bind" package is not installed, this requirement is Not Applicable.
+
+Verify BIND uses the system crypto policy with the following command:
+
+$ sudo grep include /etc/named.conf
+
+include "/etc/crypto-policies/back-ends/bind.config";'
+
+If BIND is installed and the BIND config file does not contain the include "/etc/crypto-policies/back-ends/bind.config" directive, or the line is commented out, this is a finding.)
+  desc 'fix', 'Configure BIND to use the system crypto policy.
+
+Add the following line to the "options" section in "/etc/named.conf":
+
+include "/etc/crypto-policies/back-ends/bind.config";'
+  impact 0.7
+  tag check_id: 'C-84491r1156344_chk'
+  tag severity: 'high'
+  tag gid: 'V-279931'
+  tag rid: 'SV-279931r1184237_rule'
+  tag stig_id: 'RHEL-08-010275'
+  tag gtitle: 'SRG-OS-000423-GPOS-00187'
+  tag fix_id: 'F-84396r1156345_fix'
+  tag satisfies: ['SRG-OS-000423-GPOS-00187', 'SRG-OS-000426-GPOS-00190']
+  tag 'documentable'
+  tag cci: ['CCI-002418', 'CCI-002422']
+  tag nist: ['SC-8', 'SC-8 (2)']
+  tag 'host'
+
+  only_if('This control is Not Applicable to containers', impact: 0.0) {
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
+  }
+  only_if('This control is Not Applicable since bind is not installed', impact: 0.0) {
+    package('bind').installed?
+  }
+
+  describe file('/etc/named.conf') do
+    it { should exist }
+  end
+
+  bind_grep = command('grep include /etc/named.conf').stdout.lines.map(&:strip)
+  bind_conf = bind_grep.any? { |line| line.match?(%r{/etc/crypto-policies/back-ends/bind.config}i) }
+
+  describe 'Bind config file' do
+    it 'should include system-wide crypto policies' do
+      expect(bind_conf).to eq(true), 'Bind conf files do not include /etc/crypto-policies/back-ends/bind.config'
+    end
+  end
+end

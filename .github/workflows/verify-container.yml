@@ -1,9 +1,6 @@
 name: UBI8 Testing Matrix
 
 on:
-  # push:
-  #   branches-ignore:
-  #     - none
   pull_request:
 
 jobs:
@@ -15,7 +12,9 @@ jobs:
       CHEF_LICENSE_KEY: ${{ secrets.SAF_CHEF_LICENSE_KEY }}
       KITCHEN_LOCAL_YAML: kitchen.container.yml
       LC_ALL: "en_US.UTF-8"
-      PLATFORM: 'ubi8'
+      PLATFORM: "ubi8"
+      DEPLOYMENT: "container"
+      HARDENING_SOURCE: "iron-bank"
       HARDENED_CONTAINER_IMAGE: "registry1.dso.mil/ironbank/redhat/ubi/ubi8"
       VANILLA_CONTAINER_IMAGE: "registry.access.redhat.com/ubi8/ubi:8.9-1028"
     strategy:
@@ -24,22 +23,24 @@ jobs:
       fail-fast: false
     steps:
       - name: add needed packages
-        run: sudo apt-get install -y jq
+        run: |
+          sudo apt-get update
+          sudo apt -y install jq
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
+      - name: Login to Iron Bank registry
+        uses: docker/login-action@4907a6ddec9925e35a0a9e82d7399ccc52663121 # v4.1.0
         with:
           registry: ${{ secrets.SAF_IRONBANK_REGISTRY }}
           username: ${{ secrets.SAF_IRONBANK_CLI_USERNAME }}
           password: ${{ secrets.SAF_IRONBANK_CLI_TOKEN }}
 
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
-      - name: Clone full repository so we can push
+      - name: Unshallow the clone
         run: git fetch --prune --unshallow
 
-      - name: Set short git commit SHA
+      - name: Generate short commit SHA
         id: vars
         run: |
           calculatedSha=$(git rev-parse --short ${{ github.sha }})
@@ -48,12 +49,8 @@ jobs:
       - name: Confirm git commit SHA output
         run: echo ${{ env.COMMIT_SHORT_SHA }}
 
-      - name: Get commit message
-        id: commit
-        run: echo "::set-output name=message::$(git log --format=%B -n 1 ${{ github.sha }})"
-
       - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@c4e5b1316158f92e3d49443a9d58b31d25ac0f8f # v1.306.0
         with:
           ruby-version: "3.1"
 
@@ -63,52 +60,52 @@ jobs:
       - name: Run Bundle Install
         run: bundle install
 
-      - name: Installed Inspec
-        run: bundle exec inspec version
+      - name: Print CINC Auditor version
+        run: bundle exec cinc-auditor version
 
-      - name: Vendor the Profile
-        run: bundle exec inspec vendor . --overwrite
+      - name: Vendor the profile
+        run: bundle exec cinc-auditor vendor . --overwrite
 
-      - name: Run kitchen test
-        if: ${{ !contains(steps.commit.outputs.message, 'only-validate-profile') }}
+      - name: Run kitchen test against ${{ matrix.suite }}
         continue-on-error: true
-        run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}-${{ env.PLATFORM }}
+        env:
+          RUBYOPT: -rtime
+        run: bundle exec kitchen test --destroy=always ${{ matrix.suite }}
 
-      - name: Create our ${{ matrix.suite }} results summary
+      - name: Save ${{ matrix.suite }} results summary
         continue-on-error: true
-        if: ${{ !contains(steps.commit.outputs.message, 'only-validate-profile') }}
-        uses: mitre/saf_action@v1.5.2
+        uses: mitre/saf_action@a19f76ed3721c14aa8a1afb8eded117d8bf16a5d # v1.9.0
         with:
-          command_string: "view summary -j -i spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}.json -o spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}-data.json"
+          command_string: "view summary -i spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}.json -o spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}-data.json -f json"
 
-      - name: Save Test Result JSON
-        if: ${{ !contains(steps.commit.outputs.message, 'only-validate-profile') }}
-        uses: actions/upload-artifact@v4
+      - name: Upload test result JSON artifact
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: ${{ github.workflow }}-${{ env.COMMIT_SHORT_SHA }}-${{ matrix.suite }}-results
+          name: ${{ env.PLATFORM }}_${{ matrix.suite }}.json
           path: spec/results/
 
-      - name: Upload ${{ matrix.suite }} to Heimdall
-        if: ${{ !contains(steps.commit.outputs.message, 'only-validate-profile') }}
+      - name: Upload ${{ matrix.suite }} results to Heimdall
         continue-on-error: true
         run: |
-          curl -# -s -F data=@spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}.json -F "filename=${{ env.COMMIT_SHORT_SHA }}-${{ env.PLATFORM }}_${{ matrix.suite }}" -F "public=true" -F "evaluationTags=${{ env.COMMIT_SHORT_SHA }},${{ github.repository }},${{ github.workflow }}" -H "Authorization: Api-Key ${{ secrets.SAF_HEIMDALL_UPLOAD_KEY }}" "${{ vars.SAF_HEIMDALL_URL }}/evaluations"
+          curl -# -s -F data=@spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}.json \
+            -F "filename=${{ matrix.suite }}-${{ env.DEPLOYMENT }}-${{ env.HARDENING_SOURCE }}-${{ env.PLATFORM }}-${{ env.COMMIT_SHORT_SHA }}.json" \
+            -F "public=true" -F "evaluationTags=${{ env.COMMIT_SHORT_SHA }},${{ github.repository }},${{ github.workflow }},${{ matrix.suite }},${{ env.DEPLOYMENT }},${{ env.HARDENING_SOURCE }},${{ env.PLATFORM }}" \
+            -H "Authorization: Api-Key ${{ secrets.SAF_HEIMDALL_UPLOAD_KEY }}" \
+            "${{ vars.SAF_HEIMDALL_URL }}/evaluations"
 
-      - name: Display our ${{ matrix.suite }} results summary
-        if: ${{ !contains(steps.commit.outputs.message, 'only-validate-profile') }}
-        uses: mitre/saf_action@v1.5.2
+      - name: Display ${{ matrix.suite }} results summary
+        uses: mitre/saf_action@a19f76ed3721c14aa8a1afb8eded117d8bf16a5d # v1.9.0
         with:
           command_string: "view summary -i spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}.json"
 
-      - name: Generate Markdown Summary
+      - name: Generate Markdown summary
         continue-on-error: true
         id: generate-summary
         run: |
           cat spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}-data.json | python markdown-summary.py > spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}-markdown-summary.md
           cat spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}-markdown-summary.md >> $GITHUB_STEP_SUMMARY
 
-      - name: Ensure the scan meets our ${{ matrix.suite }} results threshold ${{ env.PLATFORM }}_${{ matrix.suite }}.threshold.yml
-        if: ${{ !contains(steps.commit.outputs.message, 'only-validate-profile') }}
-        uses: mitre/saf_action@v1.5.2
+      - name: Validate ${{ matrix.suite }} threshold
+        uses: mitre/saf_action@a19f76ed3721c14aa8a1afb8eded117d8bf16a5d # v1.9.0
         with:
-          command_string: "validate threshold -i spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}.json -F ${{ env.PLATFORM }}_${{ matrix.suite }}.threshold.yml"
+          command_string: "validate threshold -i spec/results/${{ env.PLATFORM }}_${{ matrix.suite }}.json -T ${{ env.PLATFORM }}_${{ matrix.suite }}.threshold.yml"

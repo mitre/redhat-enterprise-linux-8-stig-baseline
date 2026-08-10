@@ -1,41 +1,33 @@
 control 'SV-230373' do
-  title 'RHEL 8 account identifiers (individuals, groups, roles, and devices)
-    must be disabled after 35 days of inactivity.'
-  desc 'Inactive identifiers pose a risk to systems and applications because
-    attackers may exploit an inactive identifier and potentially obtain undetected
-    access to the system. Owners of inactive accounts will not notice if
-    unauthorized access to their user account has been obtained.
+  title 'RHEL 8 account identifiers (individuals, groups, roles, and devices) must be disabled after 35 days of inactivity.'
+  desc 'Inactive identifiers pose a risk to systems and applications because attackers may exploit an inactive identifier and potentially obtain undetected access to the system. Owners of inactive accounts will not notice if unauthorized access to their user account has been obtained.
 
-    RHEL 8 needs to track periods of inactivity and disable application
-    identifiers after 35 days of inactivity.'
-  desc 'check', 'Verify the account identifiers (individuals, groups, roles, and devices)
-    are disabled after 35 days of inactivity with the following command:
+RHEL 8 needs to track periods of inactivity and disable application identifiers after 35 days of inactivity.'
+  desc 'check', 'Verify the account identifiers (individuals, groups, roles, and devices) are disabled after 35 days of inactivity with the following command:
 
-    Check the account inactivity value by performing the following command:
+Check the account inactivity value by performing the following command:
 
-        $ sudo grep -i inactive /etc/default/useradd
+$ sudo grep -i inactive /etc/default/useradd
 
-        INACTIVE=35
+INACTIVE=35
 
-    If "INACTIVE" is set to "-1", a value greater than "35", or is
-    commented out, this is a finding.'
-  desc 'fix', 'Configure RHEL 8 to disable account identifiers after 35 days of inactivity
-    after the password expiration.
+If "INACTIVE" is set to "-1", a value greater than "35", or is commented out, this is a finding.'
+  desc 'fix', 'Configure RHEL 8 to disable account identifiers after 35 days of inactivity after the password expiration.
 
-    Run the following command to change the configuration for useradd:
+Run the following command to change the configuration for useradd:
 
-      $ sudo useradd -D -f 35
+$ sudo useradd -D -f 35
 
-    DoD recommendation is 35 days, but a lower value is acceptable. The value "-1" will
-    disable this feature, and "0" will disable the account immediately after the
-    password expires.'
+DoD recommendation is 35 days, but a lower value is acceptable. The value "-1" will disable this feature, and "0" will disable the account immediately after the password expires.'
   impact 0.5
+  tag check_id: 'C-33042r567865_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000118-GPOS-00060'
   tag gid: 'V-230373'
   tag rid: 'SV-230373r1017185_rule'
   tag stig_id: 'RHEL-08-020260'
+  tag gtitle: 'SRG-OS-000118-GPOS-00060'
   tag fix_id: 'F-33017r567866_fix'
+  tag 'documentable'
   tag cci: ['CCI-000795', 'CCI-003627']
   tag nist: ['IA-4 e', 'AC-2 (3) (a)']
   tag 'host'

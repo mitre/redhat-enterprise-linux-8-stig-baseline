@@ -1,6 +1,5 @@
 control 'SV-230535' do
-  title 'RHEL 8 must prevent IPv6 Internet Control Message Protocol (ICMP)
-redirect messages from being accepted.'
+  title 'RHEL 8 must prevent IPv6 Internet Control Message Protocol (ICMP) redirect messages from being accepted.'
   desc "ICMP redirect messages are used by routers to inform hosts that a more direct route exists for a particular destination. These messages modify the host's route table and are unauthenticated. An illicit ICMP redirect message could result in a man-in-the-middle attack.
 
 The sysctl --system command will load settings from all system configuration files. All configuration files are sorted by their filename in lexicographic order, regardless of which of the directories they reside in. If multiple files specify the same option, the entry in the file with the lexicographically latest name will take precedence. Files are read from directories in the following list from top to bottom. Once a file of a given filename is loaded, any file of the same name in subsequent directories is ignored.
@@ -55,71 +54,40 @@ $ sudo sysctl --system'
   tag rid: 'SV-230535r1017297_rule'
   tag stig_id: 'RHEL-08-040210'
   tag fix_id: 'F-33179r858792_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag cci: ['CCI-000366', 'CCI-002385', 'CCI-001101']
+  tag nist: ['CM-6 b', 'SC-5 a', 'SC-7 (3)']
   tag 'host'
 
-  only_if('This system is acting as a router on the network, this control is Not Applicable', impact: 0.0) {
-    !input('network_router')
+  only_if('Control not applicable within a container', impact: 0.0) {
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
   }
 
-  # Define the kernel parameter to be checked
-  parameter = 'net.ipv6.conf.default.accept_redirects'
-  action = 'accepting IPv6 redirects'
+  parameter = 'net.ipv4.conf.default.accept_redirects'
   value = 0
+  regexp = /^\s*#{parameter}\s*=\s*#{value}\s*$/
 
-  # Get the current value of the kernel parameter
-  current_value = kernel_parameter(parameter)
-
-  # Check if the system is a Docker container
-  if virtualization.system.eql?('docker')
+  if input('ipv4_enabled') == false
     impact 0.0
-    describe 'Control not applicable within a container' do
-      skip 'Control not applicable within a container'
-    end
-  elsif input('ipv6_enabled') == false
-    impact 0.0
-    describe 'IPv6 is disabled on the system, this requirement is Not Applicable.' do
-      skip 'IPv6 is disabled on the system, this requirement is Not Applicable.'
+    describe 'IPv4 is disabled on the system, this requirement is Not Applicable.' do
+      skip 'IPv4 is disabled on the system, this requirement is Not Applicable.'
     end
   else
-
     describe kernel_parameter(parameter) do
-      it 'is disabled in sysctl -a' do
-        expect(current_value.value).to cmp value
-        expect(current_value.value).not_to be_nil
+      its('value') { should eq value }
+    end
+
+    search_results = command("/usr/lib/systemd/systemd-sysctl --cat-config | egrep -v '^(#|;)' | grep -F #{parameter}").stdout.strip.split("\n")
+
+    correct_result = search_results.any? { |line| line.match(regexp) }
+    incorrect_results = search_results.map(&:strip).reject { |line| line.match(regexp) }
+
+    describe 'Kernel config files' do
+      it "should configure '#{parameter}'" do
+        expect(correct_result).to eq(true), 'No config file was found that correctly sets this action'
       end
-    end
-
-    # Get the list of sysctl configuration files
-    sysctl_config_files = input('sysctl_conf_files').map(&:strip).join(' ')
-
-    # Search for the kernel parameter in the configuration files
-    search_results = command("grep -r ^#{parameter} #{sysctl_config_files} {} \;").stdout.split("\n")
-
-    # Parse the search results into a hash
-    config_values = search_results.each_with_object({}) do |item, results|
-      file, setting = item.split(':')
-      file = 'grep did not return filename' if file.empty?
-
-      results[file] ||= []
-      results[file] << setting.split('=').last
-    end
-
-    uniq_config_values = config_values.values.flatten.map(&:strip).map(&:to_i).uniq
-
-    # Check the configuration files
-    describe 'Configuration files' do
-      if search_results.empty?
-        it "do not explicitly set the `#{parameter}` parameter" do
-          expect(config_values).not_to be_empty, "Add the line `#{parameter}=#{value}` to a file in the `/etc/sysctl.d/` directory"
-        end
-      else
-        it "do not have conflicting settings for #{action}" do
-          expect(uniq_config_values.count).to eq(1), "Expected one unique configuration, but got #{config_values}"
-        end
-        it "set the parameter to the right value for #{action}" do
-          expect(config_values.values.flatten.all? { |v| v.to_i.eql?(value) }).to be true
+      unless incorrect_results.nil?
+        it 'should not have incorrect or conflicting setting(s) in the config files' do
+          expect(incorrect_results).to be_empty, "Incorrect or conflicting setting(s) found:\n\t- #{incorrect_results.join("\n\t- ")}"
         end
       end
     end

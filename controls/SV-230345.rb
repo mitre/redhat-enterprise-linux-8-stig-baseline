@@ -1,59 +1,47 @@
 control 'SV-230345' do
-  title 'RHEL 8 must include root when automatically locking an account until
-the locked account is released by an administrator when three unsuccessful
-logon attempts occur during a 15-minute time period.'
-  desc 'By limiting the number of failed logon attempts, the risk of
-unauthorized system access via user password guessing, otherwise known as
-brute-force attacks, is reduced. Limits are imposed by locking the account.
+  title 'RHEL 8 must include root when automatically locking an account until the locked account is released by an administrator when three unsuccessful logon attempts occur during a 15-minute time period.'
+  desc 'By limiting the number of failed logon attempts, the risk of unauthorized system access via user password guessing, otherwise known as brute-force attacks, is reduced. Limits are imposed by locking the account.
 
-    In RHEL 8.2 the "/etc/security/faillock.conf" file was incorporated to
-centralize the configuration of the pam_faillock.so module.  Also introduced is
-a "local_users_only" option that will only track failed user authentication
-attempts for local users in /etc/passwd and ignore centralized (AD, IdM, LDAP,
-etc.) users to allow the centralized platform to solely manage user lockout.
+In RHEL 8.2 the "/etc/security/faillock.conf" file was incorporated to centralize the configuration of the pam_faillock.so module.  Also introduced is a "local_users_only" option that will only track failed user authentication attempts for local users in /etc/passwd and ignore centralized (AD, IdM, LDAP, etc.) users to allow the centralized platform to solely manage user lockout.
 
-    From "faillock.conf" man pages: Note that the default directory that
-"pam_faillock" uses is usually cleared on system boot so the access will be
-reenabled after system reboot. If that is undesirable a different tally
-directory must be set with the "dir" option.'
-  desc 'check', 'Note: This check applies to RHEL versions 8.2 or newer, if the system is
-RHEL version 8.0 or 8.1, this check is not applicable.
+From "faillock.conf" man pages: Note that the default directory that "pam_faillock" uses is usually cleared on system boot so the access will be reenabled after system reboot. If that is undesirable a different tally directory must be set with the "dir" option.
 
-    Verify the "/etc/security/faillock.conf" file is configured to log user
-name information when unsuccessful logon attempts occur:
+'
+  desc 'check', 'Note: This check applies to RHEL versions 8.2 or newer, if the system is RHEL version 8.0 or 8.1, this check is not applicable.
 
-    $ sudo grep even_deny_root /etc/security/faillock.conf
+Verify the "/etc/security/faillock.conf" file is configured to log user name information when unsuccessful logon attempts occur:
 
-    even_deny_root
+$ sudo grep even_deny_root /etc/security/faillock.conf
 
-    If the "even_deny_root" option is not set, is missing or commented out,
-this is a finding.'
-  desc 'fix', 'Configure the operating system to include root when locking an account
-after three unsuccessful logon attempts occur in 15 minutes.
+even_deny_root
 
-    Add/Modify the "/etc/security/faillock.conf" file to match the following
-line:
+If the "even_deny_root" option is not set, is missing or commented out, this is a finding.'
+  desc 'fix', 'Configure the operating system to include root when locking an account after three unsuccessful logon attempts occur in 15 minutes.
 
-    even_deny_root'
+Add/Modify the "/etc/security/faillock.conf" file to match the following line:
+
+even_deny_root'
   impact 0.5
+  tag check_id: 'C-33014r743982_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000021-GPOS-00005'
-  tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
   tag gid: 'V-230345'
   tag rid: 'SV-230345r1017157_rule'
   tag stig_id: 'RHEL-08-020023'
+  tag gtitle: 'SRG-OS-000021-GPOS-00005'
   tag fix_id: 'F-32989r743983_fix'
+  tag satisfies: ['SRG-OS-000021-GPOS-00005', 'SRG-OS-000329-GPOS-00128']
+  tag 'documentable'
   tag cci: ['CCI-000044']
   tag nist: ['AC-7 a']
   tag 'host'
   tag 'container'
 
   message = <<~MESSAGE
-    \n\nThis check only applies to RHEL versions 8.0 or 8.1.\n
+    \n\nThis check only applies to RHEL versions 8.2 or newer.\n
     The system is running RHEL version: #{os.version}, this requirement is Not Applicable.
   MESSAGE
   only_if(message, impact: 0.0) do
-    os.version.minor.between?(0, 1)
+    os.version.minor >= 2
   end
 
   describe parse_config_file('/etc/security/faillock.conf') do

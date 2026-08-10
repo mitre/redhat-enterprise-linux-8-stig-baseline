@@ -1,7 +1,6 @@
 control 'SV-230293' do
   title 'RHEL 8 must use a separate file system for /var/log.'
-  desc 'The use of separate file systems for different paths can protect the
-system from failures resulting from a file system becoming full or failing.'
+  desc 'The use of separate file systems for different paths can protect the system from failures resulting from a file system becoming full or failing.'
   desc 'check', 'Verify that a separate file system has been created for "/var/log".
 
 Check that a file system has been created for "/var/log" with the following command:
@@ -19,12 +18,12 @@ If a separate entry for "/var/log" is not in use, this is a finding.'
   tag rid: 'SV-230293r1017104_rule'
   tag stig_id: 'RHEL-08-010541'
   tag fix_id: 'F-32937r567626_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag cci: ['CCI-000366', 'CCI-002385']
+  tag nist: ['CM-6 b', 'SC-5 a']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
   }
 
   describe mount('/var/log') do

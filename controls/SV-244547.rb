@@ -1,21 +1,10 @@
 control 'SV-244547' do
   title 'RHEL 8 must have the USBGuard installed.'
-  desc 'Without authenticating devices, unidentified or unknown devices may be
-introduced, thereby facilitating malicious activity.
-    Peripherals include, but are not limited to, such devices as flash drives,
-external storage, and printers.
-    A new feature that RHEL 8 provides is the USBGuard software framework. The
-USBguard-daemon is the main component of the USBGuard software framework. It
-runs as a service in the background and enforces the USB device authorization
-policy for all USB devices. The policy is defined by a set of rules using a
-rule language described in the usbguard-rules.conf file. The policy and the
-authorization state of USB devices can be modified during runtime using the
-usbguard tool.
+  desc 'Without authenticating devices, unidentified or unknown devices may be introduced, thereby facilitating malicious activity.
+Peripherals include, but are not limited to, such devices as flash drives, external storage, and printers.
+A new feature that RHEL 8 provides is the USBGuard software framework. The USBguard-daemon is the main component of the USBGuard software framework. It runs as a service in the background and enforces the USB device authorization policy for all USB devices. The policy is defined by a set of rules using a rule language described in the usbguard-rules.conf file. The policy and the authorization state of USB devices can be modified during runtime using the usbguard tool.
 
-    The System Administrator (SA) must work with the site Information System
-Security Officer (ISSO) to determine a list of authorized peripherals and
-establish rules within the USBGuard software framework to allow only authorized
-devices.'
+The System Administrator (SA) must work with the site Information System Security Officer (ISSO) to determine a list of authorized peripherals and establish rules within the USBGuard software framework to allow only authorized devices.'
   desc 'check', 'Verify USBGuard is installed on the operating system with the following command:
 
 $ sudo yum list installed usbguard
@@ -31,35 +20,25 @@ If the system is a virtual machine with no virtual or physical USB peripherals a
 
 $ sudo yum install usbguard.x86_64'
   impact 0.5
-  ref 'DPMS Target Red Hat Enterprise Linux 8'
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000378-GPOS-00163'
   tag gid: 'V-244547'
   tag rid: 'SV-244547r1014811_rule'
   tag stig_id: 'RHEL-08-040139'
   tag fix_id: 'F-47779r743889_fix'
-  tag cci: ['CCI-001958']
-  tag nist: ['IA-3']
+  tag cci: ['CCI-001958', 'CCI-003959']
+  tag nist: ['IA-3', 'CM-7 (9) (b)']
   tag 'host'
 
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {
-    (!virtualization.system.eql?('docker'))
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
   }
 
   peripherals_package = input('peripherals_package')
-  is_virtualized_system_no_usb_devices = input('is_virtualized_system_no_usb_devices')
 
-  if is_virtualized_system_no_usb_devices
-    impact 0.0
-    describe 'The system is a virtual machine with no virtual or physical USB peripherals attached' do
-      skip 'The system is a virtual machine with no virtual or physical USB peripherals attached, this control is Not Applicable.'
-    end
-  else
-
-    describe package(peripherals_package) do
-      it "is expected to be installed. \n\tPlease ensure to configure the service to ensure your devices function as expected." do
-        expect(subject.installed?).to be(true), "The #{peripherals_package} package is not installed"
-      end
+  describe package(peripherals_package) do
+    it "is expected to be installed. \n\tConfigure the service to ensure your devices function as expected." do
+      expect(subject.installed?).to be(true), "The #{peripherals_package} package is not installed"
     end
   end
 end

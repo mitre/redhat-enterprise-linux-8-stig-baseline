@@ -1,39 +1,43 @@
 control 'SV-230252' do
-  title 'The RHEL 8 operating system must implement DOD-approved encryption to protect the confidentiality of SSH server connections.'
+  title 'The RHEL 8 SSH server must be configured to use only DOD-approved encryption ciphers employing FIPS 140-3-validated cryptographic hash algorithms to protect the confidentiality of SSH server connections.'
   desc 'Without cryptographic integrity protections, information can be altered by unauthorized users without detection.
 
 Remote access (e.g., RDP) is access to DOD nonpublic information systems by an authorized user (or an information system) communicating through an external, nonorganization-controlled network. Remote access methods include, for example, dial-up, broadband, and wireless.
 
 Cryptographic mechanisms used for protecting the integrity of information include, for example, signed hash functions using asymmetric cryptography enabling distribution of the public key to verify the hash information while maintaining the confidentiality of the secret key used to generate the hash.
 
-RHEL 8 incorporates systemwide crypto policies by default. The SSH configuration file has no effect on the ciphers, MACs, or algorithms unless specifically defined in the /etc/sysconfig/sshd file. The employed algorithms can be viewed in the /etc/crypto-policies/back-ends/opensshserver.config file.
-
-The system will attempt to use the first hash presented by the client that matches the server list. Listing the values "strongest to weakest" is a method to ensure the use of the strongest hash available to secure the SSH connection.'
-  desc 'check', 'Verify the SSH server is configured to use only ciphers employing FIPS 140-3 approved algorithms.
+RHEL 8 incorporates systemwide crypto policies by default. The SSH configuration file has no effect on the ciphers, MACs, or algorithms unless specifically defined in the /etc/sysconfig/sshd file. The employed algorithms can be viewed in the /etc/crypto-policies/back-ends/opensshserver.config file.'
+  desc 'check', %q(Verify the RHEL 8 SSH server is configured to use only ciphers employing FIPS 140-3-approved algorithms.
 
 To verify the ciphers in the systemwide SSH configuration file, use the following command:
 
-$ sudo grep -i ciphers /etc/crypto-policies/back-ends/opensshserver.config 
--oCiphers=aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr
+$ sudo grep -i Ciphers /etc/crypto-policies/back-ends/opensshserver.config
+CRYPTO_POLICY='-oCiphers=aes256-gcm@openssh.com,aes256-ctr,aes128-gcm@openssh.com,aes128-ctr
 
-If the ciphers entries in the "opensshserver.config" file have any hashes other than "aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr", the order differs from the example above, or they are missing or commented out, this is a finding.'
-  desc 'fix', %q(Configure the RHEL 8 SSH server to use only ciphers employing FIPS 140-3 approved algorithms by updating the "/etc/crypto-policies/back-ends/opensshserver.config" file with the following commands.
+If the cipher entries in the "opensshserver.config" file have any ciphers other than "aes256-gcm@openssh.com,aes256-ctr,aes128-gcm@openssh.com,aes128-ctr", or they are missing or commented out, this is a finding.)
+  desc 'fix', 'Configure the RHEL 8 SSH server to use only ciphers employing FIPS 140-3-approved algorithms.
 
-To manually update the ciphers in the systemwide SSH configuration, use the following command:
+Reinstall crypto-policies with the following command:
 
-$ sudo sed -i -E 's/(-oCiphers=)[^ ]*/\1aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr/' "$(readlink -f /etc/crypto-policies/back-ends/opensshserver.config)"
+$ sudo dnf -y reinstall crypto-policies
 
-A reboot is required for the changes to take effect.)
-  impact 0.5
-  tag severity: 'medium'
+Set the crypto-policy to FIPS with the following command:
+
+$ sudo update-crypto-policies --set FIPS
+
+Setting system policy to FIPS
+
+Note: Systemwide crypto policies are applied on application startup. It is recommended to restart the system for the change of policies to fully take place.'
+  impact 0.7
+  tag severity: 'high'
   tag gtitle: 'SRG-OS-000250-GPOS-00093'
   tag satisfies: ['SRG-OS-000250-GPOS-00093', 'SRG-OS-000393-GPOS-00173', 'SRG-OS-000394-GPOS-00174', 'SRG-OS-000125-GPOS-00065']
   tag gid: 'V-230252'
-  tag rid: 'SV-230252r1044817_rule'
+  tag rid: 'SV-230252r1184241_rule'
   tag stig_id: 'RHEL-08-010291'
-  tag fix_id: 'F-32896r1044816_fix'
-  tag cci: ['CCI-001453']
-  tag nist: ['AC-17 (2)']
+  tag fix_id: 'F-32896r1155363_fix'
+  tag cci: ['CCI-001453', 'CCI-000877']
+  tag nist: ['AC-17 (2)', 'MA-4 c']
   tag 'host'
   tag 'container-conditional'
 

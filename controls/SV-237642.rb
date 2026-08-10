@@ -1,13 +1,7 @@
 control 'SV-237642' do
-  title %q(RHEL 8 must use the invoking user's password for privilege escalation
-when using "sudo".)
-  desc %q(The sudoers security policy requires that users authenticate
-themselves before they can use sudo. When sudoers requires authentication, it
-validates the invoking user's credentials. If the rootpw, targetpw, or runaspw
-flags are defined and not disabled, by default the operating system will prompt
-the invoking user for the "root" user password.
-    For more information on each of the listed configurations, reference the
-sudoers(5) manual page.)
+  title %q(RHEL 8 must use the invoking user's password for privilege escalation when using "sudo".)
+  desc %q(The sudoers security policy requires that users authenticate themselves before they can use sudo. When sudoers requires authentication, it validates the invoking user's credentials. If the rootpw, targetpw, or runaspw flags are defined and not disabled, by default the operating system will prompt the invoking user for the "root" user password.
+For more information on each of the listed configurations, reference the sudoers(5) manual page.)
   desc 'check', %q(Verify that the sudoers security policy is configured to use the invoking user's password for privilege escalation.
 
      $ sudo grep -Eir '(rootpw|targetpw|runaspw)' /etc/sudoers /etc/sudoers.d* | grep -v '#'
@@ -35,12 +29,13 @@ Remove any configurations that conflict with the above from the following locati
   tag rid: 'SV-237642r991589_rule'
   tag stig_id: 'RHEL-08-010383'
   tag fix_id: 'F-40824r880726_fix'
-  tag cci: ['CCI-002227']
-  tag nist: ['AC-6 (5)']
+  tag cci: ['CCI-002227', 'CCI-000366', 'CCI-002038']
+  tag nist: ['AC-6 (5)', 'CM-6 b', 'IA-11']
   tag 'host'
+  tag 'container-conditional'
 
   only_if('This control is Not Applicable to containers without sudo installed', impact: 0.0) {
-    !(virtualization.system.eql?('docker') && !command('sudo').exist?)
+    !%w[docker podman kubepods lxc].include?(virtualization.system) || command('sudo').exist?
   }
 
   settings = sudoers(input('sudoers_config_files').join(' ')).settings['Defaults']

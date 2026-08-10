@@ -26,8 +26,8 @@ Add the following line to the "/etc/pam.d/password-auth" file (or modify the lin
   tag rid: 'SV-230356r982195_rule'
   tag stig_id: 'RHEL-08-020100'
   tag fix_id: 'F-33000r902727_fix'
-  tag cci: ['CCI-000192', 'CCI-000366']
-  tag nist: ['IA-5 (1) (a)', 'CM-6 b']
+  tag cci: ['CCI-000192', 'CCI-000366', 'CCI-000193', 'CCI-004066']
+  tag nist: ['IA-5 (1) (a)', 'CM-6 b', 'IA-5 (1) (h)']
   tag 'host'
   tag 'container'
 

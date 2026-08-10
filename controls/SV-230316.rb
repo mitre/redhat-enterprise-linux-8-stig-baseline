@@ -1,6 +1,5 @@
 control 'SV-230316' do
-  title 'For RHEL 8 systems using Domain Name Servers (DNS) resolution, at
-least two name servers must be configured.'
+  title 'For RHEL 8 systems using Domain Name Servers (DNS) resolution, at least two name servers must be configured.'
   desc 'To provide availability for name resolution services, multiple
 redundant name servers are mandated. A failure in name resolution could lead to
 the failure of security functions requiring name resolution, which may include
@@ -33,21 +32,13 @@ nameserver 192.168.1.2
 nameserver 192.168.1.3
 
 If fewer than two lines are returned that are not commented out, this is a finding.)
-  desc 'fix', 'Configure the operating system to use two or more name servers for DNS
-resolution.
+  desc 'fix', 'Configure the operating system to use two or more name servers for DNS resolution.
 
-    By default, "NetworkManager" on RHEL 8 dynamically updates the
-/etc/resolv.conf file with the DNS settings from active "NetworkManager"
-connection profiles. However, this feature can be disabled to allow manual
-configurations.
+By default, "NetworkManager" on RHEL 8 dynamically updates the /etc/resolv.conf file with the DNS settings from active "NetworkManager" connection profiles. However, this feature can be disabled to allow manual configurations.
 
-    If manually configuring DNS, edit the "/etc/resolv.conf" file to
-uncomment or add the two or more "nameserver" option lines with the IP
-address of local authoritative name servers. If local host resolution is being
-performed, the "/etc/resolv.conf" file must be empty. An empty
-"/etc/resolv.conf" file can be created as follows:
+If manually configuring DNS, edit the "/etc/resolv.conf" file to uncomment or add the two or more "nameserver" option lines with the IP address of local authoritative name servers. If local host resolution is being performed, the "/etc/resolv.conf" file must be empty. An empty "/etc/resolv.conf" file can be created as follows:
 
-    $ sudo echo -n > /etc/resolv.conf'
+$ sudo echo -n > /etc/resolv.conf'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000480-GPOS-00227'
@@ -55,10 +46,14 @@ performed, the "/etc/resolv.conf" file must be empty. An empty
   tag rid: 'SV-230316r1044801_rule'
   tag stig_id: 'RHEL-08-010680'
   tag fix_id: 'F-32960r567695_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag cci: ['CCI-000366', 'CCI-002385']
+  tag nist: ['CM-6 b', 'SC-5 a']
   tag 'host'
   tag 'container'
+
+  only_if('Cloud platform provides a single, highly available DNS resolver IP; this control is Not Applicable', impact: 0.0) {
+    !input('ha_cloud_dns')
+  }
 
   dns_in_host_line = parse_config_file('/etc/nsswitch.conf',
                                        comment_char: '#',

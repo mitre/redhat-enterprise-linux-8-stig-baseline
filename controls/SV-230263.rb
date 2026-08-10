@@ -1,7 +1,5 @@
 control 'SV-230263' do
-  title 'The RHEL 8 file integrity tool must notify the system administrator
-when changes to the baseline configuration or anomalies in the operation of any
-security functions are discovered within an organizationally defined frequency.'
+  title 'The RHEL 8 file integrity tool must notify the system administrator when changes to the baseline configuration or anomalies in the operation of any security functions are discovered within an organizationally defined frequency.'
   desc "Unauthorized changes to the baseline configuration could make the system vulnerable to various attacks or allow unauthorized access to the operating system. Changes to operating system configurations can have unintended side effects, some of which may be relevant to security.
 
 Detecting such changes and providing an automated response can help avoid unintended, negative consequences that could ultimately affect the security state of the operating system. The operating system's Information System Security Manager (ISSM)/Information System Security Officer (ISSO) and System Administrators (SAs) must be notified via email and/or monitoring system trap when there is an unauthorized modification of a configuration item.
@@ -10,7 +8,9 @@ Notifications provided by information systems include messages to local computer
 
 This capability must take into account operational requirements for availability for selecting an appropriate response. The organization may choose to shut down or restart the information system upon security function anomaly detection.
 
-RHEL 8 comes with many optional software packages. A file integrity tool called Advanced Intrusion Detection Environment (AIDE) is one of those optional packages. This requirement assumes the use of AIDE; however, a different tool may be used if the requirements are met. Note that AIDE does not have a configuration that will send a notification, so a cron job is recommended that uses the mail application on the system to email the results of the file integrity check."
+RHEL 8 comes with many optional software packages. A file integrity tool called Advanced Intrusion Detection Environment (AIDE) is one of those optional packages. This requirement assumes the use of AIDE; however, a different tool may be used if the requirements are met. Note that AIDE does not have a configuration that will send a notification, so a cron job is recommended that uses the mail application on the system to email the results of the file integrity check.
+
+"
   desc 'check', 'Verify the operating system routinely checks the baseline configuration for unauthorized changes and notifies the system administrator when anomalies in the operation of any security functions are discovered.
 
 Check that RHEL 8 routinely executes a file integrity scan for changes to the system baseline. The command used in the example will use a daily occurrence.
@@ -44,13 +44,15 @@ The following example output is generic. It will set cron to run AIDE daily and 
 
 Note: Per requirement RHEL-08-010358, the "mailx" package must be installed on the system to enable email functionality.'
   impact 0.5
+  tag check_id: 'C-32932r902714_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000363-GPOS-00150'
-  tag satisfies: ['SRG-OS-000363-GPOS-00150', 'SRG-OS-000446-GPOS-00200', 'SRG-OS-000447-GPOS-00201']
   tag gid: 'V-230263'
   tag rid: 'SV-230263r1017083_rule'
   tag stig_id: 'RHEL-08-010360'
+  tag gtitle: 'SRG-OS-000363-GPOS-00150'
   tag fix_id: 'F-32907r902715_fix'
+  tag satisfies: ['SRG-OS-000363-GPOS-00150', 'SRG-OS-000446-GPOS-00200', 'SRG-OS-000447-GPOS-00201']
+  tag 'documentable'
   tag cci: ['CCI-001744']
   tag nist: ['CM-3 (5)']
   tag 'host'

@@ -1,15 +1,8 @@
 control 'SV-230504' do
-  title 'A RHEL 8 firewall must employ a deny-all, allow-by-exception policy
-for allowing connections to other systems.'
-  desc 'Failure to restrict network connectivity only to authorized systems
-permits inbound connections from malicious systems. It also permits outbound
-connections that may facilitate exfiltration of DoD data.
+  title 'A RHEL 8 firewall must employ a deny-all, allow-by-exception policy for allowing connections to other systems.'
+  desc 'Failure to restrict network connectivity only to authorized systems permits inbound connections from malicious systems. It also permits outbound connections that may facilitate exfiltration of DoD data.
 
-    RHEL 8 incorporates the "firewalld" daemon, which allows for many
-different configurations. One of these configurations is zones. Zones can be
-utilized to a deny-all, allow-by-exception approach. The default "drop" zone
-will drop all incoming network packets unless it is explicitly allowed by the
-configuration file or is related to an outgoing network connection.'
+RHEL 8 incorporates the "firewalld" daemon, which allows for many different configurations. One of these configurations is zones. Zones can be utilized to a deny-all, allow-by-exception approach. The default "drop" zone will drop all incoming network packets unless it is explicitly allowed by the configuration file or is related to an outgoing network connection.'
   desc 'check', 'Verify "firewalld" is configured to employ a deny-all, allow-by-exception policy for allowing connections to other systems with the following commands:
 
      $ sudo  firewall-cmd --state
@@ -31,60 +24,55 @@ If the alternate firewall is not configured to employ a deny-all, allow-by-excep
 If no firewall is installed, this is a finding.'
   desc 'fix', 'Configure the "firewalld" daemon to employ a deny-all, allow-by-exception with the following commands:
 
-$ sudo firewall-cmd --permanent --new-zone=[custom]
+     $ sudo firewall-cmd --permanent --new-zone=[custom]
 
-$ sudo cp /usr/lib/firewalld/zones/drop.xml /etc/firewalld/zones/[custom].xml
+     $ sudo cp /usr/lib/firewalld/zones/drop.xml /etc/firewalld/zones/[custom].xml
 
-This will provide a clean configuration file to work with that employs a deny-all approach. Note: Add the exceptions that are required for mission functionality and update the short title in the xml file to match the [custom] zone name.
+This will provide a clean configuration file to work with that employs a deny-all approach.
+
+Note: Add the exceptions that are required for mission functionality and update the short title in the xml file to match the [custom] zone name.
 
 Reload the firewall rules to make the new [custom] zone available to load:
-$ sudo firewall-cmd --reload
+     $ sudo firewall-cmd --reload
 
 Set the default zone to the new [custom] zone:
-$ sudo firewall-cmd --set-default-zone=[custom]
+     $ sudo firewall-cmd --set-default-zone=[custom]
 
 Note: This is a runtime and permanent change.
 Add any interfaces to the new [custom] zone:
-$ sudo firewall-cmd --permanent --zone=[custom] --change-interface=ens33
+     $ sudo firewall-cmd --permanent --zone=[custom] --change-interface=ens33
 
 Reload the firewall rules for changes to take effect:
-$ sudo firewall-cmd --reload'
+     $ sudo firewall-cmd --reload'
   impact 0.5
   tag severity: 'medium'
   tag gtitle: 'SRG-OS-000297-GPOS-00115'
+  tag satisfies: ['SRG-OS-000368-GPOS-00154', 'SRG-OS-000370-GPOS-00155', 'SRG-OS-000480-GPOS-00232']
   tag gid: 'V-230504'
   tag rid: 'SV-230504r958672_rule'
   tag stig_id: 'RHEL-08-040090'
   tag fix_id: 'F-33148r942941_fix'
-  tag cci: ['CCI-002314']
-  tag legacy: []
-  tag nist: ['AC-17 (1)']
+  tag cci: ['CCI-001764', 'CCI-000366', 'CCI-002314']
+  tag nist: ['CM-7 (2)', 'CM-6 b', 'AC-17 (1)']
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
   }
 
-  if input('external_firewall') == false
+  describe service('firewalld') do
+    it { should be_running }
+  end
 
-    describe service('firewalld') do
-      it { should be_running }
-    end
+  describe firewalld do
+    its('zone') { should_not be_empty }
+  end
 
-    describe firewalld do
-      its('zone') { should_not be_empty }
-    end
+  failing_zones = firewalld.zone.select { |fz| firewalld.zone(fz).target == 'DROP' }
 
-    failing_zones = firewalld.zone.reject { |fz| firewalld.zone(fz).target == 'DROP' }
-
-    describe 'All firewall zones' do
-      it 'should be configured to drop all incoming network packets unless explicitly accepted' do
-        expect(failing_zones).to be_empty, "Failing zones:\n\t- #{failing_zones.join("\n\t- ")}"
-      end
-    end
-  else
-    describe 'Manual' do
-      skip 'Inputs indicate this system is using a firewall tool other than the default firewalld; review the configuration of this tool to ensure it employs a deny-all, allow-by-exception policy for allowing connections to other systems.'
+  describe 'All firewall zones' do
+    it 'should be configured to drop all incoming network packets unless explicitly accepted' do
+      expect(failing_zones).to be_empty, "Failing zones:\n\t- #{failing_zones.join("\n\t- ")}"
     end
   end
 end

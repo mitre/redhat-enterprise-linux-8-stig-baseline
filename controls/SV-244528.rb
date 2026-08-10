@@ -1,8 +1,6 @@
 control 'SV-244528' do
   title 'The RHEL 8 SSH daemon must not allow GSSAPI authentication, except to fulfill documented and validated mission requirements.'
-  desc 'Configuring this setting for the SSH daemon provides additional
-assurance that remote logon via SSH will require a password, even in the event
-of misconfiguration elsewhere.'
+  desc 'Configuring this setting for the SSH daemon provides additional assurance that remote logon via SSH will require a password, even in the event of misconfiguration elsewhere.'
   desc 'check', %q(Verify the SSH daemon does not allow GSSAPI authentication with the following command:
 
 $ sudo /usr/sbin/sshd -dd 2>&1 | awk '/filename/ {print $4}' | tr -d '\r' | tr '\n' ' ' | xargs sudo grep -iH '^\s*gssapiauthentication'
@@ -14,22 +12,22 @@ If the value is returned as "yes", the returned line is commented out, no output
 If conflicting results are returned, this is a finding.)
   desc 'fix', 'Configure the SSH daemon to not allow GSSAPI authentication.
 
-    Add the following line in "/etc/ssh/sshd_config", or uncomment the line
-and set the value to "no":
+Add the following line in "/etc/ssh/sshd_config", or uncomment the line and set the value to "no":
 
-    GSSAPIAuthentication no
+GSSAPIAuthentication no
 
-    The SSH daemon must be restarted for the changes to take effect. To restart
-the SSH daemon, run the following command:
+The SSH daemon must be restarted for the changes to take effect. To restart the SSH daemon, run the following command:
 
-    $ sudo systemctl restart sshd.service'
+$ sudo systemctl restart sshd.service'
   impact 0.5
+  tag check_id: 'C-47803r1017334_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-244528'
   tag rid: 'SV-244528r1017335_rule'
   tag stig_id: 'RHEL-08-010522'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-47760r743832_fix'
+  tag 'documentable'
   tag cci: ['CCI-000366']
   tag nist: ['CM-6 b']
   tag 'host'
@@ -38,16 +36,18 @@ the SSH daemon, run the following command:
   setting = 'GSSAPIAuthentication'
   gssapi_authentication = input('sshd_config_values')
   value = gssapi_authentication[setting]
+  openssh_present = package('openssh-server').installed?
+  containerized = %w[docker podman kubepods lxc].include?(virtualization.system)
 
-  if virtualization.system.eql?('docker')
+  if containerized
     describe 'In a container Environment' do
-      if package('openssh-server').installed?
+      if openssh_present
         it 'the OpenSSH Server should be installed when allowed in Docker environment' do
-          expect(input('allow_container_openssh_server')).to eq(true), 'OpenSSH Server is installed but not approved for the Docker environment'
+          expect(input('allow_container_openssh_server')).to eq(true), 'OpenSSH Server is installed but not approved for the container environment'
         end
       else
         it 'the OpenSSH Server is not installed' do
-          skip 'This requirement is not applicable as the OpenSSH Server is not installed in the Docker environment.'
+          skip 'This requirement is not applicable as the OpenSSH Server is not installed in the container environment.'
         end
       end
     end

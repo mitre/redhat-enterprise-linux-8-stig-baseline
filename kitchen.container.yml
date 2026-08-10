@@ -27,4 +27,3 @@ suites:
     verifier:
       input_files:
         - container.hardened.inputs.yml
-      # creds_file: './creds.json'

@@ -48,35 +48,28 @@ Load settings from all system configuration files with the following command:
 
 $ sudo sysctl --system'
   impact 0.5
+  tag check_id: 'C-33207r833345_chk'
   tag severity: 'medium'
-  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag gid: 'V-230538'
   tag rid: 'SV-230538r1017300_rule'
   tag stig_id: 'RHEL-08-040240'
+  tag gtitle: 'SRG-OS-000480-GPOS-00227'
   tag fix_id: 'F-33182r858800_fix'
-  tag cci: ['CCI-000366']
-  tag nist: ['CM-6 b']
+  tag satisfies: ['SRG-OS-000420-GPOS-00186', 'SRG-OS-000142-GPOS-00087']
+  tag 'documentable'
+  tag cci: ['CCI-002385', 'CCI-001111', 'CCI-000366']
+  tag nist: ['SC-5 a', 'SC-7 (7)', 'CM-6 b']
   tag 'host'
 
-  only_if('This system is acting as a router on the network, this control is Not Applicable', impact: 0.0) {
-    !input('network_router')
+  only_if('Control not applicable within a container', impact: 0.0) {
+    !%w[docker podman kubepods lxc].include?(virtualization.system)
   }
 
-  # Define the kernel parameter to be checked
   parameter = 'net.ipv6.conf.all.accept_source_route'
-  action = 'accepting IPv6 source-routed packets'
   value = 0
+  regexp = /^\s*#{parameter}\s*=\s*#{value}\s*$/
 
-  # Get the current value of the kernel parameter
-  current_value = kernel_parameter(parameter)
-
-  # Check if the system is a Docker container
-  if virtualization.system.eql?('docker')
-    impact 0.0
-    describe 'Control not applicable within a container' do
-      skip 'Control not applicable within a container'
-    end
-  elsif input('ipv6_enabled') == false
+  if input('ipv6_enabled') == false
     impact 0.0
     describe 'IPv6 is disabled on the system, this requirement is Not Applicable.' do
       skip 'IPv6 is disabled on the system, this requirement is Not Applicable.'
@@ -84,41 +77,21 @@ $ sudo sysctl --system'
   else
 
     describe kernel_parameter(parameter) do
-      it 'is disabled in sysctl -a' do
-        expect(current_value.value).to cmp value
-        expect(current_value.value).not_to be_nil
+      its('value') { should eq value }
+    end
+
+    search_results = command("/usr/lib/systemd/systemd-sysctl --cat-config | egrep -v '^(#|;)' | grep -F #{parameter}").stdout.strip.split("\n")
+
+    correct_result = search_results.any? { |line| line.match(regexp) }
+    incorrect_results = search_results.map(&:strip).reject { |line| line.match(regexp) }
+
+    describe 'Kernel config files' do
+      it "should configure '#{parameter}'" do
+        expect(correct_result).to eq(true), 'No config file was found that correctly sets this action'
       end
-    end
-
-    # Get the list of sysctl configuration files
-    sysctl_config_files = input('sysctl_conf_files').map(&:strip).join(' ')
-
-    # Search for the kernel parameter in the configuration files
-    search_results = command("grep -r ^#{parameter} #{sysctl_config_files} {} \;").stdout.split("\n")
-
-    # Parse the search results into a hash
-    config_values = search_results.each_with_object({}) do |item, results|
-      file, setting = item.split(':')
-      file = 'grep did not return filename' if file.empty?
-
-      results[file] ||= []
-      results[file] << setting.split('=').last
-    end
-
-    uniq_config_values = config_values.values.flatten.map(&:strip).map(&:to_i).uniq
-
-    # Check the configuration files
-    describe 'Configuration files' do
-      if search_results.empty?
-        it "do not explicitly set the `#{parameter}` parameter" do
-          expect(config_values).not_to be_empty, "Add the line `#{parameter}=#{value}` to a file in the `/etc/sysctl.d/` directory"
-        end
-      else
-        it "do not have conflicting settings for #{action}" do
-          expect(uniq_config_values.count).to eq(1), "Expected one unique configuration, but got #{config_values}"
-        end
-        it "set the parameter to the right value for #{action}" do
-          expect(config_values.values.flatten.all? { |v| v.to_i.eql?(value) }).to be true
+      unless incorrect_results.nil?
+        it 'should not have incorrect or conflicting setting(s) in the config files' do
+          expect(incorrect_results).to be_empty, "Incorrect or conflicting setting(s) found:\n\t- #{incorrect_results.join("\n\t- ")}"
         end
       end
     end
