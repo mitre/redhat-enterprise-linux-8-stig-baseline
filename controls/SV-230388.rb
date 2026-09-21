@@ -34,7 +34,7 @@ action_mail_acct = root'
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !%w[docker podman kubepods lxc].include?(virtualization.system)
+    !virtualization.container_system?
   }
   describe auditd_conf do
     its('action_mail_acct') { should cmp 'root' }

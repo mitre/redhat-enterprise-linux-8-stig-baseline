@@ -69,7 +69,7 @@ The audit daemon must be restarted for the changes to take effect.'
   end
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   describe 'Command' do

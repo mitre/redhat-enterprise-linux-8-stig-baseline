@@ -35,7 +35,7 @@ $ sudo systemctl daemon-reload'
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   c = systemd_service('ctrl-alt-del.target')

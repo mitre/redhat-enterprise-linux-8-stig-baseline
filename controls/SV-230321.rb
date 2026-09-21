@@ -29,7 +29,7 @@ $ sudo chmod 0750 /home/smithj'
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   exempt_home_users = input('exempt_home_users')

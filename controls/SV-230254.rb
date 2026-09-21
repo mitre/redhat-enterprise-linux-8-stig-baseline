@@ -57,7 +57,7 @@ this is a finding.'
   tag 'container-conditional'
 
   only_if("Checking the host's FIPS compliance can't be done within the container and should be reveiwed manually.") {
-    !(virtualization.system.eql?('docker') && !file('/etc/pki/tls/openssl.cnf').exist?)
+    !(virtualization.container_system? && !file('/etc/pki/tls/openssl.cnf').exist?)
   }
 
   describe 'A line in the OpenSSL config file' do

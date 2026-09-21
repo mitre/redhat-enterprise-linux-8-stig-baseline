@@ -35,7 +35,7 @@ Remove any configurations that conflict with the above from the following locati
   tag 'container-conditional'
 
   only_if('This control is Not Applicable to containers without sudo installed', impact: 0.0) {
-    !%w[docker podman kubepods lxc].include?(virtualization.system) || command('sudo').exist?
+    !virtualization.container_system? || command('sudo').exist?
   }
 
   settings = sudoers(input('sudoers_config_files').join(' ')).settings['Defaults']

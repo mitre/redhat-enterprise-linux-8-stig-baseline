@@ -33,7 +33,7 @@ If kernel core dumps are required, document the need with the ISSO.'
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   kernel_dump = input('kernel_dump_expected_value')

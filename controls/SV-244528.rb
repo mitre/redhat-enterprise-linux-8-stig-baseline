@@ -37,7 +37,7 @@ $ sudo systemctl restart sshd.service'
   gssapi_authentication = input('sshd_config_values')
   value = gssapi_authentication[setting]
   openssh_present = package('openssh-server').installed?
-  containerized = %w[docker podman kubepods lxc].include?(virtualization.system)
+  containerized = virtualization.container_system?
 
   if containerized
     describe 'In a container Environment' do

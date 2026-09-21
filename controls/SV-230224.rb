@@ -44,7 +44,7 @@ Encrypting a partition in an already installed system is more difficult, because
 
   # TODO: This should really have a resource
 
-  if virtualization.system.eql?('docker')
+  if virtualization.container_system?
     impact 0.0
     describe_and_skip('Disk Encryption and Data At Rest Implementation is handled on the Container Host')
   elsif input('data_at_rest_exempt') == true

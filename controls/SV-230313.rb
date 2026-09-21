@@ -36,7 +36,7 @@ Remove or comment out any entries for users or groups with a value set to anythi
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   setting = 'core'

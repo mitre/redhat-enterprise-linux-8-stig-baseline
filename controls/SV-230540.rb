@@ -74,7 +74,7 @@ $ sudo sysctl --system'
   current_value = kernel_parameter(parameter)
 
   # Check if the system is a Docker container
-  if virtualization.system.eql?('docker')
+  if virtualization.container_system?
     impact 0.0
     describe 'Control not applicable within a container' do
       skip 'Control not applicable within a container'

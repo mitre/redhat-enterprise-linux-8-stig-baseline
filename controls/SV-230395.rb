@@ -31,7 +31,7 @@ The audit daemon must be restarted for changes to take effect.'
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
   describe parse_config_file('/etc/audit/auditd.conf') do
     its('log_format') { should eq 'ENRICHED' }

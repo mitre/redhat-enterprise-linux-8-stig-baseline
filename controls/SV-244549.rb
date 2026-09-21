@@ -33,7 +33,7 @@ $ sudo yum install openssh-server.x86_64'
   tag 'container-conditional'
 
   openssh_present = package('openssh-server').installed?
-  containerized = %w[docker podman kubepods lxc].include?(virtualization.system)
+  containerized = virtualization.container_system?
 
   only_if('This requirement is Not Applicable in the container without open-ssh installed', impact: 0.0) {
     !(containerized && !openssh_present)

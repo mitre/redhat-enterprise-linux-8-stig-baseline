@@ -25,7 +25,7 @@ ExecStart=-/usr/lib/systemd/systemd-sulogin-shell rescue'
   tag 'host'
 
   only_if('Control not applicable within a container without sudo enabled', impact: 0.0) do
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   end
   describe service('rescue') do
     its('params.ExecStart') { should include '/usr/lib/systemd/systemd-sulogin-shell rescue' }
