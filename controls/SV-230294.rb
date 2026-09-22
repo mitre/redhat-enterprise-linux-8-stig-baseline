@@ -25,7 +25,7 @@ If a separate file system/partition does not exist for the system audit data pat
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !%w[docker podman kubepods lxc].include?(virtualization.system)
+    !virtualization.container_system?
   }
 
   audit_data_path = command("dirname #{auditd_conf.log_file}").stdout.strip

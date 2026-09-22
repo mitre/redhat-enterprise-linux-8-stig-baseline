@@ -31,7 +31,7 @@ $ sudo yum install firewalld.noarch'
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   alternate_firewall_tool = input('alternate_firewall_tool')

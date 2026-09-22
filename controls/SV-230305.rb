@@ -23,7 +23,7 @@ If a file system found in "/etc/fstab" refers to removable media and it does not
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   option = 'nosuid'

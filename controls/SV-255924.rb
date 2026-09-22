@@ -31,7 +31,7 @@ A reboot is required for the changes to take effect.'
   tag 'host'
   tag 'container'
 
-  if virtualization.system.eql?('docker')
+  if virtualization.container_system?
     impact 0.0
     describe 'Control not applicable in a container' do
       skip 'The host OS controls the FIPS mode settings. The host OS should also be scanned with the applicable OS validation profile.'

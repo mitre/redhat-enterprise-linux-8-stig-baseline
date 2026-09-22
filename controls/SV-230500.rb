@@ -39,7 +39,7 @@ If there are additional ports, protocols, or services that are not in the PPSM C
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !%w[docker podman kubepods lxc].include?(virtualization.system)
+    !virtualization.container_system?
   }
 
   firewalld_properties = input('firewalld_properties')

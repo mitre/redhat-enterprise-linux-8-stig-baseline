@@ -36,7 +36,7 @@ $ sudo systemctl restart sshd'
   tag 'container-conditional'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !(virtualization.system.eql?('docker') && !file('/etc/ssh/sshd_config').exist?)
+    !(virtualization.container_system? && !file('/etc/ssh/sshd_config').exist?)
   }
 
   describe sshd_active_config do

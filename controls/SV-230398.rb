@@ -36,7 +36,7 @@ log_group = root'
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
   describe file(auditd_conf('/etc/audit/auditd.conf').log_file) do
     its('group') { should be_in input('var_log_audit_group') }

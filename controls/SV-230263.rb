@@ -60,7 +60,7 @@ Note: Per requirement RHEL-08-010358, the "mailx" package must be installed on t
   file_integrity_tool = input('file_integrity_tool')
 
   only_if('Control not applicable within a container', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   describe package(file_integrity_tool) do

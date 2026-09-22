@@ -42,7 +42,7 @@ Remove any configurations that conflict with the above from the following locati
   tag 'host'
 
   only_if('Control not applicable within a container without sudo enabled', impact: 0.0) do
-    !%w[docker podman kubepods lxc].include?(virtualization.system)
+    !virtualization.container_system?
   end
 
   configured_admins = input('admin_user').map(&:to_s).reject(&:empty?) +

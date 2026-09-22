@@ -23,7 +23,7 @@ If a separate entry for the file system/partition "/tmp" does not exist, this is
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   describe mount('/tmp') do

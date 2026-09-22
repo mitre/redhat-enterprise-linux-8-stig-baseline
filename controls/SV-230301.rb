@@ -19,7 +19,7 @@ If any output is produced, this is a finding.)
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   option = 'nodev'

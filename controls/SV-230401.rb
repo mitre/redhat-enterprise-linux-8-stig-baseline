@@ -36,7 +36,7 @@ Replace "[audit_log_directory]" to the correct audit log directory path, by defa
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !%w[docker podman kubepods lxc].include?(virtualization.system)
+    !virtualization.container_system?
   }
 
   auditd_config = auditd_conf('/etc/audit/auditd.conf')

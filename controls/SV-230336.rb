@@ -51,7 +51,7 @@ $ sudo systemctl restart sssd.service'
   tag 'container'
 
   only_if('Control not applicable within a container', impact: 0.0) {
-    !%w[docker podman kubepods lxc].include?(virtualization.system)
+    !virtualization.container_system?
   }
 
   message = <<~MESSAGE

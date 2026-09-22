@@ -32,7 +32,7 @@ If the login UIDs are not set to be immutable by adding the "--loginuid-immutabl
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
   describe command('grep -i immutable /etc/audit/audit.rules') do
     its('stdout.strip') { should cmp '--loginuid-immutable' }

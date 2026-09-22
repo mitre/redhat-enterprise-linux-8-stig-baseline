@@ -42,7 +42,7 @@ GRUB_CMDLINE_LINUX="vsyscall=none"'
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   grub_stdout = command('grub2-editenv - list').stdout

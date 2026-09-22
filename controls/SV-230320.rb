@@ -30,7 +30,7 @@ If any interactive users do not have a home directory assigned, this is a findin
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   exempt_users = input('exempt_home_users')

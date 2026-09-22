@@ -45,7 +45,7 @@ $ sudo systemctl restart sshd.service'
     !os.version.minor.between?(0, 1)
   end
 
-  if virtualization.system.eql?('docker') && !file('/etc/sysconfig/sshd').exist?
+  if virtualization.container_system? && !file('/etc/sysconfig/sshd').exist?
     impact 0.0
     describe 'Control not applicable - SSH is not installed within containerized RHEL' do
       skip 'Control not applicable - SSH is not installed within containerized RHEL'
