@@ -56,7 +56,7 @@ $ sudo restorecon -R -v /var/log/faillock'
     os.version.minor >= 2
   end
 
-  if %w[docker podman kubepods lxc].include?(virtualization.system)
+  if virtualization.container_system?
     impact 0.0
     describe 'Control not applicable in a container' do
       skip 'SELinux controls Not Applicable in a container'

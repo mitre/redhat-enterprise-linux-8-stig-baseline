@@ -31,7 +31,7 @@ Note: Option names and values in the auditd.conf file are case insensitive.'
   alert_method = input('alert_method')
 
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {
-    !%w[docker podman kubepods lxc].include?(virtualization.system)
+    !virtualization.container_system?
   }
 
   describe auditd_conf do

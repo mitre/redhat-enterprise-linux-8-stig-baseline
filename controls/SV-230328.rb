@@ -36,7 +36,7 @@ If a separate entry for the file system/partition containing the nonprivileged i
   tag 'host'
 
   only_if('This requirement is Not Applicable inside a container, the containers host manages the containers filesystems') {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   ignore_shells = input('non_interactive_shells').join('|')

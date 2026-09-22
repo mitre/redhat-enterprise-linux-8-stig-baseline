@@ -34,7 +34,7 @@ The audit daemon must be restarted for the changes to take effect.'
   audit_command = '/usr/sbin/pam_timestamp_check'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !%w[docker podman kubepods lxc].include?(virtualization.system)
+    !virtualization.container_system?
   }
 
   describe 'Command' do

@@ -32,7 +32,7 @@ If a file system found in "/etc/fstab" refers to the user home directory file sy
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !%w[docker podman kubepods lxc].include?(virtualization.system)
+    !virtualization.container_system?
   }
 
   interactive_users = passwd.where {

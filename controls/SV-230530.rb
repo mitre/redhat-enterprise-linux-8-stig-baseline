@@ -36,7 +36,7 @@ $ sudo dconf update"
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   if package('gnome-desktop3').installed?

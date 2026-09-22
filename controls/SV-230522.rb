@@ -37,7 +37,7 @@ If results are returned and the "noexec" option is missing, or if /var/tmp is mo
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   path = '/var/tmp'

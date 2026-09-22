@@ -37,7 +37,7 @@ $ sudo systemctl enable --now fapolicyd'
   tag nist: ['CM-7 (2)']
   tag 'host'
 
-  if virtualization.system.eql?('docker')
+  if virtualization.container_system?
     impact 0.0
     describe 'This requirement is Not Applicable in the container' do
       skip 'This requirement is Not Applicable in the container'

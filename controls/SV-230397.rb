@@ -38,7 +38,7 @@ Replace "[audit_log_file]" to the correct audit log path, by default this locati
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   log_file = auditd_conf('/etc/audit/auditd.conf').log_file

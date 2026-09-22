@@ -41,7 +41,7 @@ GRUB_CMDLINE_LINUX="audit_backlog_limit=8192"'
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   grub_config = command('grub2-editenv - list').stdout

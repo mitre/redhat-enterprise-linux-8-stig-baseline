@@ -31,7 +31,7 @@ Confirm password:'
   tag 'host'
 
   only_if('Control not applicable within a container without sudo enabled', impact: 0.0) do
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   end
 
   if file('/sys/firmware/efi').exist?

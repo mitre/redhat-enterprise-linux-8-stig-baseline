@@ -43,7 +43,7 @@ Note: Enabling and starting usbguard without properly configuring it for an indi
   tag 'host'
 
   only_if('This requirement does not apply to containers', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
   is_virtualized_system_no_usb_devices = input('is_virtualized_system_no_usb_devices')
 

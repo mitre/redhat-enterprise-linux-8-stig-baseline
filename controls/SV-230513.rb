@@ -35,7 +35,7 @@ If results are returned and the "noexec" option is missing, or if /tmp is mounte
   tag 'host'
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !%w[docker podman kubepods lxc].include?(virtualization.system)
+    !virtualization.container_system?
   }
 
   path = '/tmp'

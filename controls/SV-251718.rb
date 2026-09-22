@@ -28,7 +28,7 @@ A reboot is required for the changes to take effect.'
   tag 'host'
 
   only_if('This requirement is Not Applicable inside the container', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   if input('gui_required')

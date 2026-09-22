@@ -23,7 +23,7 @@ If the /boot/efi file system does not have the "nosuid" option set, this is a fi
   tag 'host'
 
   only_if('This requirement is Not Applicable in the container', impact: 0.0) {
-    !virtualization.system.eql?('docker')
+    !virtualization.container_system?
   }
 
   if file('/sys/firmware/efi').exist?

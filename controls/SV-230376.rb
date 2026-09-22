@@ -39,7 +39,7 @@ Add or change the following line in "/etc/sssd/sssd.conf" just below the line "[
   sssd_config = parse_config_file('/etc/sssd/sssd.conf')
 
   only_if('This control is Not Applicable to containers', impact: 0.0) {
-    !%w[docker podman kubepods lxc].include?(virtualization.system)
+    !virtualization.container_system?
   }
 
   describe.one do
