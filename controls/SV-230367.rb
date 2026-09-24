@@ -26,14 +26,15 @@ $ sudo chage -M 60 [user]'
   tag 'container'
 
   value = input('pass_max_days')
+  exempt_users = input('exempt_home_users')
 
-  bad_users = users.where { uid >= 1000 }.where { value > 60 or maxdays.negative? }.usernames
-  in_scope_users = bad_users - input('exempt_home_users')
+  in_scope_users = users.where { uid >= 1000 && !exempt_users.include?(username) }
+  bad_users = in_scope_users.where { maxdays.nil? || maxdays <= 0 || maxdays > value }.usernames
 
-  describe 'Users are not be able' do
-    it "to retain passwords for more then #{value} day(s)" do
-      failure_message = "The following users can update their password more then every #{value} day(s): #{in_scope_users.join(', ')}"
-      expect(in_scope_users).to be_empty, failure_message
+  describe 'User account maximum password lifetime' do
+    it "is greater than zero and no more than #{value} day(s)" do
+      failure_message = "The following users have a missing, nonpositive, or excessive maximum password age (input('pass_max_days') = #{value}): #{bad_users.join(', ')}"
+      expect(bad_users).to be_empty, failure_message
     end
   end
 end

@@ -23,15 +23,16 @@ $ sudo chage -m 1 [user]'
   tag 'host'
   tag 'container'
 
-  # TODO: add inputs for a frequecny
+  value = input('pass_min_days')
+  exempt_users = input('exempt_home_users')
 
-  bad_users = users.where { uid >= 1000 }.where { mindays < 1 }.usernames
-  in_scope_users = bad_users - input('exempt_home_users')
+  in_scope_users = users.where { uid >= 1000 && !exempt_users.include?(username) }
+  bad_users = in_scope_users.where { mindays.nil? || mindays < value }.usernames
 
-  describe 'Users should not' do
-    it 'be able to change their password more then once a 24 hour period' do
-      failure_message = "The following users can update their password more then once a day: #{in_scope_users.join(', ')}"
-      expect(in_scope_users).to be_empty, failure_message
+  describe 'User account minimum password lifetime' do
+    it "is at least #{value} day(s)" do
+      failure_message = "The following users have a missing minimum password age or one below input('pass_min_days') (#{value}): #{bad_users.join(', ')}"
+      expect(bad_users).to be_empty, failure_message
     end
   end
 end
